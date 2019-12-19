@@ -6,6 +6,7 @@ import time
 
 MAX_WAIT = 10
 
+
 class NewVisitorTest(LiveServerTestCase):
 
     def setUp(self):
@@ -75,8 +76,6 @@ class NewVisitorTest(LiveServerTestCase):
 
         # Satisfied, she goes back to sleep
 
-
-
     def test_multiple_users_can_start_lists_at_different_urls(self):
 
         # Edith starts a new to-do list
@@ -91,9 +90,9 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertRegex(edith_list_url, '/lists/.+')
 
         # Now a new user, Francis, comes along to the site
-        
-        ## We use a new browser session to make sure that no info
-        ## of Edith's is coming thru from cookies etc
+
+        # We use a new browser session to make sure that no info
+        # of Edith's is coming thru from cookies etc
         self.browser.quit()
         self.browser = webdriver.Firefox()
 
@@ -122,6 +121,26 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn('Buy milk', page_text)
 
         # Satisfied, they both go back to sleep
+
+    def test_layout_and_styling(self):
+        # Edith goes to the home page
+        self.browser.get(self.live_server_url)
+        self.browser.set_window_size(1024, 768)
+
+        # She notices the input box is nicely centered
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        self.assertAlmostEqual(
+            inputbox.location['x'] + inputbox.size['width']/2, 512, delta=10) # delta means plus-minus 10 pixels
+        
+        # She starts a new list and sees the input is nicely
+        # centered there too
+        inputbox.send_keys('testing')
+        inputbox.send_keys(Keys.ENTER)
+        self.wait_for_row_in_list_table('1: testing')
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        self.assertAlmostEqual(
+            inputbox.location['x'] + inputbox.size['width']/2, 512, delta=10)
+        
 
 # can be removed since we're using Django test runner to launch the FT
 # if __name__ == '__main__':

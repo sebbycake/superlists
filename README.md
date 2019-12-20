@@ -1,2 +1,0 @@
-# superlists
-superlists-app-tdd

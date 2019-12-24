@@ -35,3 +35,4 @@ Assume we have a user account at /home/username
         +-- static
         +-- virtualenv
 ```
+

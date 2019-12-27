@@ -20,7 +20,7 @@
                         <h1 class="display-4">{% block header_text %}{% endblock %}</h1>
                 
                         <form action="{% block action %}{% endblock %}" method="post">
-                            <input type="text" name="item_text" id="id_new_item" placeholder="Enter a to-do item" class="form-control input-lg">
+                            {{ form.text }}
                             {% csrf_token %}
                             {% if error %}
                                 <div class="form-group has-error">

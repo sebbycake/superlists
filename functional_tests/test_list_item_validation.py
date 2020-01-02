@@ -4,6 +4,9 @@ from .base import FunctionalTest
 
 class ItemValidationTest(FunctionalTest):
 
+    def get_error_element(self):
+        return self.browser.find_element_by_css_selector('.has-error')
+
     def test_cannot_add_empty_list_items(self):
         # Edith goes to the home page and accidentally tries to submit
         # an empty list item. She hits Enter on the empty input box
@@ -57,8 +60,28 @@ class ItemValidationTest(FunctionalTest):
 
         # She sees a helpful error message
         self.wait_for(lambda: self.assertEqual(
-            self.browser.find_element_by_css_selector('.has-error').text,
+            self.get_error_element().text,
             "You've already got this in your list"
         ))
 
-     
+    def test_error_messages_are_cleared_on_input(self):
+        # Edith starts a list and causes a validation error"
+        self.browser.get(self.live_server_url)
+        inputbox = self.get_item_input_box()
+        inputbox.send_keys('Banter too thick')
+        inputbox.send_keys(Keys.ENTER)
+        self.wait_for_row_in_list_table('1: Banter too thick')
+        inputbox2 = self.get_item_input_box()
+        inputbox2.send_keys('Banter too thick')
+        inputbox2.send_keys(Keys.ENTER)
+
+        self.wait_for(lambda: self.assertTrue(
+            self.get_error_element().is_displayed()
+        ))
+
+        # She starts typing in the input box to clear the error
+        inputbox3 = self.get_item_input_box()
+        inputbox3.send_keys('a')
+        self.wait_for(lambda: self.assertFalse(
+            self.get_error_element().is_displayed()
+        ))

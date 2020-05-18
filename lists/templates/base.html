@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,53 +7,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>To-Do lists</title>
-    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/base.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'index.css' %}">
 </head>
 
 <body>
 
-    <div class="container">
+    <div class="header">
+        <h1>{% block header_text%}{% endblock %}</h1>
+    </div>
 
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <div class="text-center">
+    <!-- Display duplicate item warning at the top of the page -->
+    {% if form.errors %}
+    <div class="warning has-error" role="alert">
+        {{ form.text.errors }}
+    </div>
+    {% endif %}
 
-                    <!-- Display duplicate item warning at the top of the page -->
-                    {% if form.errors %}
-                    <div class="alert alert-danger has-error" role="alert">
-                        {{ form.text.errors }}
-                    </div>
-                    {% endif %}
-
-                    <div class="jumbotron">
-                        <h1 class="display-4">{% block header_text %}{% endblock %}</h1>
-                        <hr class="my-4">
-
-                        <form action="{% block action %}{% endblock %}" method="post">
-                            {{ form.text }}
-                            {% csrf_token %}
-                            <!-- {% if form.errors %}
-                            <div class="form-group has-error">
-                                <span class="help-block">{{ form.text.errors }}</span>
-                            </div>
-                            {% endif %} -->
-                        </form>
-                    </div> <!-- end of jumbotron div -->
-
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                {% block table %}
-                {% endblock %}
-            </div>
-        </div>
+    <!-- Form input -->
+    {% block content %}
+    <div class="input_form">
+        <form action="{% block action %}{% endblock %}" method="post">
+            {{ form.text }}
+            {% csrf_token %}
+        </form>
+    </div>
+    {% endblock %}
 
 
-    </div> <!-- end of container div -->
+    <!-- To-Do items -->
+    {% block table %}
+    {% endblock %}
 
     <script src="/static/jquery-3.4.1.min.js"></script>
     <script src="/static/list.js"></script>

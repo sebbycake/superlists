@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header_text %}
-Your To-Do list
+Your To-Do List
 {% endblock %}
 
 {% block action %}
@@ -9,12 +9,13 @@ Your To-Do list
 {% endblock %}
 
 {% block table %}
-    <table id="id_list_table" class="table">
-        {% for item in list.item_set.all %}
-            <tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
-        {% endfor %}
-    </table>
+<div class="todo-list-container">
 
+    {% for item in list.item_set.all %}
+    <div class="todo-item">
+        {{ forloop.counter }}: {{ item.text }}
+    </div>
+    {% endfor %}
+
+</div>
 {% endblock %}
-
-

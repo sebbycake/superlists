@@ -14,7 +14,17 @@ Your To-Do List
     {% for item in list.item_set.all %}
     <div class="todo-item">
         {{ forloop.counter }}: {{ item.text }}
+
+        <!-- form to delete todo item -->
+        <form method="post" action="{% url 'delete_todo' item.id %}" class="bin">
+            {% csrf_token %}
+            <button>
+                <i class="material-icons">delete_outline</i>
+            </button>
+        </form>
     </div>
+
+
     {% endfor %}
 
 </div>

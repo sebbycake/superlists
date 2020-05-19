@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Asap&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap');
 
-
 body {
     margin: 0;
     padding: 0;
@@ -23,15 +22,15 @@ body {
 }
 
 .header {
-    margin-top: 20px;
+    margin-top: 15px;
     text-align: center;
-    font-size: 20px;
+    font-size: 17px;
 }
 
 input[type=text] {
     background: transparent;
     border: none;
-    border-bottom: 1px solid #000000;
+    border-bottom: 2px solid #000000;
     outline: none;
     font-size: 20px;
 }
@@ -79,14 +78,15 @@ input[type=text] {
 
 .todo-item {
     background: #FFFFFF;
-    border: 2px solid #9400D3;
+    border-left: 4px solid #9400D3;
     box-sizing: border-box;
     /* border-radius: 15px; */
     padding: 20px;
     width: 75%;
     margin: 0 auto;
     margin-top: 15px; 
-    color: #191970;
+    /* box-shadow: 0 2px 4px #E6E6FA; */
+    box-shadow: 0 4px 2px -1px #E6E6FA;
 }
 
 
@@ -150,16 +150,16 @@ button {
     to   { opacity: 1; }
 }
 
+
+
 @media (min-width:468px) {
     .header {
-        font-size: 40px;
+        font-size: 30px;
     }
 
-    input[type=text] {
-        width: 300%;
-        margin: 0 auto;
+    .warning {
+        width: 30%;
     }
-    
 
     .todo-item {
         width: 50%;

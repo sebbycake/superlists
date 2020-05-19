@@ -9,10 +9,21 @@ Start a New
 To-Do List
 {% endblock %}
 
-{% block form_class %}
-input-form entrance-fade-in
-{% endblock %}
+{% block content %}
 
-{% block action %}
-{% url 'new_list' %}
+<!-- Display duplicate item warning at the top of the page -->
+{% if form.errors %}
+<div class="warning has-error" role="alert">
+    {{ form.name.errors }}
+</div>
+{% endif %}
+
+<!-- Display form -->
+<div class="input-form entrance-fade-in">
+    <form action="{% url 'new_list' %}" method="post">
+        {{ form.name }}
+        {% csrf_token %}
+    </form>
+</div>
+
 {% endblock %}

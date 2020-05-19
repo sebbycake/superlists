@@ -6,6 +6,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta 
+        name="Your Personal To-Do List" 
+        content="Start one and be productive today!" 
+    />
     <title>Listicfy: Get Productive Today</title>
     <link rel="stylesheet" type="text/css" href="{% static 'index.css' %}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -14,28 +18,15 @@
 <body>
 
     <div class="logo">
-       <a href="{% url 'home' %}">Listicfy</a>
+        <a href="{% url 'home' %}">Listicfy</a>
     </div>
 
     <div class="{% block header_class %}{% endblock %}">
         <h1>{% block header_text%}{% endblock %}</h1>
     </div>
 
-    <!-- Display duplicate item warning at the top of the page -->
-    {% if form.errors %}
-    <div class="warning has-error" role="alert">
-        {{ form.text.errors }}
-    </div>
-    {% endif %}
-
     <!-- Form input -->
     {% block content %}
-    <div class="{% block form_class %}{% endblock %}">
-        <form action="{% block action %}{% endblock %}" method="post">
-            {{ form.text }}
-            {% csrf_token %}
-        </form>
-    </div>
     {% endblock %}
 
     <!-- To-Do items -->

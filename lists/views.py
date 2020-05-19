@@ -1,14 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import ItemForm, ExistingListItemForm
+from .forms import ListForm, ItemForm, ExistingListItemForm
 from .models import Item, List
 from django.core.exceptions import ValidationError
 
 # Create your views here.
 def home_page(request):
-    return render(request, 'home.html', {'form': ItemForm()})
+    return render(request, 'home.html', {'form': ListForm()})
 
-def view_list(request, list_id):
-    list_ = List.objects.get(id=list_id)
+def view_list(request, list_slug):
+    list_ = List.objects.get(slug=list_slug)
     form = ExistingListItemForm(for_list=list_)
     if request.method == 'POST':
         form = ExistingListItemForm(for_list=list_, data=request.POST)
@@ -19,10 +19,9 @@ def view_list(request, list_id):
 
 
 def new_list(request):
-    form = ItemForm(data=request.POST)
+    form = ListForm(data=request.POST)
     if form.is_valid():
-        list_ = List.objects.create()
-        form.save(for_list=list_)
+        list_ = form.save()
         return redirect(list_)
     else:
         return render(request, 'home.html', {'form': form})

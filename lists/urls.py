@@ -19,6 +19,6 @@ from lists import views
 
 urlpatterns = [
     path('new', views.new_list, name='new_list'),
-    path('<int:list_id>/', views.view_list, name='view_list'),
+    path('<slug:list_slug>/', views.view_list, name='view_list'),
     path('delete/<int:item_id>/', views.delete_todo, name="delete_todo"),
 ]

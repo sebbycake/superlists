@@ -1,20 +1,28 @@
 from django import forms
-from .models import Item
+from .models import Item, List
 from django.core.exceptions import ValidationError
-
-# class ItemForm(forms.Form):
-#     item_text = forms.CharField(
-#         widget=forms.fields.TextInput(
-#             attrs={
-#                 'placeholder': 'Enter a to-do item',
-#                 'class': 'form-control input-lg',
-#                 }
-#         )
-#     )
 
 EMPTY_ITEM_ERROR = "You can't have an empty list item"
 
 DUPLICATE_ITEM_ERROR = "You've already got this in your list"
+
+class ListForm(forms.ModelForm):
+    
+    class Meta:
+        model = List
+        fields = ('name',)
+        widgets = {
+            'name': forms.fields.TextInput(
+                attrs = {
+                    'placeholder': 'Create your unique list name!',
+                    'class': 'form-control input-lg',
+                }
+            )
+        }
+        error_messages = {
+            'name': {'required': EMPTY_ITEM_ERROR}
+        }
+
 
 class ItemForm(forms.ModelForm):
 
@@ -37,6 +45,7 @@ class ItemForm(forms.ModelForm):
     def save(self, for_list):
         self.instance.list = for_list
         return super().save()
+
 
 class ExistingListItemForm(ItemForm):
     

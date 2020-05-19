@@ -1,17 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Asap&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap');
 
+
 body {
     margin: 0;
     padding: 0;
     /* background-color: #F3F4FF; */
-    
     font-family: 'Asap', sans-serif;
-        /* background: rgb(238,174,202);
-        background: radial-gradient(circle, rgba(238,174,202,1) 16%, rgba(148,187,233,1) 98%); */
     background: rgb(238,174,202);
     background: radial-gradient(circle, rgba(238,174,202,1) 17%, rgba(189,148,233,1) 98%);
-
 }
 
 .logo {
@@ -36,10 +33,7 @@ input[type=text] {
     border: none;
     border-bottom: 1px solid #000000;
     outline: none;
-}
-
-input[type=text]:focus {
-    width: 120%;
+    font-size: 20px;
 }
 
 .warning {
@@ -80,32 +74,19 @@ input[type=text]:focus {
    justify-content: center;
    align-items: center;
    margin-top: 20px;
-}
-
-
-.todo-list-container {
-    box-sizing: border-box;
-    margin-top: 40px;
-    background: #FFFFFF;
-    border-radius: 20px;
-    width: 90%;
-    height: 300%;
-    padding-top: 5px;
-    padding-bottom: 60px;
-    /* box-shadow: 0px 0px 8px 5px #dfdfdf; */
+   margin-bottom: 30px;    
 }
 
 .todo-item {
     background: #FFFFFF;
-    border: 1px solid #D8D8D8;
+    border: 2px solid #9400D3;
     box-sizing: border-box;
-    border-radius: 15px;
+    /* border-radius: 15px; */
     padding: 20px;
     width: 75%;
-    margin-top: 20px; 
-    margin-left: 10%;
+    margin: 0 auto;
+    margin-top: 15px; 
     color: #191970;
-    box-shadow: 0 3px 3px #dfdfdf;
 }
 
 
@@ -167,4 +148,20 @@ button {
 @-o-keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
+}
+
+@media (min-width:468px) {
+    .header {
+        font-size: 40px;
+    }
+
+    input[type=text] {
+        width: 300%;
+        margin: 0 auto;
+    }
+    
+
+    .todo-item {
+        width: 50%;
+    }
 }

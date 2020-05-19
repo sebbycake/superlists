@@ -1,7 +1,15 @@
 {% extends 'base.html' %}
 
+{% block header_class %}
+header
+{% endblock %}
+
 {% block header_text %}
 Your To-Do List
+{% endblock %}
+
+{% block form_class %}
+input-form
 {% endblock %}
 
 {% block action %}
@@ -9,12 +17,11 @@ Your To-Do List
 {% endblock %}
 
 {% block table %}
-<div class="todo-list-container">
 
     {% for item in list.item_set.all %}
     <div class="todo-item">
         {{ forloop.counter }}: {{ item.text }}
-
+      
         <!-- form to delete todo item -->
         <form method="post" action="{% url 'delete_todo' item.id %}" class="bin">
             {% csrf_token %}
@@ -27,5 +34,4 @@ Your To-Do List
 
     {% endfor %}
 
-</div>
 {% endblock %}

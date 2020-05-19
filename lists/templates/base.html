@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Listic: Get Productive Today</title>
+    <title>Listicfy: Get Productive Today</title>
     <link rel="stylesheet" type="text/css" href="{% static 'index.css' %}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -14,10 +14,10 @@
 <body>
 
     <div class="logo">
-       <a href="{% url 'home' %}">Listic</a>
+       <a href="{% url 'home' %}">Listicfy</a>
     </div>
 
-    <div class="header entrance-fade-in">
+    <div class="{% block header_class %}{% endblock %}">
         <h1>{% block header_text%}{% endblock %}</h1>
     </div>
 
@@ -30,7 +30,7 @@
 
     <!-- Form input -->
     {% block content %}
-    <div class="input-form entrance-fade-in">
+    <div class="{% block form_class %}{% endblock %}">
         <form action="{% block action %}{% endblock %}" method="post">
             {{ form.text }}
             {% csrf_token %}

@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load tz %}
+
 {% block header_class %}
 header
 {% endblock %}
@@ -19,7 +21,7 @@ header
 
 <!-- Display form -->
 <div class="input-form">
-    <form action="{% url 'view_list' list.slug %}" method="post">
+    <form action="{% url 'list_detail' list.slug %}" method="post">
         {{ form.text }}
         {% csrf_token %}
     </form>
@@ -30,18 +32,26 @@ header
 
 {% block table %}
 
-    {% for item in list.item_set.all %}
-    <div class="todo-item">
-        {{ forloop.counter }}: {{ item.text }}
-      
-        <!-- form to delete todo item -->
-        <form method="post" action="{% url 'delete_todo' item.id %}" class="bin">
-            {% csrf_token %}
-            <button>
-                <i class="material-icons">delete_outline</i>
-            </button>
-        </form>
-    </div>
-    {% endfor %}
+{% for item in list.item_set.all %}
+<div class="todo-item">
+    {{ forloop.counter }}: {{ item.text }}<br />
+
+    {% timezone "Asia/Singapore" %}
+    <span class="todo-timestamp">
+        {{ item.timestamp|time:"P" }} | {{ item.timestamp|date:"d M" }}
+    </span>
+    {% endtimezone %}
+    
+
+    <!-- form to delete todo item -->
+    <form method="post" action="{% url 'delete_todo' item.id %}" class="bin">
+        {% csrf_token %}
+        <button>
+            <i class="material-icons">delete_outline</i>
+        </button>
+    </form>
+</div>
+
+{% endfor %}
 
 {% endblock %}

@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 def home_page(request):
     return render(request, 'home.html', {'form': ListForm()})
 
-def view_list(request, list_slug):
+def list_detail(request, list_slug):
     list_ = List.objects.get(slug=list_slug)
     form = ExistingListItemForm(for_list=list_)
     if request.method == 'POST':

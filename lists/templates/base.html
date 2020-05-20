@@ -6,11 +6,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
     <meta 
         name="Your Personal To-Do List" 
         content="Start one and be productive today!" 
     />
-    <title>Listicfy: Get Productive Today</title>
+    <title>Listeefy: Get Productive Today</title>
     <link rel="stylesheet" type="text/css" href="{% static 'index.css' %}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -18,11 +19,11 @@
 <body>
 
     <div class="logo">
-        <a href="{% url 'home' %}">Listicfy</a>
+        <a href="{% url 'home' %}">Listeefy</a>
     </div>
 
     <div class="{% block header_class %}{% endblock %}">
-        <h1>{% block header_text%}{% endblock %}</h1>
+        <h1>{% block header_text %}{% endblock %}</h1>
     </div>
 
     <!-- Form input -->

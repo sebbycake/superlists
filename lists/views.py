@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import ListForm, ItemForm, ExistingListItemForm
+from .forms import ListForm, ExistingListItemForm
 from .models import Item, List
 from django.core.exceptions import ValidationError
 

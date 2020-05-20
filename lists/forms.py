@@ -23,6 +23,10 @@ class ListForm(forms.ModelForm):
             'name': {'required': EMPTY_ITEM_ERROR}
         }
 
+    def clean_name(self):
+        name = self.cleaned_data['name']
+        return name.lower()
+
 
 class ItemForm(forms.ModelForm):
 
@@ -52,6 +56,10 @@ class ExistingListItemForm(ItemForm):
     def __init__(self, for_list, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.instance.list = for_list
+
+    def clean_text(self):
+        text = self.cleaned_data['text']
+        return text.lower()
 
     def validate_unique(self):
         try:

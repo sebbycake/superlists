@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header_class %}
-header entrance-fade-in
+header animate__animated animate__bounceInDown
 {% endblock %}
 
 {% block header_text %}
@@ -19,7 +19,7 @@ To-Do List
 {% endif %}
 
 <!-- Display form -->
-<div class="input-form entrance-fade-in">
+<div class="input-form animate__animated animate__zoomIn">
     <form action="{% url 'new_list' %}" method="post">
         {{ form.name }}
         {% csrf_token %}

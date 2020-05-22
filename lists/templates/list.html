@@ -7,7 +7,7 @@ header
 {% endblock %}
 
 {% block header_text %}
-{{ list.name | title }}'s List
+{{ list.name | title }}
 {% endblock %}
 
 {% block content %}
@@ -35,23 +35,23 @@ header
 {% for item in list.item_set.all %}
 <div class="todo-item">
     {{ forloop.counter }}: {{ item.text }}<br />
-
     {% timezone "Asia/Singapore" %}
     <span class="todo-timestamp">
         {{ item.timestamp|time:"P" }} | {{ item.timestamp|date:"d M" }}
     </span>
     {% endtimezone %}
     
-
     <!-- form to delete todo item -->
-    <form method="post" action="{% url 'delete_todo' item.id %}" class="bin">
+    <form method="post" action="{% url 'delete_todo' item.id %}" class="delete-button">
         {% csrf_token %}
         <button>
             <i class="material-icons">delete_outline</i>
         </button>
     </form>
 </div>
-
 {% endfor %}
+
+<br/>
+<br/>
 
 {% endblock %}

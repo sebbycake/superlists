@@ -1,7 +1,6 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
-from django.utils import timezone
 
 # Create your models here.
 
@@ -28,6 +27,11 @@ class Item(models.Model):
 
     class Meta:
         ordering = ('id',)
+
+        # can't have repeated text in a list,
+        # but can have repeated text in different lists
+        # e.g. 'hi' in list1 and 'hi' in list2,
+        # but not 'hi' and 'hi' in list1
         unique_together = ('list', 'text')
 
     def __str__(self):

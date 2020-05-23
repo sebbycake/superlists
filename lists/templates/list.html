@@ -34,7 +34,7 @@ header
 
 {% for item in list.item_set.all %}
 <div class="todo-item">
-    {{ forloop.counter }}: {{ item.text }}<br />
+    {{ item.text }}<br />
     {% timezone "Asia/Singapore" %}
     <span class="todo-timestamp">
         {{ item.timestamp|time:"P" }} | {{ item.timestamp|date:"d M" }}
@@ -42,7 +42,7 @@ header
     {% endtimezone %}
     
     <!-- form to delete todo item -->
-    <form method="post" action="{% url 'delete_todo' item.id %}" class="delete-button">
+    <form method="post" action="{% url 'delete_todo' item.id %}" data-id="{{ item.id }}" class="delete-button">
         {% csrf_token %}
         <button>
             <i class="material-icons">delete_outline</i>

@@ -3,6 +3,10 @@ from .forms import ListForm, ExistingListItemForm
 from .models import Item, List
 from django.core.exceptions import ValidationError
 
+# drf API
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+
 # Create your views here.
 def home_page(request):
     return render(request, 'home.html', {'form': ListForm()})
@@ -26,10 +30,21 @@ def new_list(request):
     else:
         return render(request, 'home.html', {'form': form})
 
-def delete_todo(request, item_id):
-    todo = get_object_or_404(Item, id=item_id)
-    list_ = get_object_or_404(List, id=todo.list.id)
-    if request.method == 'POST':
-        todo.delete()
-        return redirect(list_)
-    return render(request, 'list.html')
+# def delete_todo(request, item_id):
+#     todo = get_object_or_404(Item, id=item_id)
+#     list_ = get_object_or_404(List, id=todo.list.id)
+#     if request.method == 'POST':
+#         todo.delete()
+#         return redirect(list_)
+#     return render(request, 'list.html')
+
+@api_view(['DELETE', 'POST'])
+def ajax_delete_view(request, item_id):
+    item = Item.objects.filter(pk=item_id)
+    if not item.exists():
+        return Response({}, status=404)
+    # retrieve the obj from the QuerySet
+    item = item.first()
+    item.delete()
+    return Response({"message": "todo is removed."}, status=200)
+    

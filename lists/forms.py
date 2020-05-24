@@ -6,14 +6,15 @@ EMPTY_ITEM_ERROR = "You can't have an empty list item"
 
 DUPLICATE_ITEM_ERROR = "You've already got this in your list"
 
+
 class ListForm(forms.ModelForm):
-    
+
     class Meta:
         model = List
         fields = ('name',)
         widgets = {
             'name': forms.fields.TextInput(
-                attrs = {
+                attrs={
                     'placeholder': 'Create your unique list name!',
                     'class': 'form-control input-lg',
                 }
@@ -35,7 +36,7 @@ class ItemForm(forms.ModelForm):
         fields = ('text',)
         widgets = {
             'text': forms.fields.TextInput(
-                attrs = {
+                attrs={
                     'placeholder': 'Enter a to-do item',
                     'class': 'form-control input-lg',
                 }
@@ -44,29 +45,29 @@ class ItemForm(forms.ModelForm):
         error_messages = {
             'text': {'required': EMPTY_ITEM_ERROR}
         }
-    
+
     # implement our custom save method to save item's list
     def save(self, for_list):
         self.instance.list = for_list
         return super().save()
 
 
-class ExistingListItemForm(ItemForm):
-    
-    def __init__(self, for_list, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.instance.list = for_list
+# class ExistingListItemForm(ItemForm):
 
-    def clean_text(self):
-        text = self.cleaned_data['text']
-        return text.lower()
+#     def __init__(self, for_list, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#         self.instance.list = for_list
 
-    def validate_unique(self):
-        try:
-            self.instance.validate_unique()
-        except ValidationError as e:
-            e.error_dict = {'text': [DUPLICATE_ITEM_ERROR]}
-            self._update_errors(e)
-    
-    def save(self):
-        return forms.models.ModelForm.save(self)
+#     def clean_text(self):
+#         text = self.cleaned_data['text']
+#         return text.lower()
+
+#     def validate_unique(self):
+#         try:
+#             self.instance.validate_unique()
+#         except ValidationError as e:
+#             e.error_dict = {'text': [DUPLICATE_ITEM_ERROR]}
+#             self._update_errors(e)
+
+#     def save(self):
+#         return forms.models.ModelForm.save(self)

@@ -1,25 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import ListForm, ExistingListItemForm
+from .forms import ListForm, ItemForm
 from .models import Item, List
-from django.core.exceptions import ValidationError
 
-# drf API
+# DRF API
+from .serializers import ItemSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
 # Create your views here.
+
+
 def home_page(request):
     return render(request, 'home.html', {'form': ListForm()})
-
-def list_detail(request, list_slug):
-    list_ = List.objects.get(slug=list_slug)
-    form = ExistingListItemForm(for_list=list_)
-    if request.method == 'POST':
-        form = ExistingListItemForm(for_list=list_, data=request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect(list_)
-    return render(request, 'list.html', {'list': list_, 'form': form})
 
 
 def new_list(request):
@@ -30,13 +22,26 @@ def new_list(request):
     else:
         return render(request, 'home.html', {'form': form})
 
-# def delete_todo(request, item_id):
-#     todo = get_object_or_404(Item, id=item_id)
-#     list_ = get_object_or_404(List, id=todo.list.id)
-#     if request.method == 'POST':
-#         todo.delete()
-#         return redirect(list_)
-#     return render(request, 'list.html')
+
+def list_detail(request, list_slug):
+    list_ = get_object_or_404(List, slug=list_slug)
+    form = ItemForm()
+    context = {
+        'list': list_,
+        'form': form
+    }
+    return render(request, 'list.html', context)
+
+
+@api_view(['POST'])
+def ajax_create_view(request):
+    # deserialize request.POST object
+    serializer = ItemSerializer(data=request.POST)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save()
+        return Response(serializer.data, status=201)
+    return Response({"message": "Duplicate item in list"}, status=400)
+
 
 @api_view(['DELETE', 'POST'])
 def ajax_delete_view(request, item_id):
@@ -46,5 +51,4 @@ def ajax_delete_view(request, item_id):
     # retrieve the obj from the QuerySet
     item = item.first()
     item.delete()
-    return Response({"message": "todo is removed."}, status=200)
-    
+    return Response({"message": "TODO is removed."}, status=200)

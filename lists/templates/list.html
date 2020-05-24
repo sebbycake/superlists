@@ -3,7 +3,7 @@
 {% load tz %}
 
 {% block header_class %}
-header
+header animate__animated animate__slideInDown
 {% endblock %}
 
 {% block header_text %}
@@ -12,16 +12,9 @@ header
 
 {% block content %}
 
-<!-- Display duplicate item warning at the top of the page -->
-{% if form.errors %}
-<div class="warning has-error" role="alert">
-    {{ form.text.errors }}
-</div>
-{% endif %}
-
 <!-- Display form -->
 <div class="input-form">
-    <form action="{% url 'list_detail' list.slug %}" method="post">
+    <form action="{% url 'list_detail' list.slug %}" method="post" id="todo-form" data-id="{{ list.id }}">
         {{ form.text }}
         {% csrf_token %}
     </form>
@@ -32,26 +25,28 @@ header
 
 {% block table %}
 
-{% for item in list.item_set.all %}
-<div class="todo-item">
-    {{ item.text }}<br />
-    {% timezone "Asia/Singapore" %}
-    <span class="todo-timestamp">
-        {{ item.timestamp|time:"P" }} | {{ item.timestamp|date:"d M" }}
-    </span>
-    {% endtimezone %}
-    
-    <!-- form to delete todo item -->
-    <form method="post" action="{% url 'delete_todo' item.id %}" data-id="{{ item.id }}" class="delete-button">
-        {% csrf_token %}
-        <button>
-            <i class="material-icons">delete_outline</i>
-        </button>
-    </form>
-</div>
-{% endfor %}
+<div class="todo-list">
+    {% for item in list.item_set.all %}
+    <div class="todo-item animate__animated animate__fadeIn">
+        {{ item.text }}<br />
+        {% timezone "Asia/Singapore" %}
+        <span class="todo-timestamp">
+            {{ item.timestamp|time:"P" }} | {{ item.timestamp|date:"d M" }}
+        </span>
+        {% endtimezone %}
 
-<br/>
-<br/>
+        <!-- form to delete todo item -->
+        <form method="post" action="{% url 'delete_todo' item.id %}" data-id="{{ item.id }}" class="delete-button">
+            {% csrf_token %}
+            <button>
+                <i class="material-icons">delete_outline</i>
+            </button>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+
+<br />
+<br />
 
 {% endblock %}

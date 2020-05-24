@@ -1,18 +1,3 @@
-"""superlists URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path
 from lists import views
@@ -20,6 +5,6 @@ from lists import views
 urlpatterns = [
     path('new', views.new_list, name='new_list'),
     path('<slug:list_slug>/', views.list_detail, name='list_detail'),
-    # path('delete/<int:item_id>/', views.delete_todo, name="delete_todo"),
+    path('api/create/', views.ajax_create_view, name="create_todo"),
     path('api/delete/<int:item_id>/', views.ajax_delete_view, name="delete_todo"),
 ]

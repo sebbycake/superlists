@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ListForm, ItemForm
 from .models import Item, List
+from django.core.exceptions import MultipleObjectsReturned
 
 # DRF API
-from .serializers import ItemSerializer
+from .serializers import ItemSerializer, ListSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
@@ -14,15 +15,6 @@ def home_page(request):
     return render(request, 'home.html', {'form': ListForm()})
 
 
-def new_list(request):
-    form = ListForm(data=request.POST)
-    if form.is_valid():
-        list_ = form.save()
-        return redirect(list_)
-    else:
-        return render(request, 'home.html', {'form': form})
-
-
 def list_detail(request, list_slug):
     list_ = get_object_or_404(List, slug=list_slug)
     form = ItemForm()
@@ -31,6 +23,16 @@ def list_detail(request, list_slug):
         'form': form
     }
     return render(request, 'list.html', context)
+
+
+@api_view(['POST'])
+def ajax_list_create_view(request):
+    # deserialize request.POST object
+    serializer = ListSerializer(data=request.POST)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save()
+        return Response(serializer.data, status=201)
+    return Response({"message": "Duplicate list name"}, status=400)
 
 
 @api_view(['POST'])

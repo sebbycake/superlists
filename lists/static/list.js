@@ -1,45 +1,51 @@
 window.Superlists = {};
 window.Superlists.initialize = function () {
 
-    $('input[name="name"]').on('keypress', function () {
-        // console.log('in keypress handler');
-        $('.has-error').hide();
-    });
 
-    const months = [
-        "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
-        "Aug", "Sep", "Oct", "Nov", "Dec"
-    ];
+    // post list request
+    $(document).on('submit', '#list-create-form', function (event) {
 
-    const formatAMPM = (date) => {
-        let hours = date.getHours();
-        let minutes = date.getMinutes();
-        let ampm = hours >= 12 ? 'p.m.' : 'a.m.';
-        hours = hours % 12;
-        hours = hours ? hours : 12; // the hour '0' should be '12'
-        minutes = minutes < 10 ? '0' + minutes : minutes;
-        let strTime = hours + ':' + minutes + ' ' + ampm;
-        return strTime;
-    }
+        event.preventDefault()
+        const listName = $('#id_name').val()
+        const slug = slugify(listName)
 
-    const getCookie = (name) => {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            let cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                let cookie = cookies[i].trim();
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
+        $.ajax({
+            type: 'POST',
+            url: '/lists/api/list/create/',
+            data: {
+                name: listName,
+                slug: slug,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function (json) {
+                // redirect to list detail pagge
+                window.location.href = `/lists/${json.slug}`
+
+            },
+            error: function (xhr) {
+                if (xhr.status == 400) {
+
+                    // display error message 
+                    $('.list').css("display", "block");
+
+                    // hide after user starts typing
+                    $('input[name="name"]').on('keypress', function () {
+                        $('.list').hide();
+                    });
+
+                }
+                else if (xhr.status == 500) {
+                    alert("An error has occurred. Please try again later.")
                 }
             }
-        }
-        return cookieValue;
-    }
+        });
+    });
 
-    // post item view
-    $(document).on('submit', '#todo-form', function (event) {
+
+
+
+    // post to-do item request
+    $(document).on('submit', '#todo-create-form', function (event) {
 
         event.preventDefault()
         const listId = $(this).data('id')
@@ -48,7 +54,7 @@ window.Superlists.initialize = function () {
 
         $.ajax({
             type: 'POST',
-            url: '/lists/api/create/',
+            url: '/lists/api/todo/create/',
             data: {
                 text: input_value,
                 list: listId,
@@ -56,7 +62,7 @@ window.Superlists.initialize = function () {
             },
             success: function (json) {
 
-                document.getElementById("todo-form").reset();
+                document.getElementById("todo-create-form").reset();
 
                 const date = new Date(json.timestamp);
 
@@ -101,7 +107,7 @@ window.Superlists.initialize = function () {
 
 
 
-    // delete view
+    // delete todo item request
     $(document).on('submit', '.delete-button', function (event) {
 
         event.preventDefault()
@@ -110,7 +116,7 @@ window.Superlists.initialize = function () {
 
         $.ajax({
             type: 'POST',
-            url: `/lists/api/delete/${itemId}/`,
+            url: `/lists/api/todo/delete/${itemId}/`,
             data: {
                 id: itemId,
                 csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
@@ -128,4 +134,3 @@ window.Superlists.initialize = function () {
 
 };
 
-// console.log('list.js loaded')

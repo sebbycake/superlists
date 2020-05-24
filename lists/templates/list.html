@@ -12,13 +12,13 @@ header animate__animated animate__slideInDown
 
 {% block content %}
 
-<div class="warning has-error list">
+<div class="warning list" role="alert">
     This item already exists in your list.
 </div>
 
 <!-- Display form -->
 <div class="input-form">
-    <form action="{% url 'list_detail' list.slug %}" method="post" id="todo-form" data-id="{{ list.id }}">
+    <form action="{% url 'list_detail' list.slug %}" method="post" id="todo-create-form" data-id="{{ list.id }}">
         {{ form.text }}
         {% csrf_token %}
     </form>

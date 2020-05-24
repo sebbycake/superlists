@@ -92,6 +92,10 @@ input[type=text]:focus {
     margin-bottom: 20px;
 }
 
+.error-message {
+    text-align: center;
+}
+
 .list {
     display: none;
 }

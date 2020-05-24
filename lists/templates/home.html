@@ -12,15 +12,13 @@ To-Do List
 {% block content %}
 
 <!-- Display duplicate item warning at the top of the page -->
-{% if form.errors %}
-<div class="warning has-error" role="alert">
-    {{ form.name.errors }}
+<div class="warning list" role="alert">
+    This name is already taken.
 </div>
-{% endif %}
 
 <!-- Display form -->
 <div class="input-form animate__animated animate__zoomIn">
-    <form action="{% url 'new_list' %}" method="post">
+    <form action="{% url 'new_list' %}" method="post" id="list-create-form">
         {{ form.name }}
         {% csrf_token %}
     </form>

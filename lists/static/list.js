@@ -1,10 +1,5 @@
 window.Superlists = {};
 window.Superlists.initialize = function () {
-    
-    // $('input[name="text"]').on('keypress', function () {
-    //     // console.log('in keypress handler');
-    //     $('.has-error').hide();
-    // });
 
     $('input[name="name"]').on('keypress', function () {
         // console.log('in keypress handler');
@@ -43,14 +38,6 @@ window.Superlists.initialize = function () {
         return cookieValue;
     }
 
-    // const showErrorMsg = (msg) => {
-    //     const errorDiv = document.getElementById('error')
-    //     errorDiv.className = "warning has-error"
-    //     const newContent = document.createTextNode(msg);
-    //     // add the text node to the newly created div
-    //     errorDiv.appendChild(newContent);
-    // }
-
     // post item view
     $(document).on('submit', '#todo-form', function (event) {
 
@@ -71,13 +58,11 @@ window.Superlists.initialize = function () {
 
                 document.getElementById("todo-form").reset();
 
-                // clean timestamp ISO field
-                var date = new Date(json.timestamp);
+                const date = new Date(json.timestamp);
 
+                // clean and format ISO timestamp field
                 day = date.getDate()
-                month = date.getMonth()
-
-                month = months[month];
+                month = months[date.getMonth()];
                 hoursMins = formatAMPM(date)
 
                 $('.todo-list').append(
@@ -97,8 +82,15 @@ window.Superlists.initialize = function () {
             },
             error: function (xhr) {
                 if (xhr.status == 400) {
-                    alert(input_value + ' already exists in your list.')
-                    showErrorMsg("THIS ITEM EXISTS...")
+
+                    // display error message 
+                    $('.list').css("display", "block");
+
+                    // hide after user starts typing
+                    $('input[name="text"]').on('keypress', function () {
+                        $('.list').hide();
+                    });
+
                 }
                 else if (xhr.status == 500) {
                     alert("An error has occurred. Please try again later.")

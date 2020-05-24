@@ -92,6 +92,9 @@ input[type=text]:focus {
     margin-bottom: 20px;
 }
 
+.list {
+    display: none;
+}
 
 /* todo item card */
 

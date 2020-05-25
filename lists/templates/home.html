@@ -11,17 +11,21 @@ To-Do List
 
 {% block content %}
 
-<!-- Display duplicate item warning at the top of the page -->
-<div class="warning list" role="alert">
-    This name is already taken.
-</div>
-
 <!-- Display form -->
 <div class="input-form animate__animated animate__zoomIn">
     <form action="{% url 'new_list' %}" method="post" id="list-create-form">
         {{ form.name }}
         {% csrf_token %}
-    </form>
+    </form>   
 </div>
+
+<div class="fail-message-list">
+    A list with this name already exists.
+</div> 
+
+<div class="success-message-list">
+    A list with this name is available.
+</div> 
+
 
 {% endblock %}

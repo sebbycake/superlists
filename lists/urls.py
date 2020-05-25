@@ -3,6 +3,7 @@ from django.urls import path
 from lists import views
 
 urlpatterns = [
+    path('api/list/find/', views.ajax_list_find, name='find_list_name'),
     path('api/list/create/', views.ajax_list_create_view, name='new_list'),
     path('<slug:list_slug>/', views.list_detail, name='list_detail'),
     path('api/todo/create/', views.ajax_create_view, name="create_todo"),

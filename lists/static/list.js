@@ -1,6 +1,34 @@
 window.Superlists = {};
 window.Superlists.initialize = function () {
 
+    let canPost = false;
+
+    // check list name's availability in real time
+    $('#list-create-form').bind('input', function () {
+
+        const listName = $('#id_name').val()
+
+        $.ajax({
+            type: 'GET',
+            url: '/lists/api/list/find/',
+            data: {
+                name: listName
+            },
+            success: function (json) {
+
+                if (json.is_taken) {
+                    canPost = false;
+                    displayMessage('fail-message-list');
+                } else {
+                    canPost = true;
+                    displayMessage('success-message-list');
+                } // end of json if avail stmt
+
+            }, // end of success function
+
+        }); // end of ajax call
+    })
+
 
     // post list request
     $(document).on('submit', '#list-create-form', function (event) {
@@ -9,36 +37,30 @@ window.Superlists.initialize = function () {
         const listName = $('#id_name').val()
         const slug = slugify(listName)
 
-        $.ajax({
-            type: 'POST',
-            url: '/lists/api/list/create/',
-            data: {
-                name: listName,
-                slug: slug,
-                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-            },
-            success: function (json) {
-                // redirect to list detail pagge
-                window.location.href = `/lists/${json.slug}`
+        // flag vatiable to check if list name is not taken
+        if (canPost) {
 
-            },
-            error: function (xhr) {
-                if (xhr.status == 400) {
+            $.ajax({
+                type: 'POST',
+                url: '/lists/api/list/create/',
+                data: {
+                    name: listName,
+                    slug: slug,
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                },
+                success: function (json) {
+                    // redirect to list detail pagge
+                    window.location.href = `/lists/${json.slug}`
+                },
 
-                    // display error message 
-                    $('.list').css("display", "block");
+            });
 
-                    // hide after user starts typing
-                    $('input[name="name"]').on('keypress', function () {
-                        $('.list').hide();
-                    });
+        } else {
+            // display again since entering would
+            // cause the message triggered above to hide
+            displayMessage('fail-message-list');
+        }
 
-                }
-                else if (xhr.status == 500) {
-                    alert("An error has occurred. Please try again later.")
-                }
-            }
-        });
     });
 
 
@@ -76,7 +98,7 @@ window.Superlists.initialize = function () {
                         '<span class="todo-timestamp">' + hoursMins + ' | ' + day + ' ' + month +
                         '</span>' +
                         '<form method="post" data-id="' + json.id + '"' + 'class="delete-button">' +
-                            '<input type="hidden" name="csrfmiddlewaretoken" value="' + csrftoken + '">' +
+                        '<input type="hidden" name="csrfmiddlewaretoken" value="' + csrftoken + '">' +
                             '<button>' +
                                 '<i class="material-icons">' + 'delete_outline' +
                                 '</i>' +

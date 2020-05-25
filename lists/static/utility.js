@@ -3,6 +3,13 @@ const months = [
     "Aug", "Sep", "Oct", "Nov", "Dec"
 ];
 
+const displayMessage = (className) => {
+    $(`.${className}`).css("display", "block");
+    $('input[name="name"]').on('keypress keydown', function () {
+        $(`.${className}`).hide();
+    });
+}
+
 const formatAMPM = (date) => {
     let hours = date.getHours();
     let minutes = date.getMinutes();

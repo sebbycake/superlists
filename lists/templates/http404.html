@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block header_class %}
+header animate__animated animate__fadeIn
+{% endblock %}
+
+{% block header_text %}
+404 Error
+{% endblock %}
+
+{% block content %}
+<div class="http-404-error">
+    <p>Opss.. Page not found.</p><br/>
+    <a href="{% url 'home' %}">Back to home page</a>
+</div>
+{% endblock %}

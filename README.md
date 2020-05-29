@@ -29,7 +29,7 @@ A slew of to-do lists today provide features that users do not need. A **simple 
 
 ```
 git clone https://github.com/sebbycake/superlists.git
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 2. Create database and give the new user access to administer the database:

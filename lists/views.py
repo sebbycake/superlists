@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ListForm, ItemForm
 from .models import Item, List
-from django.utils.text import slugify
-from django.http import Http404
 
 # DRF API
 from .serializers import ItemSerializer, ListSerializer
@@ -16,9 +14,9 @@ def home_page(request):
     return render(request, 'home.html', {'form': ListForm()})
 
 
-def list_detail(request, list_slug):
+def list_detail(request, list_id, list_slug):
     try:
-        list_ = List.objects.get(slug=list_slug)
+        list_ = List.objects.get(id=list_id)
     except List.DoesNotExist:
         return render(request, 'http404.html')
     form = ItemForm()
@@ -32,9 +30,8 @@ def list_detail(request, list_slug):
 @api_view(['GET'])
 def ajax_list_find(request):
     name = request.GET.get('name' or None)
-    slug = slugify(name)
     data = {
-        'is_taken': List.objects.filter(slug__iexact=slug).exists()
+        'is_taken': List.objects.filter(name__iexact=name).exists()
     }
     return Response(data, status=200)
 

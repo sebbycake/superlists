@@ -2,31 +2,36 @@ window.Superlists = {};
 window.Superlists.initialize = function () {
 
     let canPost = false;
+    const delay = 1000;
 
     // check list name's availability in real time
     $('#list-create-form').bind('input', function () {
 
-        const listName = $('#id_name').val()
+        // delay 2s before calling ajax
+        // to wait for user to finish typing
+        setTimeout(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/lists/api/list/find/',
+                data: {
+                    name: $('#id_name').val()
+                },
+                success: function (json) {
 
-        $.ajax({
-            type: 'GET',
-            url: '/lists/api/list/find/',
-            data: {
-                name: listName
-            },
-            success: function (json) {
+                    if (json.is_taken) {
+                        canPost = false;
+                        displayMessage('fail-error-msg');
+                    } else {
+                        canPost = true;
+                        displayMessage('success-error-msg');
+                    } // end of json if avail stmt
 
-                if (json.is_taken) {
-                    canPost = false;
-                    displayMessage('fail-message-list');
-                } else {
-                    canPost = true;
-                    displayMessage('success-message-list');
-                } // end of json if avail stmt
+                }, // end of success function
 
-            }, // end of success function
+            }); // end of ajax call
 
-        }); // end of ajax call
+        }, delay) // end of setTimeout()
+
     })
 
 
@@ -50,7 +55,7 @@ window.Superlists.initialize = function () {
                 },
                 success: function (json) {
                     // redirect to list detail pagge
-                    window.location.href = `/lists/${json.slug}`
+                    window.location.href = `/lists/${json.id}/${json.slug}`
                 },
 
             });
@@ -58,10 +63,10 @@ window.Superlists.initialize = function () {
         } else {
             // display again since entering would
             // cause the message triggered above to hide
-            displayMessage('fail-message-list');
+            displayMessage('fail-error-msg');
         }
 
-    });
+    }); // end of on submit
 
 
 
@@ -98,14 +103,14 @@ window.Superlists.initialize = function () {
                         '<span class="todo-timestamp">' + hoursMins + ' | ' + day + ' ' + month +
                         '</span>' +
                         '<form method="post" data-id="' + json.id + '"' + 'class="delete-button">' +
-                        '<input type="hidden" name="csrfmiddlewaretoken" value="' + csrftoken + '">' +
-                            '<button>' +
-                                '<i class="material-icons">' + 'delete_outline' +
-                                '</i>' +
-                            '</button>' +
+                            '<input type="hidden" name="csrfmiddlewaretoken" value="' + csrftoken + '">' +
+                                '<button>' +
+                                    '<i class="material-icons">' + 'delete_outline' +
+                                    '</i>' +
+                                '</button>' +
                         '</form>' +
                     '</div>'
-                )
+                ) // end of appending todo item
 
             },
             error: function (xhr) {
@@ -123,8 +128,10 @@ window.Superlists.initialize = function () {
                 else if (xhr.status == 500) {
                     alert("An error has occurred. Please try again later.")
                 }
-            }
-        });
+            } // end of error function
+
+        }); // end of ajax call
+
     });
 
 
@@ -143,13 +150,13 @@ window.Superlists.initialize = function () {
                 id: itemId,
                 csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
             },
-            success: function (json) {
+            success: function () {
                 parentDiv.remove()
             },
-            error: function (xhr, errmsg, err) {
-
+            error: function (xhr) {
+                alert("An error has occurred. Please try again later.")
             }
-        });
+        }); // end of ajax call
     });
 
 

@@ -6,13 +6,13 @@ from django.urls import reverse
 
 class List(models.Model):
     name = models.CharField(max_length=63)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField()
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('list_detail', kwargs={'list_slug': self.slug})
+        return reverse('list_detail', kwargs={'list_id': self.pk, 'list_slug': self.slug})
         # or return reverse('view_list', args=[self.id])
     
     # def save(self, *args, **kwargs):

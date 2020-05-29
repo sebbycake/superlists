@@ -97,14 +97,14 @@ input[type=text]:focus {
 }
 
 
-.fail-message-list {
+.fail-error-msg {
     color: #DC143C;
     font-size: 15px;
     text-align: center;
     display: none;
 }
 
-.success-message-list {
+.success-error-msg {
     color: green;
     font-size: 15px;
     text-align: center;

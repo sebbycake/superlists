@@ -24,8 +24,8 @@ class ItemSerializer(serializers.ModelSerializer):
 
 class ListSerializer(serializers.ModelSerializer):
 
-    slug = serializers.SlugField(
-        max_length=100,
+    name = serializers.CharField(
+        max_length=63,
         validators=[
             UniqueValidator(
                 queryset=List.objects.all(),

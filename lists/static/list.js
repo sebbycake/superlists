@@ -1,48 +1,48 @@
 window.Superlists = {};
 window.Superlists.initialize = function () {
 
-    let canPost = false;
-    const delay = 1000;
+    let canPost = true;
+    const delay = 500;
 
     // check list name's availability in real time
-    $('#list-create-form').bind('input', function () {
+    // use of debounce to delay 0.5s before firing ajax call
+    $('#id_name').keyup(debounce(function () {
 
-        // delay 2s before calling ajax
-        // to wait for user to finish typing
-        setTimeout(function () {
-            $.ajax({
-                type: 'GET',
-                url: '/lists/api/list/find/',
-                data: {
-                    name: $('#id_name').val()
-                },
-                success: function (json) {
+        $.ajax({
+            type: 'GET',
+            url: '/lists/api/list/find/',
+            data: {
+                name: $(this).val()
+            },
+            success: function (json) {
 
-                    if (json.is_taken) {
-                        canPost = false;
-                        displayMessage('fail-error-msg');
-                    } else {
-                        canPost = true;
-                        displayMessage('success-error-msg');
-                    } // end of json if avail stmt
+                if (json.is_taken) {
+                    canPost = false;
+                    displayMessage('fail-error-msg');
+                } else {
+                    canPost = true;
+                    displayMessage('success-error-msg');
+                } // end of json if avail stmt
 
-                }, // end of success function
+            }, // end of success function   
 
-            }); // end of ajax call
+        }); // end of ajax call
 
-        }, delay) // end of setTimeout()
+    }, delay) // end of debounce()
 
-    })
+    ) // end of keyup()
 
 
     // post list request
-    $(document).on('submit', '#list-create-form', function (event) {
+    $('#list-create-form').submit(function (event) {
 
         event.preventDefault()
         const listName = $('#id_name').val()
         const slug = slugify(listName)
 
-        // flag vatiable to check if list name is not taken
+        // flag variable to check if list name is not taken
+        // if the list name is taken from the ajax check,
+        // then the ajax post request will not fire
         if (canPost) {
 
             $.ajax({
@@ -56,15 +56,17 @@ window.Superlists.initialize = function () {
                 success: function (json) {
                     // redirect to list detail pagge
                     window.location.href = `/lists/${json.id}/${json.slug}`
-                },
+                }, // end of success function
+                error: function (xhr) {
+                    if (xhr.status == 400) {
+                        displayMessage('fail-error-msg');
+                    }
 
-            });
+                } // end of error function
+                
+            }); // end of ajax
 
-        } else {
-            // display again since entering would
-            // cause the message triggered above to hide
-            displayMessage('fail-error-msg');
-        }
+        } // end of canPost
 
     }); // end of on submit
 
@@ -72,12 +74,12 @@ window.Superlists.initialize = function () {
 
 
     // post to-do item request
-    $(document).on('submit', '#todo-create-form', function (event) {
+    $('#todo-create-form').submit(function (event) {
 
         event.preventDefault()
-        const listId = $(this).data('id')
+        const listId = $(this).data('id');
         const csrftoken = getCookie('csrftoken');
-        const input_value = $('#id_text').val()
+        const input_value = $('#id_text').val();
 
         $.ajax({
             type: 'POST',
@@ -94,21 +96,21 @@ window.Superlists.initialize = function () {
                 const date = new Date(json.timestamp);
 
                 // clean and format ISO timestamp field
-                day = date.getDate()
+                day = dayOfTheMonth(date);
                 month = months[date.getMonth()];
-                hoursMins = formatAMPM(date)
+                hoursMins = formatAMPM(date);
 
                 $('.todo-list').append(
                     '<div class="todo-item">' + json.text + '<br/>' +
-                        '<span class="todo-timestamp">' + hoursMins + ' | ' + day + ' ' + month +
-                        '</span>' +
-                        '<form method="post" data-id="' + json.id + '"' + 'class="delete-button">' +
-                            '<input type="hidden" name="csrfmiddlewaretoken" value="' + csrftoken + '">' +
-                                '<button>' +
-                                    '<i class="material-icons">' + 'delete_outline' +
-                                    '</i>' +
-                                '</button>' +
-                        '</form>' +
+                    '<span class="todo-timestamp">' + hoursMins + ' | ' + day + ' ' + month +
+                    '</span>' +
+                    '<form method="post" data-id="' + json.id + '"' + 'class="delete-button">' +
+                    '<input type="hidden" name="csrfmiddlewaretoken" value="' + csrftoken + '">' +
+                    '<button>' +
+                    '<i class="material-icons">' + 'delete_outline' +
+                    '</i>' +
+                    '</button>' +
+                    '</form>' +
                     '</div>'
                 ) // end of appending todo item
 
@@ -137,7 +139,7 @@ window.Superlists.initialize = function () {
 
 
     // delete todo item request
-    $(document).on('submit', '.delete-button', function (event) {
+    $('.delete-button').submit(function (event) {
 
         event.preventDefault()
         const itemId = $(this).data('id')

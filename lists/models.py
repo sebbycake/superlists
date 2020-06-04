@@ -5,7 +5,7 @@ from django.urls import reverse
 # Create your models here.
 
 class List(models.Model):
-    name = models.CharField(max_length=63)
+    name = models.CharField(max_length=63, unique=True)
     slug = models.SlugField()
 
     def __str__(self):

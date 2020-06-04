@@ -10,6 +10,10 @@ const displayMessage = (className) => {
     });
 }
 
+// display 2 digit number for days below 10
+const dayOfTheMonth = (date) => ( (date.getDate() < 10 && '0') + date.getDate() )
+    
+// format time in 12h format
 const formatAMPM = (date) => {
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -60,3 +64,20 @@ const slugify = (str) => {
 
     return str;
 }
+
+// The debounce function delays the processing of the keyup event until 
+// the user has stopped typing for a predetermined amount of time
+function debounce(func, wait, immediate) {
+    let timeout;
+    return function () {
+        let context = this, args = arguments;
+        let later = function () {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        };
+        let callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+    };
+};

@@ -102,15 +102,15 @@ window.Superlists.initialize = function () {
 
                 $('.todo-list').append(
                     '<div class="todo-item">' + json.text + '<br/>' +
-                    '<span class="todo-timestamp">' + hoursMins + ' | ' + day + ' ' + month +
-                    '</span>' +
-                    '<form method="post" data-id="' + json.id + '"' + 'class="delete-button">' +
-                    '<input type="hidden" name="csrfmiddlewaretoken" value="' + csrftoken + '">' +
-                    '<button>' +
-                    '<i class="material-icons">' + 'delete_outline' +
-                    '</i>' +
-                    '</button>' +
-                    '</form>' +
+                        '<span class="todo-timestamp">' + hoursMins + ' | ' + day + ' ' + month +
+                        '</span>' +
+                        '<form method="post" data-id="' + json.id + '"' + 'class="delete-button">' +
+                            '<input type="hidden" name="csrfmiddlewaretoken" value="' + csrftoken + '">' +
+                            '<button>' +
+                                '<i class="material-icons">' + 'delete_outline' +
+                                '</i>' +
+                            '</button>' +
+                        '</form>' +
                     '</div>'
                 ) // end of appending todo item
 
@@ -139,7 +139,7 @@ window.Superlists.initialize = function () {
 
 
     // delete todo item request
-    $('.delete-button').submit(function (event) {
+    $(document).on('submit', '.delete-button', function (event) {
 
         event.preventDefault()
         const itemId = $(this).data('id')

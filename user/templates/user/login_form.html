@@ -1,0 +1,25 @@
+<div class="login-container">
+
+    <div class="login-header">
+        <h1>Welcome Back!</h1>
+    </div>
+
+    <div class="login-form-container">
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+        
+            <button class="login-button">{{ login_button|default:'Login' }}</button>
+            <p class="login-btm-text">
+                Don't have an account?
+                <a href="{% url 'user_create' %}">Sign Up</a>
+            </p>
+            
+            {% if next %}
+                <input type="hidden" name="next" value="{{ next }}">
+            {% endif %}
+        
+            
+        </form>
+    </div>
+</div>

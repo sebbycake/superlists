@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ListForm, ItemForm
 from .models import Item, List
+from django.contrib.auth.decorators import login_required
 
 # DRF API
 from .serializers import ItemSerializer, ListSerializer
@@ -25,6 +26,14 @@ def list_detail(request, list_id, list_slug):
         'form': form
     }
     return render(request, 'list.html', context)
+
+@login_required
+def user_list_detail(request):
+    lists = List.objects.filter(user=request.user)
+    context = {
+        'lists': lists
+    }
+    return render(request, 'user_list_detail.html', context)
 
 
 @api_view(['GET'])

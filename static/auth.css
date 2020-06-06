@@ -1,0 +1,57 @@
+.register-container, .login-container, .logout-container {
+    width: 70%;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 40px;
+    background-color: #FFFAFA;
+    border-radius: 20px;
+}
+
+.register-header, .login-header {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.register-form-container, .login-form-container {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 40px;
+}   
+
+label {
+    display: block;
+    margin-bottom: 4px;
+}
+
+input[type=email], input[type=password], input[id=id_username] {
+    width: 90%;
+    padding: 10px;  
+    border: 1px solid black;
+    margin: 4px;
+    font-size: 20px;
+}
+
+.sign-up-button, .login-button {
+    width: 100%;
+    background-color: black;
+    padding: 10px;
+    margin-top: 40px;
+    font-size: 15px;
+    color: #fff;
+}
+
+.register-btm-text, .login-btm-text {
+    text-align: center;
+    font-size: 11px;
+    margin-top: 15px;
+}
+
+
+
+@media (min-width:468px) {
+
+    .register-container, .login-container, .logout-container {
+        width: 50%;
+    }
+
+}

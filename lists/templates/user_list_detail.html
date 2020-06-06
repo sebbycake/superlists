@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>{{ request.user.email }}'s Lists</h1>
+
+{% for list in lists %}
+    <div>
+        <a href="{{ list.get_absolute_url }}">{{ list.name }}</a>
+    </div>
+{% endfor %}
+
+
+{% endblock %}

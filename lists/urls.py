@@ -8,4 +8,6 @@ urlpatterns = [
     path('<int:list_id>/<slug:list_slug>/', views.list_detail, name='list_detail'),
     path('api/todo/create/', views.ajax_create_view, name="create_todo"),
     path('api/todo/delete/<int:item_id>/', views.ajax_delete_view, name="delete_todo"),
+
+    path('user/', views.user_list_detail, name='user_list_detail'),
 ]

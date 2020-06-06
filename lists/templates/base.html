@@ -25,9 +25,31 @@
 
 <body>
 
-    <div class="logo">
-        <a href="{% url 'home' %}">Listeefy</a>
-    </div>
+    <nav class="navbar">
+        <span class="navbar-toggle" id="js-navbar-toggle">
+            <i class="material-icons" style="font-size: 45px">menu</i>
+            
+        </span>
+        <a href="{% url 'home' %}" class="logo">Listeefy</a>
+        <ul class="main-nav" id="js-menu">
+            {% if not user.is_authenticated %}
+            <li>
+                <a href="{% url 'login' %}" class="nav-links">Login</a>
+            </li>
+            <li>
+                <a href="{% url 'user_create' %}" class="nav-links">Sign Up</a>
+            </li>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'user_list_detail' %}" class="nav-links">My Lists</a>
+            </li>
+            <li>
+                <a href="{% url 'logout' %}" class="nav-links">Log Out</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
 
     <div class="{% block header_class %}{% endblock %}">
         <h1>{% block header_text %}{% endblock %}</h1>

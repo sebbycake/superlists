@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'lists',
+    'user',
     'rest_framework',
 ]
 
@@ -149,5 +150,15 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.JSONRenderer',
     )
 }
+
+AUTH_USER_MODEL = 'user.CustomUser'
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    # 'user.authentication.EmailAuthBackend',
+)
 
 django_heroku.settings(locals())

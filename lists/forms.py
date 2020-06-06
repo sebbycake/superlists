@@ -38,7 +38,7 @@ class ItemForm(forms.ModelForm):
             'text': forms.fields.TextInput(
                 attrs={
                     'placeholder': 'Enter a to-do item',
-                    'class': 'form-control input-lg',
+                    'class': 'todo_item',
                 }
             )
         }

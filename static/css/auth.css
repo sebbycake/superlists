@@ -8,7 +8,7 @@
 }
 
 .register-header, .login-header {
-    margin-top: 40px;
+    margin-top: 20px;
     text-align: center;
 }
 
@@ -36,7 +36,7 @@ input[type=email], input[type=password], input[id=id_username] {
     background-color: black;
     padding: 10px;
     margin-top: 40px;
-    font-size: 15px;
+    font-size: 20px;
     color: #fff;
 }
 
@@ -52,6 +52,10 @@ input[type=email], input[type=password], input[id=id_username] {
 
     .register-container, .login-container, .logout-container {
         width: 50%;
+    }
+
+    .register-header, .login-header {
+        font-size: 25px;
     }
 
 }

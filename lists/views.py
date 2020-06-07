@@ -76,6 +76,14 @@ def ajax_delete_view(request, item_id):
         return Response({}, status=404)
     # retrieve the obj from the QuerySet
     item = item.first()
+    item_list_id = item.list.id
+    # check whether the todo belongs to the list by the current auth user
+    if request.user.is_authenticated:
+        list_ = List.objects.filter(pk=item_list_id).filter(user=request.user or None)
+    else:
+        list_ = List.objects.filter(pk=item_list_id).filter(user=None)
+    if not list_.exists():
+        return Response({"You are not authorized to remove this todo."}, status=403)
     item.delete()
     return Response({"message": "TODO is removed."}, status=200)
 

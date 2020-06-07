@@ -128,6 +128,7 @@ window.Superlists.initialize = function () {
                 if (xhr.status == 400) {
 
                     // display error message 
+                    $('.list').html('This item already exists in your list.')
                     $('.list').css("display", "block");
 
                     // hide after user starts typing
@@ -165,8 +166,20 @@ window.Superlists.initialize = function () {
                 parentDiv.remove()
             },
             error: function (xhr) {
-                alert("An error has occurred. Please try again later.")
-            }
+                if (xhr.status == 403) {
+    
+                     // display error message 
+                     $('.list').html('You are not authorized to delete.')
+                     $('.list').css("display", "block");
+
+                    // delay 3s before hiding error msg
+                     setTimeout(function() {
+                        $('.list').hide()
+                     }, 3000) // end of setTimeout()
+                     
+                } // end of if
+            } // end of error func
+
         }); // end of ajax call
     });
 

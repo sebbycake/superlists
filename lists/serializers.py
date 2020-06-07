@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator, UniqueValidator
 from .models import Item, List
-
+from user.models import CustomUser
 
 class ItemSerializer(serializers.ModelSerializer):
 
@@ -24,17 +24,26 @@ class ItemSerializer(serializers.ModelSerializer):
 
 class ListSerializer(serializers.ModelSerializer):
 
-    name = serializers.CharField(
-        max_length=63,
-        validators=[
-            UniqueValidator(
-                queryset=List.objects.all(),
-                lookup='iexact',
-                message='This name already exists!'
-            )
-        ]
-    )
+    # name = serializers.CharField(
+    #     max_length=63,
+    #     validators=[
+    #         UniqueValidator(
+    #             queryset=List.objects.all(),
+    #             lookup='iexact',
+    #             message='This name already exists!'
+    #         )
+    #     ]
+    # )
 
     class Meta:
         model = List
-        fields = '__all__'
+        exclude = ('user',)
+
+        # validators = [
+        #     UniqueTogetherValidator(
+        #         queryset=List.objects.all(),
+        #         fields=['name', 'user', ],
+        #         message="This list already exists.",
+        #     )
+        # ]
+

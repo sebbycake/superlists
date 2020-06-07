@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="user-list-header">
+    <h1>Your Lists</h1>
+</div>
+
+{% if lists|length > 0 %}
+
+{% for list in lists %}
+<div class="user-list-item">
+    <p>{{ list.name }}</p>
+    <span class="edit-icon">
+        <a href="{{ list.get_absolute_url }}">
+            <i class="material-icons" style="color: white">create</i>
+        </a>
+        <i class="material-icons" style="color: white">delete</i>
+    </span>
+</div>
+{% endfor %}
+
+{% else %}
+
+<div class="user-no-list-error-msg">
+    <h1>Ops... You have no lists currently.</h1><br />
+    <p>
+        Starting creating one <a href="{% url 'home' %}">here</a>.
+    </p>
+</div>
+
+{% endif %}
+
+{% endblock %}

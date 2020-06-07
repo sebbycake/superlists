@@ -62,7 +62,9 @@ ROOT_URLCONF = 'superlists.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,17 +79,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'superlists.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
-# SQLite3 db
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, '../database/db.sqlite3'),
-#     }
-# }
 
 # PostgreSQL
 DATABASES = {
@@ -155,10 +146,5 @@ AUTH_USER_MODEL = 'user.CustomUser'
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
-
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    # 'user.authentication.EmailAuthBackend',
-)
 
 django_heroku.settings(locals())

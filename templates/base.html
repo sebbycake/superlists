@@ -18,7 +18,7 @@
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
     <meta name="the to-do list personally for you." content="never forget your tasks again." />
     <title>Listeefy: your minimalistic to-do list</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'index.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -28,25 +28,24 @@
     <nav class="navbar">
         <span class="navbar-toggle" id="js-navbar-toggle">
             <i class="material-icons" style="font-size: 45px">menu</i>
-            
         </span>
         <a href="{% url 'home' %}" class="logo">Listeefy</a>
         <ul class="main-nav" id="js-menu">
             {% if not user.is_authenticated %}
-            <li>
-                <a href="{% url 'login' %}" class="nav-links">Login</a>
-            </li>
-            <li>
-                <a href="{% url 'user_create' %}" class="nav-links">Sign Up</a>
-            </li>
+                <li>
+                    <a href="{% url 'login' %}" class="nav-links">Login</a>
+                </li>
+                <li>
+                    <a href="{% url 'user_create' %}" class="nav-links">Sign Up</a>
+                </li>
             {% endif %}
             {% if user.is_authenticated %}
-            <li>
-                <a href="{% url 'user_list_detail' %}" class="nav-links">My Lists</a>
-            </li>
-            <li>
-                <a href="{% url 'logout' %}" class="nav-links">Log Out</a>
-            </li>
+                <li>
+                    <a href="{% url 'user_list_detail' %}" class="nav-links">My Lists</a>
+                </li>
+                <li>
+                    <a href="{% url 'logout' %}" class="nav-links">Log Out</a>
+                </li>
             {% endif %}
         </ul>
     </nav>
@@ -63,9 +62,10 @@
     {% block table %}
     {% endblock %}
 
-    <script src="/static/jquery-3.4.1.min.js"></script>
-    <script src="/static/utility.js"></script>
-    <script src="/static/list.js"></script>
+    <script src="{% static '/js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static '/js/utility.js' %}"></script>
+    <script src="{% static '/js/list.js' %}"></script>
+    
 
     <script>
         $(document).ready(function () {

@@ -160,6 +160,54 @@ button {
 }
 
 
+/* user list detail page */
+
+.user-list-header {
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+.user-list-item {
+    background-color: purple;
+    width: 85%;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    padding: 20px;
+    font-size: 20px;
+    color: white;
+    border-radius: 10px;
+}
+
+.user-no-list-error-msg {
+    width: 70%;
+    margin: 0 auto;
+    font-size: 15px;
+    margin-top: 60px;
+}
+
+/* .user-no-list-error-msg h1, p{
+    text-align: center;
+} */
+
+.edit-icon {
+    float: right;
+    position: relative;
+    top: -20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 @media (min-width:468px) {
     .header {
         font-size: 38px;

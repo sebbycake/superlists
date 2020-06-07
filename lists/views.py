@@ -12,7 +12,7 @@ from rest_framework.decorators import api_view
 
 
 def home_page(request):
-    return render(request, 'home.html', {'form': ListForm()})
+    return render(request, 'lists/home.html', {'form': ListForm()})
 
 
 def list_detail(request, list_id, list_slug):
@@ -25,7 +25,7 @@ def list_detail(request, list_id, list_slug):
         'list': list_,
         'form': form
     }
-    return render(request, 'list.html', context)
+    return render(request, 'lists/list.html', context)
 
 @login_required
 def user_list_detail(request):
@@ -33,7 +33,7 @@ def user_list_detail(request):
     context = {
         'lists': lists
     }
-    return render(request, 'user_list_detail.html', context)
+    return render(request, 'lists/user_list_detail.html', context)
 
 
 @api_view(['GET'])
@@ -48,9 +48,15 @@ def ajax_list_find(request):
 @api_view(['POST'])
 def ajax_list_create_view(request):
     # deserialize request.POST object
+    print('inside create view', flush=True)
     serializer = ListSerializer(data=request.POST)
+    print(serializer, flush=True)
+    print(serializer.is_valid())
+    print(serializer.errors)
     if serializer.is_valid(raise_exception=True):
-        serializer.save()
+        print('inside is valid', flush=True)
+        print(request.user.id)
+        serializer.save(user=request.user or None)
         return Response(serializer.data, status=201)
     return Response({"message": "Duplicate list name"}, status=400)
 

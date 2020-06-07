@@ -166,9 +166,12 @@ window.Superlists.initialize = function () {
     let navBarToggle = document.getElementById('js-navbar-toggle');
 
     navBarToggle.addEventListener('click', function () {
-    mainNav.classList.toggle('active');
+        mainNav.classList.toggle('active');
     });
 
 
+    // get user ID of authenticated user
+    const userID = $('#list-create-form').attr("user-id");
+    console.log(userID)
 };
 

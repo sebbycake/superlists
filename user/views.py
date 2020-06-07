@@ -1,9 +1,7 @@
-from django.shortcuts import render
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from .models import CustomUser
 from .forms import CustomUserCreationForm
-from django.http import HttpResponse
 
 # Create your views here.
 

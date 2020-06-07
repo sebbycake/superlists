@@ -13,7 +13,7 @@ To-Do List
 
 <!-- Display form -->
 <div class="input-form animate__animated animate__zoomIn">
-    <form action="{% url 'new_list' %}" method="post" id="list-create-form">
+    <form action="{% url 'new_list' %}" method="post" id="list-create-form" user-id="{{ user.id }}">
         {{ form.name }}
         {% csrf_token %}
     </form>   

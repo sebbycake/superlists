@@ -1,6 +1,15 @@
 window.Superlists = {};
 window.Superlists.initialize = function () {
 
+    // navbar 
+    let mainNav = document.getElementById('js-menu');
+    let navBarToggle = document.getElementById('js-navbar-toggle');
+
+    navBarToggle.addEventListener('click', function () {
+        mainNav.classList.toggle('active');
+    });
+
+
     let canPost = true;
     const delay = 500;
 
@@ -63,7 +72,7 @@ window.Superlists.initialize = function () {
                     }
 
                 } // end of error function
-                
+
             }); // end of ajax
 
         } // end of canPost
@@ -102,15 +111,15 @@ window.Superlists.initialize = function () {
 
                 $('.todo-list').append(
                     '<div class="todo-item">' + json.text + '<br/>' +
-                        '<span class="todo-timestamp">' + hoursMins + ' | ' + day + ' ' + month +
-                        '</span>' +
-                        '<form method="post" data-id="' + json.id + '"' + 'class="delete-button">' +
-                            '<input type="hidden" name="csrfmiddlewaretoken" value="' + csrftoken + '">' +
-                            '<button>' +
-                                '<i class="material-icons">' + 'delete_outline' +
-                                '</i>' +
-                            '</button>' +
-                        '</form>' +
+                    '<span class="todo-timestamp">' + hoursMins + ' | ' + day + ' ' + month +
+                    '</span>' +
+                    '<form method="post" data-id="' + json.id + '"' + 'class="delete-button">' +
+                    '<input type="hidden" name="csrfmiddlewaretoken" value="' + csrftoken + '">' +
+                    '<button>' +
+                    '<i class="material-icons">' + 'delete_outline' +
+                    '</i>' +
+                    '</button>' +
+                    '</form>' +
                     '</div>'
                 ) // end of appending todo item
 
@@ -161,17 +170,39 @@ window.Superlists.initialize = function () {
         }); // end of ajax call
     });
 
-    // navbar 
-    let mainNav = document.getElementById('js-menu');
-    let navBarToggle = document.getElementById('js-navbar-toggle');
-
-    navBarToggle.addEventListener('click', function () {
-        mainNav.classList.toggle('active');
-    });
 
 
-    // get user ID of authenticated user
-    const userID = $('#list-create-form').attr("user-id");
-    console.log(userID)
+    // delete list item for user
+    $('.delete-list-item').click(function () {
+
+        const listID = $(this).attr("list-id")
+        const parentDiv = $(this).parent()
+        const csrftoken = getCookie('csrftoken');
+
+        $.ajax({
+            type: 'POST',
+            url: `/lists/api/list/delete/${listID}/`,
+            data: {
+                id: listID,
+                csrfmiddlewaretoken: csrftoken,
+            },
+            success: function () {
+                parentDiv.remove()
+            },
+            error: function (xhr) {
+                if (xhr.status == 500) {
+                    alert("An error has occurred. Please try again later.")
+                } else if (xhr.status == 400) {
+                    alert('400 error')
+                }
+
+
+            }
+        }); // end of ajax call
+
+    }); // end of click()
+
+
+
 };
 

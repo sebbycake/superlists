@@ -6,7 +6,8 @@ from django.contrib.auth.decorators import login_required
 # DRF API
 from .serializers import ItemSerializer, ListSerializer
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 
@@ -48,15 +49,12 @@ def ajax_list_find(request):
 @api_view(['POST'])
 def ajax_list_create_view(request):
     # deserialize request.POST object
-    print('inside create view', flush=True)
     serializer = ListSerializer(data=request.POST)
-    print(serializer, flush=True)
-    print(serializer.is_valid())
-    print(serializer.errors)
     if serializer.is_valid(raise_exception=True):
-        print('inside is valid', flush=True)
-        print(request.user.id)
-        serializer.save(user=request.user or None)
+        if request.user.is_authenticated:
+            serializer.save(user=request.user)
+        else:
+            serializer.save()
         return Response(serializer.data, status=201)
     return Response({"message": "Duplicate list name"}, status=400)
 
@@ -80,3 +78,18 @@ def ajax_delete_view(request, item_id):
     item = item.first()
     item.delete()
     return Response({"message": "TODO is removed."}, status=200)
+
+
+@api_view(['DELETE', 'POST'])
+@permission_classes([IsAuthenticated])
+def ajax_delete_list_view(request, list_id):
+    list_ = List.objects.filter(pk=list_id)
+    if list_.exists():
+        # check that the list belongs to the current auth user
+        if list_.filter(user=request.user):
+            list_ = list_.first()
+            list_.delete()
+            return Response({"message": "List item is removed."}, status=200)
+        else:
+            return Response({"message": "You are not authorized to remove this."}, status=403)
+    return Response({}, status=404)

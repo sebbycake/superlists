@@ -24,17 +24,6 @@ class ItemSerializer(serializers.ModelSerializer):
 
 class ListSerializer(serializers.ModelSerializer):
 
-    # name = serializers.CharField(
-    #     max_length=63,
-    #     validators=[
-    #         UniqueValidator(
-    #             queryset=List.objects.all(),
-    #             lookup='iexact',
-    #             message='This name already exists!'
-    #         )
-    #     ]
-    # )
-
     class Meta:
         model = List
         exclude = ('user',)

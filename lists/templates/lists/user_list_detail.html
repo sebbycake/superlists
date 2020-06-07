@@ -11,18 +11,22 @@
 {% for list in lists %}
 <div class="user-list-item">
     <p>{{ list.name }}</p>
-    <span class="edit-icon">
+    <span class="delete-list-item" list-id="{{ list.id }}">
+        <i class="material-icons" style="color:white">delete</i>
+    </span>
+    <span class="edit-list-item">
         <a href="{{ list.get_absolute_url }}">
             <i class="material-icons" style="color: white">create</i>
         </a>
-        <i class="material-icons" style="color: white">delete</i>
     </span>
+        
 </div>
 {% endfor %}
 
 {% else %}
 
-<div class="user-no-list-error-msg">
+<br/>
+<div align="center">
     <h1>Ops... You have no lists currently.</h1><br />
     <p>
         Starting creating one <a href="{% url 'home' %}">here</a>.

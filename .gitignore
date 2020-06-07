@@ -3,3 +3,10 @@ geckodriver.log
 __pycache__
 *.pyc
 .vscode
+
+
+# automating deployment
+/deploy_tools
+
+# Heroku deployment
+Procfile

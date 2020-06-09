@@ -15,6 +15,8 @@ from rest_framework.permissions import IsAuthenticated
 def home_page(request):
     return render(request, 'lists/home.html', {'form': ListForm()})
 
+def about_page(request):
+    return render(request, 'about.html')
 
 def list_detail(request, list_id, list_slug):
     try:
@@ -39,9 +41,16 @@ def user_list_detail(request):
 
 @api_view(['GET'])
 def ajax_list_find(request):
+    """
+    Check for unique together for list name and user
+    """
     name = request.GET.get('name' or None)
+    if request.user.is_authenticated:
+        is_taken = List.objects.filter(name__iexact=name).filter(user=request.user).exists()
+    else: 
+        is_taken = List.objects.filter(name__iexact=name).filter(user=None).exists()
     data = {
-        'is_taken': List.objects.filter(name__iexact=name).exists()
+        'is_taken': is_taken
     }
     return Response(data, status=200)
 
@@ -79,8 +88,13 @@ def ajax_delete_view(request, item_id):
     item_list_id = item.list.id
     # check whether the todo belongs to the list by the current auth user
     if request.user.is_authenticated:
-        list_ = List.objects.filter(pk=item_list_id).filter(user=request.user or None)
+        # auth user can remove his own todos 
+        list_ = List.objects.filter(pk=item_list_id).filter(user=request.user)
+        # and also remove non-auth todos
+        if not list_:
+            list_ = List.objects.filter(pk=item_list_id).filter(user=None)
     else:
+        # non auth user can remove non-auth user todos
         list_ = List.objects.filter(pk=item_list_id).filter(user=None)
     if not list_.exists():
         return Response({"You are not authorized to remove this todo."}, status=403)

@@ -137,13 +137,14 @@ button {
 /* user list detail page */
 
 .user-list-header {
+    margin-top: 35px;
     text-align: center;
     font-size: 25px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .user-list-item {
-    background-color: purple;
+    background-color: #8F5E99;;
     width: 80%;
     margin: 0 auto;
     margin-bottom: 15px;
@@ -160,6 +161,12 @@ button {
     position: relative;
     top: -20px;
     cursor: pointer;
+    opacity: 0.7;
+}
+
+
+.edit-list-item:hover, .delete-list-item:hover {
+    opacity: 1.5;
 }
 
 

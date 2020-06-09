@@ -8,5 +8,3 @@ __pycache__
 # automating deployment
 /deploy_tools
 
-# Heroku deployment
-Procfile

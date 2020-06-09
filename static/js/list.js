@@ -1,15 +1,20 @@
 window.Superlists = {};
 window.Superlists.initialize = function () {
 
-    // navbar 
-    let mainNav = document.getElementById('js-menu');
-    let navBarToggle = document.getElementById('js-navbar-toggle');
+    // navbar animation
+    const burger = document.querySelector('.burger');
+    const navLinks = document.querySelector('.nav-links');
+    const links = document.querySelectorAll('.nav-links li');
 
-    navBarToggle.addEventListener('click', function () {
-        mainNav.classList.toggle('active');
-    });
+    burger.addEventListener('click', () => {
+        navLinks.classList.toggle('open');
+        links.forEach(link => {
+            link.classList.toggle('fade');
+        })
+    })
 
 
+    
     let canPost = true;
     const delay = 500;
 
@@ -167,16 +172,16 @@ window.Superlists.initialize = function () {
             },
             error: function (xhr) {
                 if (xhr.status == 403) {
-    
-                     // display error message 
-                     $('.list').html('You are not authorized to delete.')
-                     $('.list').css("display", "block");
+
+                    // display error message 
+                    $('.list').html('You are not authorized to delete.')
+                    $('.list').css("display", "block");
 
                     // delay 3s before hiding error msg
-                     setTimeout(function() {
+                    setTimeout(function () {
                         $('.list').hide()
-                     }, 3000) // end of setTimeout()
-                     
+                    }, 3000) // end of setTimeout()
+
                 } // end of if
             } // end of error func
 

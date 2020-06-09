@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap');
 
 @import "./navbar.css";
+@import "./about.css";
 @import "./list.css";
 @import "./auth.css";
 
@@ -9,6 +10,7 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -17,12 +19,8 @@ body {
     background: radial-gradient(circle, rgba(238,174,202,1) 17%, rgba(189,148,233,1) 98%);
 }
 
-a {
-    text-decoration: none;
-}
-
 .header {
-    margin-top: 35px;
+    margin-top: 40px;
     text-align: center;
     font-size: 22px;
 }

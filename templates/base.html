@@ -25,30 +25,42 @@
 
 <body>
 
-    <nav class="navbar">
-        <span class="navbar-toggle" id="js-navbar-toggle">
-            <i class="material-icons" style="font-size: 45px">menu</i>
-        </span>
-        <a href="{% url 'home' %}" class="logo">Listeefy</a>
-        <ul class="main-nav" id="js-menu">
+    <nav>
+
+        <div class="logo">
+            <h1><a href="{% url 'home' %}">listeefy</a></h1>
+        </div>
+
+        <div class="burger">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+
+        <ul class="nav-links">
             {% if not user.is_authenticated %}
-                <li>
-                    <a href="{% url 'login' %}" class="nav-links">Login</a>
-                </li>
-                <li>
-                    <a href="{% url 'user_create' %}" class="nav-links">Sign Up</a>
-                </li>
+            <li>
+                <a href="{% url 'login' %}">Login</a>
+            </li>
+            <li>
+                <a href="{% url 'user_create' %}">Sign Up</a>
+            </li>
             {% endif %}
             {% if user.is_authenticated %}
-                <li>
-                    <a href="{% url 'user_list_detail' %}" class="nav-links">My Lists</a>
-                </li>
-                <li>
-                    <a href="{% url 'logout' %}" class="nav-links">Log Out</a>
-                </li>
+            <li>
+                <a href="{% url 'user_list_detail' %}">My Lists</a>
+            </li>
+            <li>
+                <a href="{% url 'logout' %}">Log Out</a>
+            </li>
             {% endif %}
+            <li>
+                <a href="{% url 'about' %}">About</a>
+            </li>
         </ul>
+
     </nav>
+
 
     <div class="{% block header_class %}{% endblock %}">
         <h1>{% block header_text %}{% endblock %}</h1>
@@ -65,7 +77,7 @@
     <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
     <script src="{% static 'js/utility.js' %}"></script>
     <script src="{% static 'js/list.js' %}"></script>
-    
+
 
     <script>
         $(document).ready(function () {

@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="about-container">
+
+    <!-- header -->
+    <div class="about-header">
+        <h1>about us</h1>
+    </div>
+
+
+    <!-- features  -->
+    <div class="about-card">
+
+        <div class="about-img">
+            <img src="{% static 'img/features.png' %}" alt="mission">
+        </div>
+
+        <div class="about-card-content">
+            <h1>Our Features</h1>
+
+            <div class="about-content-item">
+                x simple.
+            </div>
+            <div class="about-content-item">
+                x easy-to-use.
+            </div>
+            <div class="about-content-item">
+                x minimalistic.
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- values -->
+    <div class="about-card">
+
+        <div class="about-img">
+            <img src="{% static 'img/value.png' %}" alt="values">
+        </div>
+
+        <div class="about-card-content">
+            <h1>Our Values</h1>
+            <div class="about-content-item">
+                x users first.
+            </div>
+            <div class="about-content-item">
+                x continuous learning.
+            </div>
+            <div class="about-content-item">
+                x stay lean and ship fast.
+            </div>
+        </div>
+
+    </div>
+
+    <!-- mission -->
+    <div class="about-card">
+
+        <div class="about-img">
+            <img src="{% static 'img/mission.png' %}" alt="values">
+        </div>
+
+        <div class="about-card-content">
+            <h1>Our Mission</h1>
+            <div class="about-content-item">
+                x simplifying the experience of taking tasks for every user.
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

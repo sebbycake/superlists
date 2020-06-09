@@ -1,9 +1,9 @@
 .register-container, .login-container, .logout-container {
-    width: 70%;
+    width: 80%;
     margin: 0 auto;
     padding: 20px;
     margin-top: 40px;
-    background-color: #FFFAFA;
+    background-color: #fff;
     border-radius: 20px;
 }
 
@@ -24,7 +24,7 @@ label {
 }
 
 input[type=email], input[type=password], input[id=id_username] {
-    width: 90%;
+    width: 95%;
     padding: 10px;  
     border: 1px solid black;
     margin: 4px;
@@ -44,6 +44,10 @@ input[type=email], input[type=password], input[id=id_username] {
     text-align: center;
     font-size: 11px;
     margin-top: 15px;
+}
+
+.register-btm-text a, .login-btm-text a {
+    text-decoration: none;
 }
 
 

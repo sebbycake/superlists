@@ -1,4 +1,4 @@
-.register-container, .login-container, .logout-container {
+.auth-container {
     width: 80%;
     margin: 0 auto;
     padding: 20px;
@@ -7,12 +7,12 @@
     border-radius: 20px;
 }
 
-.register-header, .login-header {
+.auth-header {
     margin-top: 20px;
     text-align: center;
 }
 
-.register-form-container, .login-form-container {
+.auth-form-container {
     width: 80%;
     margin: 0 auto;
     margin-top: 40px;
@@ -31,7 +31,7 @@ input[type=email], input[type=password], input[id=id_username] {
     font-size: 20px;
 }
 
-.sign-up-button, .login-button {
+.auth-button {
     width: 100%;
     background-color: black;
     padding: 10px;
@@ -40,13 +40,13 @@ input[type=email], input[type=password], input[id=id_username] {
     color: #fff;
 }
 
-.register-btm-text, .login-btm-text {
+.auth-btm-text {
     text-align: center;
     font-size: 11px;
     margin-top: 15px;
 }
 
-.register-btm-text a, .login-btm-text a {
+.auth-btm-text a {
     text-decoration: none;
 }
 
@@ -54,11 +54,11 @@ input[type=email], input[type=password], input[id=id_username] {
 
 @media (min-width:468px) {
 
-    .register-container, .login-container, .logout-container {
+    .auth-container {
         width: 50%;
     }
 
-    .register-header, .login-header {
+    .auth-header {
         font-size: 25px;
     }
 

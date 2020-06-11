@@ -15,6 +15,7 @@ header animate__animated animate__slideInDown
 <div class="warning list" role="alert">
 </div>
 
+{% if exists %}
 <!-- Display form -->
 <div class="input-form">
     <form action="{% url 'list_detail' list.id list.slug %}" method="post" id="todo-create-form" data-id="{{ list.id }}">
@@ -22,6 +23,7 @@ header animate__animated animate__slideInDown
         {% csrf_token %}
     </form>
 </div>
+{% endif %}
 
 {% endblock %}
 
@@ -38,6 +40,7 @@ header animate__animated animate__slideInDown
         </span>
         {% endtimezone %}
 
+        {% if exists %}
         <!-- form to delete todo item -->
         <form method="post" action="{% url 'delete_todo' item.id %}" data-id="{{ item.id }}" class="delete-button">
             {% csrf_token %}
@@ -45,6 +48,7 @@ header animate__animated animate__slideInDown
                 <i class="material-icons">delete_outline</i>
             </button>
         </form>
+        {% endif %}
     </div>
     {% endfor %}
 </div>

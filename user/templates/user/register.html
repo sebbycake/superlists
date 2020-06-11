@@ -7,19 +7,19 @@ Registration
 {% block content %}
 
 
-<div class="register-container">
+<div class="auth-container">
     
-    <div class="register-header">
+    <div class="auth-header">
         <h1>Create An Account</h1></br>
         <p>access your lists in one place.</p>
     </div>
  
-    <div class="register-form-container">
+    <div class="auth-form-container">
         <form action="{% url 'user_create' %}" method="POST">
             {% csrf_token %}
             {{ form.as_p }}
-            <button class="sign-up-button">Sign Up</button>
-            <p class="register-btm-text">
+            <button class="auth-button">Sign Up</button>
+            <p class="auth-btm-text">
                 Already have an account?
                 <a href="{% url 'login' %}">Login</a>
             </p>

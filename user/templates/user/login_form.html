@@ -1,18 +1,20 @@
-<div class="login-container">
+<div class="auth-container">
 
-    <div class="login-header">
+    <div class="auth-header">
         <h1>Welcome Back!</h1>
     </div>
 
-    <div class="login-form-container">
+    <div class="auth-form-container">
         <form action="{% url 'login' %}" method="post">
             {% csrf_token %}
             {{ form.as_p }}
         
-            <button class="login-button">{{ login_button|default:'Login' }}</button>
-            <p class="login-btm-text">
+            <button class="auth-button">{{ login_button|default:'Login' }}</button>
+            <p class="auth-btm-text">
                 Don't have an account?
-                <a href="{% url 'user_create' %}">Sign Up</a>
+                <a href="{% url 'user_create' %}">Sign Up</a><br/><br/>
+                Forgot Password?<param name="" value="">
+                <a href="{% url 'password_reset' %}">Reset Password</a>
             </p>
             
             {% if next %}

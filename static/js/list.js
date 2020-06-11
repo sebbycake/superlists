@@ -14,7 +14,7 @@ window.Superlists.initialize = function () {
     })
 
 
-    
+
     let canPost = true;
     const delay = 500;
 
@@ -171,18 +171,16 @@ window.Superlists.initialize = function () {
                 parentDiv.remove()
             },
             error: function (xhr) {
-                if (xhr.status == 403) {
 
-                    // display error message 
-                    $('.list').html('You are not authorized to delete.')
-                    $('.list').css("display", "block");
+                // display error message 
+                $('.list').html('An error has occurred. Please try again later.')
+                $('.list').css("display", "block");
 
-                    // delay 3s before hiding error msg
-                    setTimeout(function () {
-                        $('.list').hide()
-                    }, 3000) // end of setTimeout()
+                // delay 3s before hiding error msg
+                setTimeout(function () {
+                    $('.list').hide()
+                }, 3000) // end of setTimeout()
 
-                } // end of if
             } // end of error func
 
         }); // end of ajax call

@@ -23,10 +23,23 @@ def list_detail(request, list_id, list_slug):
         list_ = List.objects.get(id=list_id)
     except List.DoesNotExist:
         return render(request, 'http404.html')
+
+    # check whether the todo belongs to the list by the current auth user
+    # if it does, display todo form and delete button
+    if request.user.is_authenticated:
+        # auth user can remove his own todos 
+        exists = List.objects.filter(pk=list_id).filter(user=request.user).exists()
+        # and also remove non-auth todos
+        if not exists:
+            exists = List.objects.filter(pk=list_id).filter(user=None).exists()
+    else:
+        # non auth user can remove non-auth user todos
+        exists = List.objects.filter(pk=list_id).filter(user=None).exists()
     form = ItemForm()
     context = {
         'list': list_,
-        'form': form
+        'form': form,
+        'exists': exists,
     }
     return render(request, 'lists/list.html', context)
 
@@ -83,21 +96,7 @@ def ajax_delete_view(request, item_id):
     item = Item.objects.filter(pk=item_id)
     if not item.exists():
         return Response({}, status=404)
-    # retrieve the obj from the QuerySet
     item = item.first()
-    item_list_id = item.list.id
-    # check whether the todo belongs to the list by the current auth user
-    if request.user.is_authenticated:
-        # auth user can remove his own todos 
-        list_ = List.objects.filter(pk=item_list_id).filter(user=request.user)
-        # and also remove non-auth todos
-        if not list_:
-            list_ = List.objects.filter(pk=item_list_id).filter(user=None)
-    else:
-        # non auth user can remove non-auth user todos
-        list_ = List.objects.filter(pk=item_list_id).filter(user=None)
-    if not list_.exists():
-        return Response({"You are not authorized to remove this todo."}, status=403)
     item.delete()
     return Response({"message": "TODO is removed."}, status=200)
 

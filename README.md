@@ -7,6 +7,20 @@ A minimalistic to-do list which allows you to create your own unique list name w
 
 A slew of to-do lists today provide features that users do not need. A **simple user interface** that enables you to take down your tasks straightaway is sometimes all that you might need. Too many features just clutter things up. And Listeefy is built with that in mind.
 
+### Features
+
+- Public (non-authenticated user)
+    - Create lists of different types (e.g. work, family, personal)
+    - Create to-dos on lists
+    - Delete public to-dos
+
+- Private (authenticated user)
+    - Create lists of different types (e.g. work, family, personal)
+    - Create to-dos on lists
+    - Delete private lists
+    - Delete public and private to-dos
+    - Access all lists created by the user
+
 ### Built With
 
 * [Django](https://www.djangoproject.com/) - The web framework used
@@ -86,7 +100,10 @@ Important files for deployment on Heroku:
 * Configured STATIC_ROOT settings
 * Update SECRET_KEY and DEBUG values to environment variables
 
+You can refer to my step-by-step guide on Heroku deployment [here](https://github.com/sebbycake/django-heroku-deployment-guide).
+
 For more information, please refer to [Heroku documentation](https://devcenter.heroku.com/articles/getting-started-with-python).
+
 
 ## License
 

@@ -17,8 +17,8 @@ A slew of to-do lists today provide features that users do not need. A **simple 
 - Private (authenticated user)
     - Create lists of different types (e.g. work, family, personal)
     - Create to-dos on lists
-    - Delete private lists
     - Delete public and private to-dos
+    - Delete private lists
     - Access all lists created by the user
 
 ### Built With

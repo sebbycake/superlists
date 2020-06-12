@@ -15,7 +15,7 @@ input[id='id_name'], input[id='id_text'] {
     font-size: 20px;
 }
 
-input[id='id_name']:focus, input[id='id_text']  {
+input[id='id_name']:focus, input[id='id_text']:focus {
     transition: transform 0.5s ease;
     transform: scale(1.2);
 }
@@ -167,8 +167,6 @@ button {
 .edit-list-item:hover, .delete-list-item:hover {
     opacity: 1.5;
 }
-
-
 
 
 @media (min-width:468px) {

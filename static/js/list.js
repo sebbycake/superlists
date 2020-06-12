@@ -115,7 +115,8 @@ window.Superlists.initialize = function () {
                 hoursMins = formatAMPM(date);
 
                 $('.todo-list').append(
-                    '<div class="todo-item">' + json.text + '<br/>' +
+                    '<div class="todo-item animate__animated animate__fadeIn">' +
+                    json.text + '<br/>' +
                     '<span class="todo-timestamp">' + hoursMins + ' | ' + day + ' ' + month +
                     '</span>' +
                     '<form method="post" data-id="' + json.id + '"' + 'class="delete-button">' +
@@ -184,6 +185,7 @@ window.Superlists.initialize = function () {
             } // end of error func
 
         }); // end of ajax call
+        
     });
 
 
@@ -191,33 +193,38 @@ window.Superlists.initialize = function () {
     // delete list item for user
     $('.delete-list-item').click(function () {
 
-        const listID = $(this).attr("list-id")
-        const parentDiv = $(this).parent()
-        const csrftoken = getCookie('csrftoken');
+        confirm_delete = confirm('Do you want to delete this list?')
 
-        $.ajax({
-            type: 'POST',
-            url: `/lists/api/list/delete/${listID}/`,
-            data: {
-                id: listID,
-                csrfmiddlewaretoken: csrftoken,
-            },
-            success: function () {
-                parentDiv.remove()
-            },
-            error: function (xhr) {
-                if (xhr.status == 500) {
-                    alert("An error has occurred. Please try again later.")
-                } else if (xhr.status == 400) {
-                    alert('400 error')
-                }
+        if (confirm_delete) {
 
+            const listID = $(this).attr("list-id")
+            const parentDiv = $(this).parent()
+            const csrftoken = getCookie('csrftoken');
 
-            }
-        }); // end of ajax call
+            $.ajax({
+                type: 'POST',
+                url: `/lists/api/list/delete/${listID}/`,
+                data: {
+                    id: listID,
+                    csrfmiddlewaretoken: csrftoken,
+                },
+                success: function () {
+                    parentDiv.remove()
+                },
+                error: function (xhr) {
+                    if (xhr.status == 500) {
+                        alert("An error has occurred. Please try again later.")
+                    } else if (xhr.status == 400) {
+                        alert('400 error')
+                    }
+
+                } // end of error func
+
+            }); // end of ajax call
+
+        } // end of if confirm()
 
     }); // end of click()
-
 
 
 };

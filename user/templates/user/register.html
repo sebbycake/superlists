@@ -8,16 +8,22 @@ Registration
 
 
 <div class="auth-container">
-    
+
     <div class="auth-header">
         <h1>Create An Account</h1></br>
         <p>access your lists in one place.</p>
     </div>
- 
+
     <div class="auth-form-container">
         <form action="{% url 'user_create' %}" method="POST">
             {% csrf_token %}
             {{ form.as_p }}
+            <br />
+            <input type="checkbox" required />
+            <small>
+                I have read and agree to the <a href="{% url 'terms_of_service' %}">Terms of Service</a> 
+                and <a href="{% url 'privacy_policy' %}">Privacy Policy</a>.
+            </small>
             <button class="auth-button">Sign Up</button>
             <p class="auth-btm-text">
                 Already have an account?
@@ -25,7 +31,7 @@ Registration
             </p>
         </form>
     </div>
-    
+
 </div>
 
 

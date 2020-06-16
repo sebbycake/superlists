@@ -9,6 +9,10 @@
     text-decoration: none;
 }
 
+.logo a:hover {
+    color: indigo;  
+}
+
 nav {
     height: 10vh;
     display: flex;
@@ -33,6 +37,22 @@ nav {
     letter-spacing: 2px;
 }
 
+.nav-links li a:hover {
+    color: indigo;  
+    /* transition: .9s; */
+}
+
+.nav-links li a:after {
+    display: block;
+    content: '';
+    border-bottom: solid 3px indigo;  
+    transform: scaleX(0);  
+    transition: transform 250ms ease-in-out;
+}
+
+.nav-links li a:hover:after { 
+    transform: scaleX(1); 
+}
 
 @media (max-width:768px) {
 
@@ -59,7 +79,7 @@ nav {
     .nav-links {
         position: fixed;
         height: 100vh;
-        background: #9400D3;
+        background: indigo;
         width: 100%;
         flex-direction: column;
         justify-content: space-evenly;

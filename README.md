@@ -1,30 +1,29 @@
 # Listeefy
 
-A minimalistic to-do list which allows you to create your own unique list name with a unique URL and create to-dos, as many as you like.
-
+A minimalistic general list which allows you to create your own unique list name with a unique URL and create items, as many as you like.
 
 ## About The Project
 
-A slew of to-do lists today provide features that users do not need. A **simple user interface** that enables you to take down your tasks straightaway is sometimes all that you might need. Too many features just clutter things up. And Listeefy is built with that in mind.
+A slew of list apps today provide features that users do not need. A **simple user interface** that enables you to take down your items and tasks straightaway is sometimes all that you might need. Too many features just clutter things up. And Listeefy is built with that in mind.
 
 ### Features
 
 - Public (non-authenticated user)
-    - Create lists of different types (e.g. work, family, personal)
-    - Create to-dos on lists
-    - Delete public to-dos
+    - Create lists of different types (e.g. work, family, personal, groceries, etc)
+    - Create items on lists
+    - Delete public items
 
 - Private (authenticated user)
-    - Create lists of different types (e.g. work, family, personal)
-    - Create to-dos on lists
-    - Delete public and private to-dos
+    - Create lists of different types (e.g. work, family, personal, groceries, etc)
+    - Create items on lists
+    - Delete public and private items
     - Delete private lists
     - Access all lists created by the user
 
 ### Built With
 
 * [Django](https://www.djangoproject.com/) - The web framework used
-* [Django Rest Framework](https://www.django-rest-framework.org/) - Building APIs for AJAX requests for real time updates of to-do items 
+* [Django Rest Framework](https://www.django-rest-framework.org/) - Building APIs for AJAX requests for real time updates of creating items 
 * [jQuery](https://jquery.com/) - Calling AJAX requests with DRF and some DOM manipulation 
 
 

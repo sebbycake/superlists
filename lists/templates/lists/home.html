@@ -1,12 +1,20 @@
 {% extends 'base.html' %}
 
+{% block modal %}
+{% if not user.is_authenticated %}
+<div class="modal">
+    Create an account to save and access your lists in one place!
+    <span id="modal-close">&times;</span>
+</div>
+{% endif %}
+{% endblock %}
+
 {% block header_class %}
 header animate__animated animate__bounceInDown
 {% endblock %}
 
 {% block header_text %}
-Start a New<br/>
-To-Do List
+Start a New List
 {% endblock %}
 
 {% block content %}

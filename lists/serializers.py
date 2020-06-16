@@ -17,10 +17,6 @@ class ItemSerializer(serializers.ModelSerializer):
             )
         ]
 
-    def validate_text(self, value):
-        value = value.lower()
-        return value
-
 
 class ListSerializer(serializers.ModelSerializer):
 

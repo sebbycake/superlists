@@ -1,34 +1,6 @@
 window.Superlists = {};
 window.Superlists.initialize = function () {
 
-    // navbar animation
-    const burger = document.querySelector('.burger');
-    const navLinks = document.querySelector('.nav-links');
-    const links = document.querySelectorAll('.nav-links li');
-
-    burger.addEventListener('click', () => {
-        navLinks.classList.toggle('open');
-        links.forEach(link => {
-            link.classList.toggle('fade');
-        })
-    })
-
-
-    // modal 
-    const modal = document.querySelector('.modal');
-    const close = document.querySelector('#modal-close');
-
-    // display modal after 3s
-    setTimeout(function() {
-        modal.classList.add('modal-active')
-    }, 2000)
-
-    // close modal upon clicking x
-    close.addEventListener('click', () => {
-        modal.classList.add('modal-inactive');
-    })
-
-
     let canPost = true;
     const delay = 500;
 
@@ -199,7 +171,7 @@ window.Superlists.initialize = function () {
             } // end of error func
 
         }); // end of ajax call
-        
+
     });
 
 

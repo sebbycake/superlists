@@ -74,14 +74,10 @@
     {% block content %}
     {% endblock %}
 
-    <!-- To-Do items -->
-    {% block table %}
-    {% endblock %}
-
     <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
     <script src="{% static 'js/utility.js' %}"></script>
+    <script src="{% static 'js/navbar.js' %}"></script>
     <script src="{% static 'js/list.js' %}"></script>
-
 
     <script>
         $(document).ready(function () {
@@ -89,7 +85,5 @@
         });
     </script>
 
-
 </body>
-
 </html>

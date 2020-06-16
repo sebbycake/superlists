@@ -25,11 +25,6 @@ header animate__animated animate__slideInDown
 </div>
 {% endif %}
 
-{% endblock %}
-
-
-{% block table %}
-
 <div class="todo-list">
     {% for item in list.item_set.all %}
     <div class="todo-item animate__animated animate__fadeIn">
@@ -53,7 +48,6 @@ header animate__animated animate__slideInDown
     {% endfor %}
 </div>
 
-<br />
 <br />
 
 {% endblock %}

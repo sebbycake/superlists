@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block modal %}
 {% if not user.is_authenticated %}
 <div class="modal">
@@ -35,5 +37,6 @@ Start a New List
     A list with this name is available.
 </div> 
 
+<script src="{% static 'js/modal.js' %}"></script>
 
 {% endblock %}

@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Asap&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap');
 
+@import "./modal.css";
 @import "./navbar.css";
 @import "./about.css";
 @import "./list.css";
@@ -26,34 +27,6 @@ body {
     font-size: 22px;
 }
 
-.modal {
-    width: 100%;
-    background: indigo;
-    color: white;
-    text-align: center;
-    padding: 30px;
-    margin-top: 20px;
-    font-size: 15px;
-    display: none;
-}
-
-.modal span {
-	position: relative;
-	float: right;
-	font-size: 30px;
-	cursor: pointer;
-	top: -50px;
-	right: -20px;
-}
-
-.modal-active {
-    display: block;
-}
-
-.modal-inactive {
-    display: none;
-}
-
 .legal {
     width: 100%;
     margin: 0 auto;
@@ -76,16 +49,6 @@ body {
 
     .header {
         font-size: 38px;
-    }
-
-    .modal {
-        font-size: 20px;
-    }
-
-    .modal span {
-        float: right;
-        top: -9px;
-        right: 0px;
     }
 
     .legal {

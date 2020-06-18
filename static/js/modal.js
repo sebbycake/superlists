@@ -9,5 +9,5 @@ setTimeout(function() {
 
 // close modal upon clicking x
 close.addEventListener('click', () => {
-    modal.classList.add('modal-inactive');
+    modal.classList.toggle('modal-active');
 })

@@ -8,15 +8,16 @@ class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
         fields = '__all__'
-
-        validators = [
-            UniqueTogetherValidator(
-                queryset=Item.objects.all(),
-                fields=['text', 'list', ],
-                message="This item already exists in your list",
-            )
-        ]
-
+        
+    def validate(self, data):
+        """
+        Check for case insensitive unique together for text and list model fields
+        """
+        duplicate_exists = Item.objects.filter(text__iexact=data['text']).filter(list=data['list']).exists()
+        if duplicate_exists:
+            raise serializers.ValidationError('This item already exists in your list')
+        return data
+    
 
 class ListSerializer(serializers.ModelSerializer):
 

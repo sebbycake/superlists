@@ -40,7 +40,7 @@ header animate__animated animate__slideInDown
         <form method="post" action="{% url 'delete_todo' item.id %}" data-id="{{ item.id }}" class="delete-button">
             {% csrf_token %}
             <button>
-                <i class="material-icons">delete_outline</i>
+                <i class="material-icons" style="color:#fff">delete_outline</i>
             </button>
         </form>
         {% endif %}

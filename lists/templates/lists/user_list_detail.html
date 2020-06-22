@@ -2,8 +2,8 @@
 
 {% block content %}
 
-<div class="user-list-header">
-    <h1>Your Lists</h1>
+<div class="header">
+    <h1>My Lists</h1>
 </div>
 
 {% if lists|length > 0 %}
@@ -19,14 +19,13 @@
             <i class="material-icons" style="color: white">create</i>
         </a>
     </span>
-        
 </div>
 {% endfor %}
 
 {% else %}
 
 <br/>
-<div align="center">
+<div align="center" style="color:#fff">
     <h1>Ops... You have no lists currently.</h1><br />
     <p>
         Starting creating one <a href="{% url 'home' %}" style="text-decoration: none">here</a>.

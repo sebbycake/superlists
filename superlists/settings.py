@@ -145,7 +145,7 @@ REST_FRAMEWORK = {
 AUTH_USER_MODEL = 'user.CustomUser'
 
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'user_list_detail'
 
 # email configurations
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

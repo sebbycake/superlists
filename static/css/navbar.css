@@ -1,17 +1,18 @@
 .logo {
-    font-size: 40px;
-    font-family: 'Amatic SC', cursive;
-    margin-left: 10px;
+    font-size: 25px;
+    font-family: 'Handlee', cursive;
+    padding: 15px;
 }
 
 .logo a {
-    color: black;
+    color: #fff;
     text-decoration: none;
 }
 
 .logo a:hover {
-    color: indigo;  
+    color: rgb(160, 78, 219);
 }
+
 
 nav {
     height: 10vh;
@@ -38,14 +39,14 @@ nav {
 }
 
 .nav-links li a:hover {
-    color: indigo;  
+    color: rgb(160, 78, 219);  
     /* transition: .9s; */
 }
 
 .nav-links li a:after {
     display: block;
     content: '';
-    border-bottom: solid 3px indigo;  
+    border-bottom: solid 3px rgb(160, 78, 219);  
     transform: scaleX(0);  
     transition: transform 250ms ease-in-out;
 }
@@ -79,7 +80,7 @@ nav {
     .nav-links {
         position: fixed;
         height: 100vh;
-        background: indigo;
+        background: rgb(160, 78, 219);
         width: 100%;
         flex-direction: column;
         justify-content: space-evenly;
@@ -102,6 +103,10 @@ nav {
 
     .nav-links li a {
         font-size: 30px;
+    }
+
+    .nav-links li a:hover {
+        color: #fff;
     }
 
     .nav-links li:nth-child(1) {

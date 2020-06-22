@@ -71,8 +71,6 @@ window.Superlists.initialize = function () {
     }); // end of on submit
 
 
-
-
     // post to-do item request
     $('#todo-create-form').submit(function (event) {
 
@@ -108,13 +106,13 @@ window.Superlists.initialize = function () {
                     '<form method="post" data-id="' + json.id + '"' + 'class="delete-button">' +
                     '<input type="hidden" name="csrfmiddlewaretoken" value="' + csrftoken + '">' +
                     '<button>' +
-                    '<i class="material-icons">' + 'delete_outline' +
+                    '<i class="material-icons" style="color:#fff">' + 'delete_outline' +
                     '</i>' +
                     '</button>' +
                     '</form>' +
                     '</div>'
                 ) // end of appending todo item
-
+             
             },
             error: function (xhr) {
                 if (xhr.status == 400) {

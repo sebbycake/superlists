@@ -12,40 +12,45 @@ header animate__animated animate__slideInDown
 
 {% block content %}
 
-<div class="warning list" role="alert">
+<!-- display error message -->
+<div class="item-error-msg" role="alert">
 </div>
 
+<!-- display form -->
 {% if non_user_exists or user_exists %}
-<!-- Display form -->
 <div class="input-form">
-    <form action="{% url 'list_detail' list.id list.slug %}" method="post" id="todo-create-form" data-id="{{ list.id }}">
+    <form action="{% url 'list_detail' list.id list.slug %}" method="post" id="item-create-form" data-id="{{ list.id }}">
         {{ form.text }}
         {% csrf_token %}
     </form>
 </div>
 {% endif %}
 
-<div class="todo-list">
+<!-- display all items from this list -->
+<div class="item-list">
+
     {% for item in list.item_set.all %}
-    <div class="todo-item animate__animated animate__fadeIn">
+    <div class="item animate__animated animate__fadeIn">
+
         {{ item.text }}</br>
+
+        <!-- display item timestamp -->
         {% timezone "Asia/Singapore" %}
-        <span class="todo-timestamp">
+        <span class="item-timestamp">
             {{ item.timestamp|time:"P" }} | {{ item.timestamp|date:"d M" }}
         </span>
         {% endtimezone %}
 
+        <!-- button to delete item -->
         {% if non_user_exists or user_exists %}
-        <!-- form to delete todo item -->
-        <form method="post" action="{% url 'delete_todo' item.id %}" data-id="{{ item.id }}" class="delete-button">
-            {% csrf_token %}
-            <button>
-                <i class="material-icons" style="color:#fff">delete_outline</i>
-            </button>
-        </form>
+        <span class="delete-item-btn" data-id="{{ item.id }}">
+            <i class="material-icons" style="color:#fff">delete_outline</i>
+        </span>
         {% endif %}
+
     </div>
     {% endfor %}
+
 </div>
 
 <br />

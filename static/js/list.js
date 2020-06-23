@@ -18,10 +18,10 @@ window.Superlists.initialize = function () {
 
                 if (json.is_taken) {
                     canPost = false;
-                    displayMessage('fail-error-msg');
+                    displayMessage('list-name-error-msg', 'input[name="name"]');
                 } else {
                     canPost = true;
-                    displayMessage('success-error-msg');
+                    displayMessage('list-name-success-msg', 'input[name="name"]');
                 } // end of json if avail stmt
 
             }, // end of success function   
@@ -59,7 +59,7 @@ window.Superlists.initialize = function () {
                 }, // end of success function
                 error: function (xhr) {
                     if (xhr.status == 400) {
-                        displayMessage('fail-error-msg');
+                        displayMessage('list-name-error-msg', 'input[name="name"]');
                     }
 
                 } // end of error function
@@ -71,111 +71,8 @@ window.Superlists.initialize = function () {
     }); // end of on submit
 
 
-    // post to-do item request
-    $('#todo-create-form').submit(function (event) {
-
-        event.preventDefault()
-        const listId = $(this).data('id');
-        const csrftoken = getCookie('csrftoken');
-        const input_value = $('#id_text').val();
-
-        $.ajax({
-            type: 'POST',
-            url: '/lists/api/todo/create/',
-            data: {
-                text: input_value,
-                list: listId,
-                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-            },
-            success: function (json) {
-
-                document.getElementById("todo-create-form").reset();
-
-                const date = new Date(json.timestamp);
-
-                // clean and format ISO timestamp field
-                day = dayOfTheMonth(date);
-                month = months[date.getMonth()];
-                hoursMins = formatAMPM(date);
-
-                $('.todo-list').append(
-                    '<div class="todo-item animate__animated animate__fadeIn">' +
-                    json.text + '<br/>' +
-                    '<span class="todo-timestamp">' + hoursMins + ' | ' + day + ' ' + month +
-                    '</span>' +
-                    '<form method="post" data-id="' + json.id + '"' + 'class="delete-button">' +
-                    '<input type="hidden" name="csrfmiddlewaretoken" value="' + csrftoken + '">' +
-                    '<button>' +
-                    '<i class="material-icons" style="color:#fff">' + 'delete_outline' +
-                    '</i>' +
-                    '</button>' +
-                    '</form>' +
-                    '</div>'
-                ) // end of appending todo item
-             
-            },
-            error: function (xhr) {
-                if (xhr.status == 400) {
-
-                    // display error message 
-                    $('.list').html('This item already exists in your list.')
-                    $('.list').css("display", "block");
-
-                    // hide after user starts typing
-                    $('input[name="text"]').on('keypress', function () {
-                        $('.list').hide();
-                    });
-
-                }
-                else if (xhr.status == 500) {
-                    alert("An error has occurred. Please try again later.")
-                }
-            } // end of error function
-
-        }); // end of ajax call
-
-    });
-
-
-
-    // delete todo item request
-    $(document).on('submit', '.delete-button', function (event) {
-
-        event.preventDefault()
-        const itemId = $(this).data('id')
-        const parentDiv = $(this).parent()
-
-        $.ajax({
-            type: 'POST',
-            url: `/lists/api/todo/delete/${itemId}/`,
-            data: {
-                id: itemId,
-                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-            },
-            success: function () {
-                parentDiv.remove()
-            },
-            error: function (xhr) {
-
-                // display error message 
-                $('.list').html('An error has occurred. Please try again later.')
-                $('.list').css("display", "block");
-
-                // delay 3s before hiding error msg
-                setTimeout(function () {
-                    $('.list').hide()
-                }, 3000) // end of setTimeout()
-
-            } // end of error func
-
-        }); // end of ajax call
-
-    });
-
-
-
-    // delete list item for user
-    $('.delete-list-item').click(function () {
+    // delete list for user
+    $('.delete-list-btn').click(function () {
 
         confirm_delete = confirm('Do you want to delete this list?')
 
@@ -183,14 +80,14 @@ window.Superlists.initialize = function () {
 
             const listID = $(this).attr("list-id")
             const parentDiv = $(this).parent()
-            const csrftoken = getCookie('csrftoken');
+            const csrfToken = getCookie('csrftoken')
 
             $.ajax({
                 type: 'POST',
                 url: `/lists/api/list/delete/${listID}/`,
                 data: {
                     id: listID,
-                    csrfmiddlewaretoken: csrftoken,
+                    csrfmiddlewaretoken: csrfToken
                 },
                 success: function () {
                     parentDiv.remove()
@@ -209,6 +106,98 @@ window.Superlists.initialize = function () {
         } // end of if confirm()
 
     }); // end of click()
+
+
+    // ------------------------- 
+
+     // post item request
+     $('#item-create-form').submit(function (event) {
+
+        event.preventDefault()
+        const listId = $(this).data('id');
+        const input_value = $('#id_text').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/lists/api/item/create/',
+            data: {
+                text: input_value,
+                list: listId,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function (json) {
+
+                document.getElementById("item-create-form").reset();
+
+                const date = new Date(json.timestamp);
+
+                // clean and format ISO timestamp field
+                day = dayOfTheMonth(date);
+                month = months[date.getMonth()];
+                hoursMins = formatAMPM(date);
+
+                $('.item-list').append(
+                    '<div class="item animate__animated animate__fadeIn">' +
+                    json.text + '<br/>' +
+                        '<span class="item-timestamp">' + hoursMins + ' | ' + day + ' ' + month +
+                        '</span>' +
+                        '<span class="delete-item-btn" data-id="' + json.id +  '">' +
+                            '<i class="material-icons" style="color:#fff">' + 'delete_outline' +
+                            '</i>' +
+                        '</span>' +
+                    '</div>'
+                ) // end of appending todo item
+             
+            },
+            error: function (xhr) {
+                if (xhr.status == 400) {
+                    // display error message
+                    displayMessage('item-error-msg', 'input[name="text"]', 'This item already exists in your list.')
+
+                }
+                else if (xhr.status == 500) {
+                    displayMessage('item-error-msg', 'An error has occurred. Please try again later.')
+                }
+            } // end of error function
+
+        }); // end of ajax call
+
+    });
+
+
+
+    // delete item request
+    $(document).on('click', '.delete-item-btn', function () {
+
+        const itemId = $(this).data('id')
+        const parentDiv = $(this).parent()
+        const csrfToken = getCookie('csrftoken')
+
+        $.ajax({
+            type: 'POST',
+            url: `/lists/api/item/delete/${itemId}/`,
+            data: {
+                id: itemId,
+                csrfmiddlewaretoken: csrfToken
+            },
+            success: function () {
+                parentDiv.remove()  
+            },
+            error: function (xhr) {
+
+                // display error msg
+                displayMessage('item-error-msg', 'An error has occurred. Please try again later.')
+
+                // delay 3s before hiding error msg
+                setTimeout(function () {
+                    $('.item-error-msg').hide()
+                }, 3000) // end of setTimeout()
+
+            } // end of error func
+
+        }); // end of ajax call
+
+    });
 
 
 };

@@ -22,10 +22,18 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
+    # home page
     path('', list_views.home_page, name='home'),
+
+    # static pages
     path('about', TemplateView.as_view(template_name='about.html'), name='about'),
     path('terms', TemplateView.as_view(template_name='terms_of_service.html'), name='terms_of_service'),
     path('privacy', TemplateView.as_view(template_name='privacy_policy.html'), name='privacy_policy'),
+
+    # list pages
     path('lists/', include(list_urls)),
+
+    # account auth pages
     path('account/', include(user_urls)),
 ]

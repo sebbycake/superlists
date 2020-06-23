@@ -32,7 +32,7 @@ input[id='id_name']::-moz-placeholder, input[id='id_text']::-moz-placeholder { /
     /* font-style: italic; */
     font-size: 15px;
 }
-}
+
 
 input[id='id_name']:-ms-placeholder, input[id='id_text']:-ms-placeholder { /* IE 10+ */
     color: #fff;
@@ -50,11 +50,21 @@ input[id='id_name']:-moz-placeholder, input[id='id_text']:-moz-placeholder { /* 
 
 /* errors and warning text */
 
-.errorlist {
-    list-style-type: none;
+.list-name-error-msg {
+    color: #DC143C;
+    font-size: 15px;
+    text-align: center;
+    display: none;
 }
 
-.warning {
+.list-name-success-msg {
+    color: green;
+    font-size: 15px;
+    text-align: center;
+    display: none;
+}
+
+.item-error-msg {
     background-color: #F08080;
     width: 80%;
     margin: 0 auto;
@@ -62,45 +72,28 @@ input[id='id_name']:-moz-placeholder, input[id='id_text']:-moz-placeholder { /* 
     margin-top: 20px;
     margin-bottom: 20px;
     text-align: center;
-}
-
-.list {
     display: none;
 }
 
-
-.fail-error-msg {
-    color: #DC143C;
-    font-size: 15px;
-    text-align: center;
-    display: none;
-}
-
-.success-error-msg {
-    color: green;
-    font-size: 15px;
-    text-align: center;
-    display: none;
-}
 
 /* todo item card */
 
 
-.todo-item {
+.item {
     background: #343536;
     border-radius: 10px;
     padding: 18px;
-    width: 75%;
+    width: 80%;
     margin: 0 auto;
     margin-bottom: 15px;
     color: #fff;
 }
 
-.todo-item:hover {
+.item:hover {
     border-left: 10px solid #9400D3;
 }
 
-.delete-button {
+.delete-item-btn {
     float: right;
     opacity: 0.5;
     cursor: pointer;
@@ -109,29 +102,17 @@ input[id='id_name']:-moz-placeholder, input[id='id_text']:-moz-placeholder { /* 
     left: 3px;
 }
 
-.delete-button:hover {
+.delete-item-btn:hover {
     opacity: 1.5
 }
 
-.todo-timestamp {
+.item-timestamp {
     font-size: 12px;
     color:#A9A9A9;
     position: relative;
     top: 5px;
 }
 
-button {
-    border:0;
-    background:none;
-    cursor: pointer;
-    outline: none;
-    opacity: 0.7;
-}
-
-.http-404-error {
-    text-align: center;
-    margin-top: 40px;
-}
 
 
 /* user list detail page */
@@ -153,7 +134,7 @@ button {
 }
 
 
-.edit-list-item, .delete-list-item {
+.edit-list-btn, .delete-list-btn {
     float: right;
     position: relative;
     top: -20px;
@@ -162,9 +143,11 @@ button {
 }
 
 
-.edit-list-item:hover, .delete-list-item:hover {
+.edit-list-btn:hover, .delete-list-btn:hover {
     opacity: 1.5;
 }
+
+
 
 
 @media (min-width:468px) {
@@ -173,11 +156,11 @@ button {
         transform: scale(1.4);
     }
 
-    .warning {
+    .item-error-msg {
         width: 30%;
     }
 
-    .todo-item {
+    .item {
         width: 50%;
         font-size: 19px;
     }

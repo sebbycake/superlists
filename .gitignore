@@ -4,7 +4,3 @@ __pycache__
 *.pyc
 .vscode
 
-
-# automating deployment
-/deploy_tools
-

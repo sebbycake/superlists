@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Asap&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Handlee&display=swap');
 
 @import "./modal.css";
@@ -17,8 +16,6 @@
 
 body {
     font-family: 'Asap', sans-serif;
-    /* background: rgb(238,174,202);
-    background: radial-gradient(circle, rgba(238,174,202,1) 17%, rgba(189,148,233,1) 98%); */
     background: #121212;
 } 
 
@@ -47,6 +44,11 @@ body {
     font-size: 30px;
     margin-top: 30px;
     margin-bottom: 10px;
+}
+
+.http-404-error {
+    text-align: center;
+    margin-top: 40px;
 }
 
 @media (min-width:468px) {

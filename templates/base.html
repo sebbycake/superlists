@@ -17,7 +17,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
     <meta name="the general list personally for you." content="never forget your tasks or items again." />
-    <title>simplelist: your minimalistic general list</title>
+    <title>SimpleList: your minimalistic general list</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -25,10 +25,11 @@
 
 <body>
 
+    <!-- display navbar -->
     <nav>
 
         <div class="logo">
-            <h1><a href="{% url 'home' %}">simplelist</a></h1>
+            <h1><a href="{% url 'home' %}">SimpleList</a></h1>
         </div>
 
         <div class="burger">
@@ -71,6 +72,7 @@
         <h1>{% block header_text %}{% endblock %}</h1>
     </div>
 
+    <!-- display main content of each page -->
     {% block content %}
     {% endblock %}
 

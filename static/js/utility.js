@@ -3,11 +3,24 @@ const months = [
     "Aug", "Sep", "Oct", "Nov", "Dec"
 ];
 
-const displayMessage = (className) => {
-    $(`.${className}`).css("display", "block");
-    $('input[name="name"]').on('keypress keydown', function () {
-        $(`.${className}`).hide();
-    });
+// display (error) message
+const displayMessage = (className, inputSelector=null, message=null) => {
+
+    // fill class selector with custom error message
+    if (message !== null) {
+        $(`.${className}`).html(message);
+    }
+
+    // show error msg
+    $(`.${className}`).css('display', 'block');
+
+    // hide error msg upon keypress or keydown events
+    if (inputSelector !== null) {
+        $(inputSelector).on('keypress keydown', () => {
+            $(`.${className}`).hide();
+        })
+    } // end of if
+    
 }
 
 // display 2 digit number for days below 10
@@ -25,6 +38,7 @@ const formatAMPM = (date) => {
     return strTime;
 }
 
+// generate csrf token for Django form requests
 const getCookie = (name) => {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {

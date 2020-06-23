@@ -17,6 +17,13 @@ def home_page(request):
 
 
 def list_detail(request, list_id, list_slug):
+    """
+    Returns list detail of items
+    Case 1:
+        If user is not authenticated, he/she can add and delete item of non-auth list
+    Case 2: 
+        If user is authenticated, he/she can add and delete item of his/her own auth list AND non-auth list
+    """
     try:
         list_ = List.objects.get(id=list_id)
     except List.DoesNotExist:
@@ -37,6 +44,9 @@ def list_detail(request, list_id, list_slug):
 
 @login_required
 def user_list_detail(request):
+    """
+    Returns all lists by current authenticated user
+    """
     lists = List.objects.filter(user=request.user)
     return render(request, 'lists/user_list_detail.html', {'lists': lists})
 
@@ -47,7 +57,7 @@ def user_list_detail(request):
 @api_view(['GET'])
 def ajax_list_find(request):
     """
-    Check for unique together for list name and user
+    Check for unique together for list name and user before creating list
     """
     name = request.GET.get('name' or None)
     if request.user.is_authenticated:
@@ -64,6 +74,9 @@ def ajax_list_find(request):
 
 @api_view(['POST'])
 def ajax_list_create_view(request):
+    """
+    API view to create list
+    """
     # deserialize request.POST object
     serializer = ListSerializer(data=request.POST)
     if serializer.is_valid(raise_exception=True):
@@ -78,6 +91,9 @@ def ajax_list_create_view(request):
 @api_view(['DELETE', 'POST'])
 @permission_classes([IsAuthenticated])
 def ajax_delete_list_view(request, list_id):
+    """
+    API view to delete list 
+    """
     list_ = List.objects.filter(pk=list_id)
     if list_.exists():
         # check that the list belongs to the current auth user
@@ -95,6 +111,9 @@ def ajax_delete_list_view(request, list_id):
 
 @api_view(['POST'])
 def ajax_item_create_view(request):
+    """
+    API view to create item on a list
+    """
     # deserialize request.POST object
     serializer = ItemSerializer(data=request.POST)
     if serializer.is_valid(raise_exception=True):
@@ -105,6 +124,9 @@ def ajax_item_create_view(request):
 
 @api_view(['DELETE', 'POST'])
 def ajax_item_delete_view(request, item_id):
+    """
+    API view to delete item on a list
+    """
     item = Item.objects.filter(pk=item_id)
     if not item.exists():
         return Response({}, status=404)

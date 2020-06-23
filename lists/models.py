@@ -1,7 +1,6 @@
 from django.db import models
 from django.urls import reverse
 from django.conf import settings
-# from django.utils.text import slugify
 
 # Create your models here.
 
@@ -18,10 +17,6 @@ class List(models.Model):
 
     def get_absolute_url(self):
         return reverse('list_detail', kwargs={'list_id': self.pk, 'list_slug': self.slug})
-
-    # def save(self, *args, **kwargs):
-    #     self.slug = slugify(self.name)
-    #     return super().save()
 
 
 class Item(models.Model):

@@ -3,12 +3,13 @@
 {% load static %}
 
 {% block modal %}
-{% if not user.is_authenticated %}
-<div class="modal">
-    Create an account to save and access your lists in one place!
-    <span id="modal-close">&times;</span>
-</div>
-{% endif %}
+    <!-- only display modal when user is not logined -->
+    {% if not user.is_authenticated %}
+    <div class="modal">
+        Create an account to save and access your lists in one place!
+        <span id="modal-close">&times;</span>
+    </div>
+    {% endif %}
 {% endblock %}
 
 {% block header_class %}
@@ -21,7 +22,7 @@ Start a New List
 
 {% block content %}
 
-<!-- Display form -->
+<!-- display form -->
 <div class="input-form animate__animated animate__zoomIn">
     <form action="{% url 'new_list' %}" method="post" id="list-create-form" user-id="{{ user.id }}">
         {{ form.name }}
@@ -29,11 +30,12 @@ Start a New List
     </form>   
 </div>
 
-<div class="fail-error-msg">
+<!-- error messages for ajax list name checker -->
+<div class="list-name-error-msg">
     A list with this name already exists.
 </div> 
 
-<div class="success-error-msg">
+<div class="list-name-success-msg">
     A list with this name is available.
 </div> 
 

@@ -6,31 +6,38 @@
     <h1>My Lists</h1>
 </div>
 
+<!-- display all user lists -->
 {% if lists|length > 0 %}
 
-{% for list in lists %}
-<div class="user-list-item">
-    <p>{{ list.name }}</p>
-    <span class="delete-list-item" list-id="{{ list.id }}">
-        <i class="material-icons" style="color:white">delete</i>
-    </span>
-    <span class="edit-list-item">
-        <a href="{{ list.get_absolute_url }}">
-            <i class="material-icons" style="color: white">create</i>
-        </a>
-    </span>
-</div>
-{% endfor %}
+    {% for list in lists %}
+    <div class="user-list-item">
 
+        <p>{{ list.name }}</p>
+
+        <!-- delete list button-->
+        <span class="delete-list-btn" list-id="{{ list.id }}">
+            <i class="material-icons" style="color:white">delete</i>
+        </span>
+
+        <!-- edit list button -->
+        <span class="edit-list-btn">
+            <a href="{{ list.get_absolute_url }}">
+                <i class="material-icons" style="color: white">create</i>
+            </a>
+        </span>
+
+    </div>
+    {% endfor %}
+
+<!-- display error message if user has no lists -->
 {% else %}
-
-<br/>
-<div align="center" style="color:#fff">
-    <h1>Ops... You have no lists currently.</h1><br />
-    <p>
-        Starting creating one <a href="{% url 'home' %}" style="text-decoration: none">here</a>.
-    </p>
-</div>
+    <br/>
+    <div align="center" style="color:#fff">
+        <h1>Ops... You have no lists currently.</h1><br />
+        <p>
+            Starting creating one <a href="{% url 'home' %}" style="text-decoration: none">here</a>.
+        </p>
+    </div>
 
 {% endif %}
 

@@ -28,8 +28,8 @@ DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
 
 ALLOWED_HOSTS = [
     'localhost',
-    'http://listeefy.sebbycake.com',
-    'https://listeefy.herokuapp.com',
+    'http://simplelist.sebbycake.com',
+    'https://simplelist.herokuapp.com',
 ]
 
 

@@ -1,10 +1,10 @@
-# Listeefy
+# SimpleList
 
 A minimalistic general list which allows you to create your own unique list name with a unique URL and create items, as many as you like.
 
 ## About The Project
 
-A slew of list apps today provide features that users do not need. A **simple user interface** that enables you to take down your items and tasks straightaway is sometimes all that you might need. Too many features just clutter things up. And Listeefy is built with that in mind.
+A slew of list apps today provide features that users do not need. A **simple user interface** that enables you to take down your items and tasks straightaway is sometimes all that you might need. Too many features just clutter things up. And SimpleList is built with that in mind.
 
 ### Features
 

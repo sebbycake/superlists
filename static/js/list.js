@@ -90,7 +90,8 @@ window.Superlists.initialize = function () {
                     csrfmiddlewaretoken: csrfToken
                 },
                 success: function () {
-                    parentDiv.remove()
+                    // remove with animation
+                parentDiv.hide('slow', () => $(this).remove() );
                 },
                 error: function (xhr) {
                     if (xhr.status == 500) {
@@ -181,7 +182,8 @@ window.Superlists.initialize = function () {
                 csrfmiddlewaretoken: csrfToken
             },
             success: function () {
-                parentDiv.remove()  
+                // remove with animation
+                parentDiv.hide('slow', () => $(this).remove() );
             },
             error: function (xhr) {
 

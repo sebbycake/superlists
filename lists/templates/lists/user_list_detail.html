@@ -16,13 +16,13 @@
 
         <!-- delete list button-->
         <span class="delete-list-btn" list-id="{{ list.id }}">
-            <i class="material-icons" style="color:white">delete</i>
+            <i class="material-icons" style="color: #fff">delete</i>
         </span>
 
         <!-- edit list button -->
         <span class="edit-list-btn">
             <a href="{{ list.get_absolute_url }}">
-                <i class="material-icons" style="color: white">create</i>
+                <i class="material-icons" style="color:#fff">create</i>
             </a>
         </span>
 
@@ -34,9 +34,9 @@
     <br/>
     <div align="center" style="color:#fff">
         <h1>Ops... You have no lists currently.</h1><br />
-        <p>
-            Starting creating one <a href="{% url 'home' %}" style="text-decoration: none">here</a>.
-        </p>
+        <h3>
+            Start creating one <a href="{% url 'home' %}" style="text-decoration: none; color: rgb(160, 78, 219)">here</a>.
+        </h3>
     </div>
 
 {% endif %}

@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,700');
+
+.modal {
+    width: 100%;
+    background: indigo;
+    color: white;
+    text-align: center;
+    padding: 30px;
+    margin-top: 20px;
+    font-size: 15px;
+    display: none;
+}
+
+.modal span {
+	position: relative;
+	float: right;
+	font-size: 30px;
+	cursor: pointer;
+	top: -50px;
+	right: -20px;
+}
+
+.modal-active {
+    display: block;
+}
+
+
+.landing-header-container {
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-align: center;
+    color: #fff; 
+}
+
+.landing-header-container h1 {
+    letter-spacing: .15em;
+    font-weight: 100;
+    line-height: 1;
+    margin-top: 41px;
+    text-transform: uppercase;
+}
+
+.landing-header-non-auth {
+    font-size: 45px;
+    margin-bottom: 11px;
+}
+
+.landing-header-auth {
+    font-size: 32px;
+    margin-bottom: 40px;
+}
+
+.landing-header-container p {
+	font-size: 18px;
+	font-weight: 300;
+	line-height: 1.6;
+    letter-spacing: -0.02em;
+    margin-bottom: 21px;
+}
+
+.get-started-btn {
+    width: 50%;
+	padding: 11px;
+	background: indigo;
+    border: 3px solid indigo;
+    border-radius: 5px;
+    color: #fff;
+    letter-spacing: 2px;
+    font-size: 1em;
+    margin-bottom: 60px;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    outline: none;
+}
+
+.get-started-btn:hover {
+    opacity: 0.8;
+}
+
+.get-started-btn-toggle {
+    display: none;
+}
+
+.landing-input-form {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;    
+ }
+
+ 
+
+ @media (min-width:468px) {
+
+    .modal {
+        font-size: 20px;
+    }
+
+    .modal span {
+        float: right;
+        top: -9px;
+        right: 0px;
+    }
+
+    .landing-header-non-auth {
+        font-size: 91px;
+    }
+
+    .landing-header-auth {
+        font-size: 70px;
+    }
+    
+    .landing-header-container p {
+        font-size: 25px;
+    }
+
+    .get-started-btn {
+        width: 15%;
+    }
+
+ }

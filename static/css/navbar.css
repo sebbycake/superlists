@@ -1,5 +1,5 @@
 .logo {
-    font-size: 25px;
+    font-size: 15px;
     font-family: 'Handlee', cursive;
     padding: 15px;
 }
@@ -71,7 +71,7 @@ nav {
         position: absolute;
         cursor: pointer;
         right: 5%;
-        top: 50%;
+        top: 36%;
         transform: translate(-5%, -50%);
         z-index: 2;
     }

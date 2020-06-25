@@ -1,3 +1,11 @@
+.header {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 22px;
+    color: #fff;
+}
+
 /* input textbox */
 
 .input-form {
@@ -153,6 +161,10 @@ input[id='id_name']:-moz-placeholder, input[id='id_text']:-moz-placeholder { /* 
 
 
 @media (min-width:468px) {
+
+    .header {
+        font-size: 38px;
+    }
    
     input[id='id_name']:focus, input[id='id_text']:focus {
         transform: scale(1.4);

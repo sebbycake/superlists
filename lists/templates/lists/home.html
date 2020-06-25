@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block modal %}
-    <!-- only display modal when user is not logined -->
+    <!-- only display modal when user is not authenticated -->
     {% if not user.is_authenticated %}
     <div class="modal">
         Create an account to save and access your lists in one place!
@@ -12,18 +12,36 @@
     {% endif %}
 {% endblock %}
 
-{% block header_class %}
-header animate__animated animate__bounceInDown
-{% endblock %}
-
-{% block header_text %}
-Start a New List
-{% endblock %}
 
 {% block content %}
 
+{% if not user.is_authenticated %}
+
+<!-- display brand title, tag line and CTA button if not authenticated -->
+<div class="landing-header-container">
+    <h1 class="landing-header-non-auth">SimpleList</h1>
+    <p>Create a new list in seconds</p>
+    <button class="get-started-btn">Get Started</button>
+</div>
+
+{% else %}
+
+<!-- display start a new list title and form if authenticated -->
+<div class="landing-header-container">
+    <h1 class="landing-header-auth">Start a new List</h1>
+    <div class="input-form animate__animated animate__zoomIn">
+        <form action="{% url 'new_list' %}" method="post" id="list-create-form" user-id="{{ user.id }}">
+            {{ form.name }}
+            {% csrf_token %}
+        </form>   
+    </div>
+</div>
+
+{% endif %}
+
+
 <!-- display form -->
-<div class="input-form animate__animated animate__zoomIn">
+<div class="landing-input-form animate__animated animate__zoomIn">
     <form action="{% url 'new_list' %}" method="post" id="list-create-form" user-id="{{ user.id }}">
         {{ form.name }}
         {% csrf_token %}
@@ -39,6 +57,6 @@ Start a New List
     A list with this name is available.
 </div> 
 
-<script src="{% static 'js/modal.js' %}"></script>
+<script src="{% static 'js/landing-page.js' %}"></script>
 
 {% endblock %}

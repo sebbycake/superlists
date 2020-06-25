@@ -18,12 +18,12 @@
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
 
     <!-- Primary Meta Tags -->
-    <title>SimpleList: your minimalistic general list</title>
+    <title>
+        SimpleList: {% block title %} your minimalistic general list {% endblock %}
+    </title>
     <meta name="title" content="SimpleList: your minimalistic general list">
     <meta name="description" content="
-        Create a new list in seconds. 
-        And sign up to save and access your lists in one place. 
-        SimpleList has never been easier.
+        Create a new list in seconds. And sign up to save and access your lists in one place. SimpleList has never been easier.
     ">
 
     <!-- Open Graph / Facebook -->
@@ -31,9 +31,7 @@
     <meta property="og:url" content="http://simplelist.sebbycake.com/">
     <meta property="og:title" content="SimpleList: your minimalistic general list">
     <meta property="og:description" content="
-        Create a new list in seconds. 
-        And sign up to save and access your lists in one place. 
-        SimpleList has never been easier.
+        Create a new list in seconds. And sign up to save and access your lists in one place. SimpleList has never been easier.
     ">
 
     <!-- Twitter -->
@@ -41,12 +39,9 @@
     <meta property="twitter:url" content="http://simplelist.sebbycake.com/">
     <meta property="twitter:title" content="SimpleList: your minimalistic general list">
     <meta property="twitter:description" content="
-        Create a new list in seconds. 
-        And sign up to save and access your lists in one place. 
-        SimpleList has never been easier.
+        Create a new list in seconds. And sign up to save and access your lists in one place. SimpleList has never been easier.
     ">
     
-
     <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">

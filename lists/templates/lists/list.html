@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 
 {% load tz %}
+{% load list_extras %}
+
+{% block title %}
+{{ list.name }}
+{% endblock %}
 
 {% block header_class %}
 header animate__animated animate__slideInDown
@@ -37,7 +42,8 @@ header animate__animated animate__slideInDown
         <!-- display item timestamp -->
         {% timezone "Asia/Singapore" %}
         <span class="item-timestamp">
-            {{ item.timestamp|time:"P" }} | {{ item.timestamp|date:"d M" }}
+            <!-- {{ item.timestamp|time:"P" }} | {{ item.timestamp|date:"d M" }} -->
+            {{ item.timestamp|timesince|upto:',' }} ago
         </span>
         {% endtimezone %}
 

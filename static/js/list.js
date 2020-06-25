@@ -133,14 +133,14 @@ window.Superlists.initialize = function () {
                 const date = new Date(json.timestamp);
 
                 // clean and format ISO timestamp field
-                day = dayOfTheMonth(date);
-                month = months[date.getMonth()];
-                hoursMins = formatAMPM(date);
+                // day = dayOfTheMonth(date);
+                // month = months[date.getMonth()];
+                // hoursMins = formatAMPM(date);
 
                 $('.item-list').append(
                     '<div class="item animate__animated animate__fadeIn">' +
                     json.text + '<br/>' +
-                        '<span class="item-timestamp">' + hoursMins + ' | ' + day + ' ' + month +
+                        '<span class="item-timestamp">' + 'Just now' +
                         '</span>' +
                         '<span class="delete-item-btn" data-id="' + json.id +  '">' +
                             '<i class="material-icons" style="color:#fff">' + 'delete_outline' +

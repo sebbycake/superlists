@@ -11,38 +11,55 @@ my lists
 </div>
 
 <!-- display all user lists -->
-{% if lists|length > 0 %}
+{% if page_obj|length > 0 %}
 
-    {% for list in lists %}
-    <div class="user-list-item">
+{% for list in page_obj %}
+<div class="user-list-item">
+    <p>{{ list.name }}</p>
 
-        <p>{{ list.name }}</p>
+    <!-- delete list button-->
+    <span class="delete-list-btn" list-id="{{ list.id }}">
+        <i class="material-icons" style="color: #fff">delete</i>
+    </span>
 
-        <!-- delete list button-->
-        <span class="delete-list-btn" list-id="{{ list.id }}">
-            <i class="material-icons" style="color: #fff">delete</i>
-        </span>
-
-        <!-- edit list button -->
-        <span class="edit-list-btn">
-            <a href="{{ list.get_absolute_url }}">
-                <i class="material-icons" style="color:#fff">create</i>
-            </a>
-        </span>
-
-    </div>
-    {% endfor %}
+    <!-- edit list button -->
+    <span class="edit-list-btn">
+        <a href="{{ list.get_absolute_url }}">
+            <i class="material-icons" style="color:#fff">create</i>
+        </a>
+    </span>
+</div>
+{% endfor %}
 
 <!-- display error message if user has no lists -->
 {% else %}
-    <br/>
-    <div align="center" style="color:#fff">
-        <h1>Ops... You have no lists currently.</h1><br />
-        <h3>
-            Start creating one <a href="{% url 'home' %}" style="text-decoration: none; color: rgb(160, 78, 219)">here</a>.
-        </h3>
-    </div>
-
+<br />
+<div align="center" style="color:#fff">
+    <h1>Ops... You have no lists currently.</h1><br />
+    <h3>
+        Start creating one <a href="{% url 'home' %}" style="text-decoration: none; color: rgb(160, 78, 219)">here</a>.
+    </h3>
+</div>
 {% endif %}
+
+<!-- only show pagination if there is more than 1 page -->
+{% if page_range|length > 1 %}
+<div class="pagination">
+
+    {% for page_num in page_range %}
+        <a href="?page={{ page_num }}">
+            {{ page_num }}
+        </a>
+    {% endfor %}
+
+    <span class="current">
+        Page {{ page_obj.number }}
+    </span>
+
+</div>
+{% endif %}
+
+
+
 
 {% endblock %}

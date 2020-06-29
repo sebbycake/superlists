@@ -1,10 +1,5 @@
-const months = [
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
-    "Aug", "Sep", "Oct", "Nov", "Dec"
-];
-
 // display (error) message
-const displayMessage = (className, inputSelector=null, message=null) => {
+const displayMessage = (className, inputSelector = null, message = null) => {
 
     // fill class selector with custom error message
     if (message !== null) {
@@ -20,23 +15,9 @@ const displayMessage = (className, inputSelector=null, message=null) => {
             $(`.${className}`).hide();
         })
     } // end of if
-    
+
 }
 
-// display 2 digit number for days below 10
-const dayOfTheMonth = (date) => ( (date.getDate() < 10 && '0') + date.getDate() )
-    
-// format time in 12h format
-// const formatAMPM = (date) => {
-//     let hours = date.getHours();
-//     let minutes = date.getMinutes();
-//     let ampm = hours >= 12 ? 'p.m.' : 'a.m.';
-//     hours = hours % 12;
-//     hours = hours ? hours : 12; // the hour '0' should be '12'
-//     minutes = minutes < 10 ? '0' + minutes : minutes;
-//     let strTime = hours + ':' + minutes + ' ' + ampm;
-//     return strTime;
-// }
 
 // generate csrf token for Django form requests
 const getCookie = (name) => {
@@ -95,3 +76,17 @@ function debounce(func, wait, immediate) {
         if (callNow) func.apply(context, args);
     };
 };
+
+// Converts URLs in text into clickable links
+const urlize = (text) => {
+
+    // checks whether the link starts from http, https, ftp, file
+    const regExp1 = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    let text1 = text.replace(regExp1, "<a href='$1'>$1</a>");
+
+    // checks whether the link starts from www
+    const regExp2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+    let text2 = text1.replace(regExp2, '$1<a target="_blank" href="http://$2">$2</a>');
+    
+    return text2
+}

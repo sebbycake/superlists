@@ -19,11 +19,7 @@ class ListForm(forms.ModelForm):
         }
         error_messages = {
             'name': {'required': EMPTY_ITEM_ERROR}
-        }
-
-    def clean_name(self):
-        name = self.cleaned_data['name']
-        return name.lower()
+        } 
 
 
 class ItemForm(forms.ModelForm):

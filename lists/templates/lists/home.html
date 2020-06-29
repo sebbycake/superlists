@@ -30,7 +30,7 @@
 <div class="landing-header-container">
     <h1 class="landing-header-auth">Start a new List</h1>
     <div class="input-form animate__animated animate__zoomIn">
-        <form action="{% url 'new_list' %}" method="post" id="list-create-form" user-id="{{ user.id }}">
+        <form method="post" id="list-create-form" user-id="{{ user.id }}">
             {{ form.name }}
             {% csrf_token %}
         </form>   
@@ -42,7 +42,7 @@
 
 <!-- display form -->
 <div class="landing-input-form animate__animated animate__zoomIn">
-    <form action="{% url 'new_list' %}" method="post" id="list-create-form" user-id="{{ user.id }}">
+    <form method="post" id="list-create-form" user-id="{{ user.id }}">
         {{ form.name }}
         {% csrf_token %}
     </form>   
@@ -57,6 +57,8 @@
     A list with this name is available.
 </div> 
 
+{% if not user.is_authenticated %}
 <script src="{% static 'js/landing-page.js' %}"></script>
+{% endif %}
 
 {% endblock %}

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .forms import ListForm, ItemForm
 from .models import Item, List
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 # DRF API
 from .serializers import ItemSerializer, ListSerializer
@@ -45,10 +46,15 @@ def list_detail(request, list_id, list_slug):
 @login_required
 def user_list_detail(request):
     """
-    Returns all lists by current authenticated user
+    Returns all lists by current authenticated user with pagination
     """
-    lists = List.objects.filter(user=request.user)
-    return render(request, 'lists/user_list_detail.html', {'lists': lists})
+    user_lists = List.objects.filter(user=request.user)
+    # show 5 lists per page
+    paginator = Paginator(user_lists, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    page_range = paginator.page_range
+    return render(request, 'lists/user_list_detail.html', {'page_obj': page_obj, 'page_range': page_range})
 
 
 # ------------------------

@@ -103,6 +103,10 @@ input[id='id_name']:-moz-placeholder, input[id='id_text']:-moz-placeholder { /* 
     border: 1px solid #edeeef;
 }
 
+.item a {
+    color: #FFFF99;
+}
+
 .delete-item-btn {
     float: right;
     opacity: 0.5;
@@ -157,8 +161,31 @@ input[id='id_name']:-moz-placeholder, input[id='id_text']:-moz-placeholder { /* 
     opacity: 1;
 }
 
+.pagination {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    color: #fff;
 
+}
 
+.pagination a {
+    display: inline-block;
+    color: #fff;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+}
+
+.pagination a:hover {
+    background-color: indigo;
+    border-radius: 5px;
+}
+
+.current {
+    margin-top: 10px;
+    display: block;
+}   
 
 @media (min-width:468px) {
 

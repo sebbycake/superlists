@@ -26,13 +26,15 @@ def list_detail(request, list_id, list_slug):
         If user is authenticated, he/she can add and delete item of his/her own auth list AND non-auth list
     """
     try:
+        # retrieving list object
         list_ = List.objects.get(id=list_id)
     except List.DoesNotExist:
         return render(request, 'http404.html')
+    # setting permissions variables based on the cases
     user_exists = False
-    non_user_exists = List.objects.filter(pk=list_id).filter(user=None).exists()
+    non_user_exists = List.objects.filter(id=list_id).filter(user=None).exists()
     if request.user.is_authenticated:
-        user_exists = List.objects.filter(pk=list_id).filter(user=request.user).exists()
+        user_exists = List.objects.filter(id=list_id).filter(user=request.user).exists()
     form = ItemForm()
     context = {
         'list': list_,

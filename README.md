@@ -1,6 +1,6 @@
 # SimpleList
 
-A minimalistic general list which allows you to create your own unique list name with a unique URL and create items, as many as you like.
+A minimalistic general list organizer which allows you to create your own unique list name and items, as many as you like for your different needs. These lists can be organized into one place when you create an account. Your list(s) can then be shared with everyone with a unique URL.
 
 ## About The Project
 

@@ -49,6 +49,9 @@
         <span class="delete-item-btn" data-id="{{ item.id }}">
             <i class="material-icons" style="color:#fff">delete_outline</i>
         </span>
+        <span class="pin-item-btn" data-id="{{ item.id }}">
+            <i class="material-icons" style="{% if item.is_pinned %}color:#ff1f5a{% else %}color:#fff{% endif %}">push_pin</i>
+        </span>
         {% endif %}
 
     </div>

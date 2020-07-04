@@ -16,5 +16,6 @@ urlpatterns = [
     # item api views
     path('api/item/create/', views.ajax_item_create_view, name="create_item"),
     path('api/item/delete/<int:item_id>/', views.ajax_item_delete_view, name="delete_item"),
+    path('api/item/pin/<int:item_id>/', views.ajax_item_pin_view, name='pin_item'),
     
 ]

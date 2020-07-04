@@ -23,9 +23,10 @@ class Item(models.Model):
     text = models.TextField(default='')
     list = models.ForeignKey(List, default=None, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
+    is_pinned = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ('id',)
+        ordering = ['-is_pinned', 'timestamp']
         unique_together = ('list', 'text')
 
     def __str__(self):

@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from rest_framework.validators import UniqueTogetherValidator, UniqueValidator
 from .models import Item, List
 from user.models import CustomUser
 
@@ -7,7 +6,7 @@ class ItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Item
-        exclude = ('timestamp',)
+        exclude = ('timestamp', 'is_pinned')
         
     def validate(self, data):
         """

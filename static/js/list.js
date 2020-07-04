@@ -141,6 +141,10 @@ window.Superlists.initialize = function () {
                             '<i class="material-icons" style="color:#fff">' + 'delete_outline' +
                             '</i>' +
                         '</span>' +
+                        '<span class="pin-item-btn" data-id="' + json.id +  '">' +
+                            '<i class="material-icons" style="color:#fff">' + 'push_pin' +
+                            '</i>' +
+                        '</span>' +
                     '</div>'
                 ) // end of appending todo item
              
@@ -148,7 +152,7 @@ window.Superlists.initialize = function () {
             error: function (xhr) {
                 if (xhr.status == 400) {
                     // display error message
-                    displayMessage('item-error-msg', 'input[name="text"]', 'This item already exists in your list.')
+                    displayMessage('item-error-msg', 'This item already exists in your list.', 'input[name="text"]')
 
                 }
                 else if (xhr.status == 500) {
@@ -179,6 +183,51 @@ window.Superlists.initialize = function () {
             success: function () {
                 // remove with animation
                 parentDiv.hide('slow', () => $(this).remove() );
+            },
+            error: function (xhr) {
+
+                // display error msg
+                displayMessage('item-error-msg', 'An error has occurred. Please try again later.')
+
+                // delay 3s before hiding error msg
+                setTimeout(function () {
+                    $('.item-error-msg').hide()
+                }, 3000) // end of setTimeout()
+
+            } // end of error func
+
+        }); // end of ajax call
+
+    });
+
+
+    // pin item request
+    $(document).on('click', '.pin-item-btn', function () {
+
+        const itemId = $(this).data('id')
+        const pinButton = $(this).find('i.material-icons')[0];
+        const parentDiv = $(this).parent()
+        const csrfToken = getCookie('csrftoken')
+        
+        $.ajax({
+            type: 'POST',
+            url: `/lists/api/item/pin/${itemId}/`,
+            data: {
+                id: itemId,
+                csrfmiddlewaretoken: csrfToken
+            },
+            success: function (json) {
+                if (json.is_pinned) {
+                    // prepend to .item-list div
+                    $('.item-list').prepend(parentDiv);
+                    pinButton.style.color = "#ff1f5a";
+                    // scroll to top of the page where item is pinned
+                    $('html, body').animate({ scrollTop: 0 }, 'fast');
+                } else {
+                    $('.item-list').append(parentDiv);
+                    pinButton.style.color = "#fff";
+                }
+    
             },
             error: function (xhr) {
 

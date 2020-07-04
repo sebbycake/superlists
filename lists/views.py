@@ -3,6 +3,7 @@ from .forms import ListForm, ItemForm
 from .models import Item, List
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from datetime import datetime
 
 # DRF API
 from .serializers import ItemSerializer, ListSerializer
@@ -141,3 +142,16 @@ def ajax_item_delete_view(request, item_id):
     item = item.first()
     item.delete()
     return Response({"message": "TODO is removed."}, status=200)
+
+@api_view(['POST'])
+def ajax_item_pin_view(request, item_id):
+    """
+    API view to update item's is_pinned value
+    """
+    # retrieve item object
+    item = Item.objects.get(id=item_id)
+    # update is_pinned value
+    item.is_pinned = not item.is_pinned
+    # save the obj
+    item.save()
+    return Response({'is_pinned': item.is_pinned}, status=200)

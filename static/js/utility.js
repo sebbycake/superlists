@@ -1,5 +1,5 @@
 // display (error) message
-const displayMessage = (className, inputSelector = null, message = null) => {
+const displayMessage = (className, message = null, inputSelector = null) => {
 
     // fill class selector with custom error message
     if (message !== null) {

@@ -117,7 +117,7 @@ input[id='id_name']:-moz-placeholder, input[id='id_text']:-moz-placeholder { /* 
     color: rgb(62, 166, 255);
 }
 
-.delete-item-btn {
+.delete-item-btn, .pin-item-btn {
     float: right;
     opacity: 0.5;
     cursor: pointer;
@@ -126,8 +126,8 @@ input[id='id_name']:-moz-placeholder, input[id='id_text']:-moz-placeholder { /* 
     left: 3px;
 }
 
-.delete-item-btn:hover {
-    opacity: 1.5
+.delete-item-btn:hover, .pin-item-btn:hover {
+    opacity: 1
 }
 
 .item-timestamp {

@@ -56,12 +56,6 @@
             <h1><a href="{% url 'home' %}">SimpleList</a></h1>
         </div>
 
-        <div class="burger">
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
-        </div>
-
         <ul class="nav-links">
             {% if not user.is_authenticated %}
             <li>
@@ -86,6 +80,12 @@
                 <a href="{% url 'about' %}">About</a>
             </li>
         </ul>
+
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
 
     </nav>
 

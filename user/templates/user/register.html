@@ -18,9 +18,8 @@ sign up
         <form action="{% url 'user_create' %}" method="POST">
             {% csrf_token %}
             {{ form.as_p }}
-            <br />
             <input type="checkbox" required />
-            <small>
+            <small style="color:#fff">
                 I have read and agree to the <a href="{% url 'terms_of_service' %}">Terms of Service</a> 
                 and <a href="{% url 'privacy_policy' %}">Privacy Policy</a>.
             </small>

@@ -108,18 +108,11 @@ input[id='id_name']:-moz-placeholder, input[id='id_text']:-moz-placeholder { /* 
 }
 
 .item:hover {
-    /* border-left: 10px solid #9400D3; */
     border: 1px solid #edeeef;
-}
-
-.item a {
-    /* color: #FFFF99; */
-    color: rgb(62, 166, 255);
 }
 
 .delete-item-btn, .pin-item-btn {
     float: right;
-    opacity: 0.5;
     cursor: pointer;
     position: relative;
     top: 5px;
@@ -127,7 +120,7 @@ input[id='id_name']:-moz-placeholder, input[id='id_text']:-moz-placeholder { /* 
 }
 
 .delete-item-btn:hover, .pin-item-btn:hover {
-    opacity: 1
+    opacity: 0.5;
 }
 
 .item-timestamp {

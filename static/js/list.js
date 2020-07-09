@@ -18,10 +18,10 @@ window.Superlists.initialize = function () {
 
                 if (json.is_taken) {
                     canPost = false;
-                    displayMessage('list-name-error-msg', 'input[name="name"]');
+                    displayMessage('list-name-error-msg', null, 'input[name="name"]');
                 } else {
                     canPost = true;
-                    displayMessage('list-name-success-msg', 'input[name="name"]');
+                    displayMessage('list-name-success-msg', null, 'input[name="name"]');
                 } // end of json if avail stmt
 
             }, // end of success function   

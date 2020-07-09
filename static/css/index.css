@@ -17,8 +17,11 @@
 body {
     font-family: 'Asap', sans-serif;
     background: #121212;
-} 
+}
 
+a {
+    color: rgb(62, 166, 255)
+}
 
 .legal {
     width: 100%;

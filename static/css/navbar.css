@@ -1,7 +1,7 @@
 .logo {
     font-size: 15px;
     font-family: 'Handlee', cursive;
-    padding: 15px;
+    margin-left: 20px;
 }
 
 .logo a {
@@ -13,36 +13,36 @@
     color: rgb(160, 78, 219);
 }
 
-
 nav {
-    height: 10vh;
     display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 12vh;
 }
 
 .nav-links {
     display: flex;
-    list-style: none;
-    width: 30%;
-    height: 120%;
     justify-content: space-around;
-    align-items: center;
+    width: 35%;
     margin-left: auto;
-    cursor: pointer;
 }
 
-.nav-links li a {
+.nav-links li {
+    list-style: none;
+}
+
+.nav-links a {
     color: #fff;
     text-decoration: none;
     font-size: 18px;
     letter-spacing: 2px;
 }
 
-.nav-links li a:hover {
+.nav-links a:hover {
     color: rgb(160, 78, 219);  
-    /* transition: .9s; */
 }
 
-.nav-links li a:after {
+.nav-links a:after {
     display: block;
     content: '';
     border-bottom: solid 3px rgb(160, 78, 219);  
@@ -50,84 +50,89 @@ nav {
     transition: transform 250ms ease-in-out;
 }
 
-.nav-links li a:hover:after { 
+.nav-links a:hover:after { 
     transform: scaleX(1); 
 }
 
 @media (max-width:768px) {
 
-    .line {
-        width: 30px;
-        height: 3px;
-        background-color: #fff;
-        margin: 5px;
-    }
-
-    nav {
-        position: relative;
+    .logo {
+        position: absolute;
+        left: 2px;
     }
 
     .burger {
         position: absolute;
-        cursor: pointer;
-        right: 5%;
-        top: 36%;
-        transform: translate(-5%, -50%);
+        right: 20px;
         z-index: 2;
+        cursor: pointer;
     }
-    
+
+    .burger div {
+        width: 30px;
+        height: 3px;
+        background-color: #fff;
+        margin: 5px;
+        transition: all 0.5s ease;
+    }
+
     .nav-links {
-        position: fixed;
+        position: absolute;
+        top: 0vh;
+        right: 0px;
         height: 100vh;
-        background: rgb(160, 78, 219);
         width: 100%;
         flex-direction: column;
         justify-content: space-evenly;
-        clip-path: circle(100px at 90% -30%);
-        -webkit-clip-path: circle(100px at 90% -30%);
-        transition: all 0.5s ease-out;
-        pointer-events: none;
+        align-items: center;
+        background-color: indigo;
         z-index: 1;
-    }
-
-    .nav-links.open {
-        clip-path: circle(1200px at 90% -20%);
-        -webkit-clip-path: circle(1200px at 90% -20%);
-        pointer-events: all;
+        display: none;
+        transition: all 0.5s;
     }
 
     .nav-links li {
         opacity: 0;
     }
 
-    .nav-links li a {
-        font-size: 30px;
+    .nav-links a {
+        font-size: 28px;
     }
 
-    .nav-links li a:hover {
-        color: #fff;
+    .nav-links a:hover {
+        color: #fff;  
     }
 
-    .nav-links li:nth-child(1) {
-        transition: all 0.5s ease 0.2s;
+    .nav-links a:after {
+        border-bottom: solid 3px #fff;  
     }
 
-    .nav-links li:nth-child(2) {
-        transition: all 0.5s ease 0.4s;
-    }
+}
 
-    .nav-links li:nth-child(3) {
-        transition: all 0.5s ease 0.6s;
-    }
+.nav-active {
+    display: flex;
+    /* transform: translateX(0%) */
+}
 
-    .nav-links li:nth-child(4) {
-        transition: all 0.5s ease 0.8s;
+@keyframes navLinkFade {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
     }
-
-    li.fade {
+    to {
         opacity: 1;
+        transform: translateX90px;
     }
+}
 
+.toggle .line1 {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
 
+.toggle .line2 {
+    opacity: 0;
+}
 
+.toggle .line3 {
+    transform: rotate(45deg) translate(-5px, -6px);
 }

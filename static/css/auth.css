@@ -2,14 +2,15 @@
     width: 100%;
     margin: 0 auto;
     padding: 20px;
-    margin-top: 40px;
-    margin-bottom: 40px;
-    background-color: #fff;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: rgb(26,26,27);
 }
 
 .auth-header {
     margin-top: 20px;
     text-align: center;
+    color: #fff;
 }
 
 .auth-form-container {
@@ -25,7 +26,7 @@ label {
     letter-spacing: 2px;
     line-height: 1.7;
     text-transform: uppercase;
-    color: #767676;
+    color: #A9A9A9;
 }
 
 input[type=email], input[type=password], input[id=id_username] {
@@ -38,25 +39,25 @@ input[type=email], input[type=password], input[id=id_username] {
 
 .auth-button {
     width: 100%;
-    background-color: #303030;
+    background-color: #525252;
     padding: 10px;
     margin-top: 20px;
     font-size: 20px;
     color: #fff;
-    border: 1px solid #303030;
+    border: 1px solid #525252;
     cursor: pointer;
 }
 
 .auth-button:hover {
     background-color: grey;
     border: 1px solid grey;
-    transition: all 0.5s ease;
 }
 
 .auth-btm-text {
     text-align: center;
     font-size: 11px;
     margin-top: 15px;
+    color: #fff
 }
 
 .auth-btm-text a {
@@ -70,6 +71,8 @@ input[type=email], input[type=password], input[id=id_username] {
     .auth-container {
         width: 50%;
         border-radius: 20px;
+        margin-top: 40px;
+        margin-bottom: 40px;
     }
 
     .auth-header {
@@ -83,6 +86,5 @@ input[type=email], input[type=password], input[id=id_username] {
     input[type=email], input[type=password], input[id=id_username] {
         font-size: 20px;
     }
-
 
 }

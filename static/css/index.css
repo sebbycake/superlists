@@ -45,6 +45,16 @@ a {
 .http-404-error {
     text-align: center;
     margin-top: 40px;
+    color: #fff;
+}
+
+.http-404-error h1 {
+    font-size: 90px;
+    margin-bottom: 10px;
+}
+
+.http-404-error p {
+    font-size: 25px;
 }
 
 @media (min-width:468px) {

@@ -8,9 +8,11 @@ class List(models.Model):
     name = models.CharField(max_length=63)
     slug = models.SlugField()
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
+    shared_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='shared_users')
 
     class Meta:
         unique_together = ('name', 'user')
+        ordering = ('id', )
     
     def __str__(self):
         return self.name

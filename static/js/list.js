@@ -59,7 +59,7 @@ window.Superlists.initialize = function () {
                 }, // end of success function
                 error: function (xhr) {
                     if (xhr.status == 400) {
-                        displayMessage('list-name-error-msg', 'input[name="name"]');
+                        displayMessage('list-name-error-msg', null, 'input[name="name"]');
                     }
 
                 } // end of error function
@@ -245,6 +245,88 @@ window.Superlists.initialize = function () {
 
     });
 
+    // ------------------------- 
+    // sharing list with other users 
 
-};
+    // open modal 
+    $('.share-list-btn').click(() => {
+        $('.share-list-modal').css('display', 'block');
+        $('.item-list, .header, .input-form, .share-list-btn, nav').addClass('share-list-modal-open');
+    })
+
+    // close modal 
+    $('.share-list-modal-close').click(() => {
+        $('.share-list-modal').css('display', 'none');
+        $('.item-list, .header, .input-form, .share-list-btn, nav').removeClass('share-list-modal-open');
+    })
+
+    // add users to share list with
+    $(document).on('submit', '.share-list-email-form', function (event) {
+        
+        event.preventDefault();
+        const userEmail = $('#share-list-email-input').val();
+        const listId = $(this).data('id');
+        const csrfToken = getCookie('csrftoken')
+        
+        $.ajax({
+            type: 'POST',
+            url: `/lists/api/list/share/${listId}/`,
+            data: {
+                user_email: userEmail,
+                csrfmiddlewaretoken: csrfToken
+            },
+            success: function (json) {
+
+                // add to the bottom of the list 
+                $('.share-list-user-list').append(
+                    '<div class="share-list-user-item animate__animated animate__fadeIn">' +
+                        json.user_email +
+                        '<span class="list-owner">shared</span>' + 
+                        '<span class="delete-shared-user" user-id="' + json.user_id + '">&times;</span>' +
+                    '</div>'
+                    );
+            },
+            error: function (xhr) {
+
+                if (xhr.status == 400) {
+                    // display error msg
+                    displayMessage('item-error-msg-share-list', 'User is already in the list.', "input[id='share-list-email-input']")
+                } else if (xhr.status == 404) {
+                    displayMessage('item-error-msg-share-list', 'User with this email cannot be found. Please try again.', "input[id='share-list-email-input']")
+                } 
+            } // end of error func
+
+        }); // end of ajax call
+    
+    }); 
+
+    // delete shared user
+    $(document).on('click', '.delete-shared-user', function () {
+
+        const userId = $(this).attr("user-id")
+        const listId = $('.share-list-email-form').data('id');
+        const parentDiv = $(this).parent()
+        const csrfToken = getCookie('csrftoken')
+
+        $.ajax({
+            type: 'POST',
+            url: `/lists/api/list/share/${listId}/delete/`,
+            data: {
+                user_id: userId,
+                csrfmiddlewaretoken: csrfToken
+            },
+            success: function () {
+                // remove 
+                parentDiv.remove();
+            },
+            error: function (xhr) {
+            } // end of error func
+
+        }); // end of ajax call
+
+    });
+
+
+
+}; // end of window initialize()
 

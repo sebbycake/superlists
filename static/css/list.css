@@ -1,9 +1,11 @@
 .header {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    text-align: center;
     font-size: 22px;
     color: #fff;
+    width: 80%;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 /* input textbox */
@@ -81,7 +83,7 @@ input[id='id_name']:-moz-placeholder, input[id='id_text']:-moz-placeholder { /* 
     display: none;
 }
 
-.item-error-msg {
+.item-error-msg, .item-error-msg-share-list {
     background-color: #F08080;
     width: 80%;
     margin: 0 auto;
@@ -188,12 +190,126 @@ input[id='id_name']:-moz-placeholder, input[id='id_text']:-moz-placeholder { /* 
 .current {
     margin-top: 10px;
     display: block;
-}   
+}  
+
+
+
+/* share list with other users */ 
+
+.share-list-btn {
+	position: absolute;
+	width: 18%;
+	top: 10vh;
+    right: 5.5%;
+    font-size: 13px;
+	padding: 10px;
+	border-radius: 5px;
+	color: #fff;
+	border: indigo;
+	background: indigo;
+    cursor: pointer;
+    outline: none;
+}
+
+.share-list-btn:hover {
+    opacity: 0.7;
+}
+
+.share-list-modal {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    transform: translate(-50%, -50%);
+    background-color:#404040;
+    display: none;
+}
+
+.share-list-modal-inner-container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.share-list-modal h1 {
+	font-size: 30px;
+	color: #fff;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+#share-list-email-input {
+    width: 90%;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    background: lightgray;
+    outline: none;
+}
+
+input[id='share-list-email-input']::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    font-size: 15px;
+}
+
+input[id='share-list-email-input']::-moz-placeholder { /* Firefox 19+ */
+    font-size: 15px;
+}
+
+input[id='share-list-email-input']:-ms-placeholder { /* IE 10+ */
+    font-size: 15px;
+}
+
+input[id='share-list-email-input']:-moz-placeholder { /* Firefox 18- */
+    font-size: 15px;
+}
+
+.share-list-modal-open {
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+.share-list-modal-close {
+	position: absolute;
+	right: 5%;
+	top: 1.7vh;
+	font-size: 35px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.share-list-user-item {
+	color: lightgray;
+	padding: 8px;
+    margin-left: 13px;
+}
+
+.share-list-user-item:hover {
+    background-color: #606060;
+}
+
+.list-owner {
+    position: absolute;
+    right: 7%;
+}
+
+.delete-shared-user {
+	font-size: 20px;
+	float: right;
+    position: relative;
+	top: -0.5vh;
+	cursor: pointer;
+}
+
+.delete-shared-user:hover {
+    color: black;
+}
+
+
 
 @media (min-width:468px) {
 
     .header {
         font-size: 38px;
+        width: 60%;
     }
    
     input[id='id_name']:focus, input[id='id_text']:focus {
@@ -212,6 +328,31 @@ input[id='id_name']:-moz-placeholder, input[id='id_text']:-moz-placeholder { /* 
     .user-list-item {
         width: 40%;
     }
+
+    .share-list-btn {   
+        width: 7%;
+        right: 5%;
+        top: 13vh;
+    }
+
+    .share-list-modal {
+        width: 50%;
+    }
+
+    .share-list-modal-close {
+        top: 2.5vh;
+    }
+
+    .share-list-user-item {
+        margin-left: 25px;
+    }
+    
+    .delete-shared-user {
+        font-size: 20px;
+        top: -0.7vh;
+        right: 2%;
+    }
+
 }
 
 

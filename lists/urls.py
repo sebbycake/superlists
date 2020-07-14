@@ -12,7 +12,9 @@ urlpatterns = [
     path('api/list/find/', views.ajax_list_find, name='find_list_name'),
     path('api/list/create/', views.ajax_list_create_view, name='new_list'),
     path('api/list/delete/<int:list_id>/', views.ajax_delete_list_view, name='delete_list'),
-    
+    path('api/list/share/<int:list_id>/', views.ajax_share_list_view, name='share_list'),
+    path('api/list/share/<int:list_id>/delete/', views.ajax_share_list_delete_view, name='share_list_delete'),
+
     # item api views
     path('api/item/create/', views.ajax_item_create_view, name="create_item"),
     path('api/item/delete/<int:item_id>/', views.ajax_item_delete_view, name="delete_item"),

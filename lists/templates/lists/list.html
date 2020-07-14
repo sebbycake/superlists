@@ -9,7 +9,11 @@
 
 {% block content %}
 
-<div class="header animate__animated animate__slideInDown">
+{% if user_exists %}
+<button class="share-list-btn">Share</button>
+{% endif %}
+
+<div class="header">
     <h1>{{ list.name }}</h1>
 </div>
 
@@ -18,7 +22,7 @@
 </div>
 
 <!-- display form -->
-{% if non_user_exists or user_exists %}
+{% if non_user_exists or user_exists or shared_user_exists %}
 <div class="input-form">
     <form method="post" id="item-create-form" data-id="{{ list.id }}">
         {{ form.text }}
@@ -45,17 +49,52 @@
         {% endtimezone %}
 
         <!-- button to delete item -->
-        {% if non_user_exists or user_exists %}
+        {% if non_user_exists or user_exists or shared_user_exists %}
         <span class="delete-item-btn" data-id="{{ item.id }}">
             <i class="material-icons" style="color:#fff">delete_outline</i>
         </span>
         <span class="pin-item-btn" data-id="{{ item.id }}">
-            <i class="material-icons" style="{% if item.is_pinned %}color:#ff1f5a{% else %}color:#fff{% endif %}">push_pin</i>
+            <i class="material-icons"
+                style="{% if item.is_pinned %}color:#ff1f5a{% else %}color:#fff{% endif %}">push_pin</i>
         </span>
         {% endif %}
 
     </div>
     {% endfor %}
+
+</div>
+
+<!-- display pop-up modal to add users to edit the list -->
+<div class="share-list-modal">
+
+    <div class="share-list-modal-inner-container">
+        <h1>Share with people</h1>
+        <span class="share-list-modal-close">&times;</span>
+
+        <!-- display error message -->
+        <div class="item-error-msg-share-list" role="alert">
+        </div>
+
+        <!-- display form to add users -->
+        <form class="share-list-email-form" data-id="{{ list.id }}">
+            <input type="email" id="share-list-email-input" placeholder="Add people using email">
+        </form>
+    </div>
+
+    <!-- display owner and list of shared users -->
+    <div class="share-list-user-item">
+        {{ list.user.email }} (you)
+        <span class="list-owner">owner</span>
+    </div>
+    <div class="share-list-user-list">
+        {% for shared_user in list.shared_users.all %}
+        <div class="share-list-user-item">
+            {{ shared_user.email }}
+            <span class="list-owner">shared</span>
+            <span class="delete-shared-user" user-id="{{ shared_user.id }}">&times;</span>
+        </div>
+        {% endfor %}
+    </div><br />
 
 </div>
 

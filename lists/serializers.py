@@ -22,7 +22,7 @@ class ListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = List
-        exclude = ('user',)
+        exclude = ('user', 'shared_users',)
 
         # validators = [
         #     UniqueTogetherValidator(

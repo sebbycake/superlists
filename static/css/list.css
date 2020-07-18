@@ -103,7 +103,7 @@ input[id='id_name']:-moz-placeholder, input[id='id_text']:-moz-placeholder { /* 
     border-radius: 10px;
     border: 1px solid #343536;
     padding: 18px;
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
     margin-bottom: 15px;
     color: #fff;
@@ -113,7 +113,15 @@ input[id='id_name']:-moz-placeholder, input[id='id_text']:-moz-placeholder { /* 
     border: 1px solid #edeeef;
 }
 
-.delete-item-btn, .pin-item-btn {
+.item-text {
+    padding: 15px;
+    background-color: #272727;
+    border-radius: 10px;
+    outline: none;
+    margin-bottom: 10px;
+}   
+
+.delete-item-btn, .pin-item-btn, .edit-item-btn {
     float: right;
     cursor: pointer;
     position: relative;
@@ -121,7 +129,7 @@ input[id='id_name']:-moz-placeholder, input[id='id_text']:-moz-placeholder { /* 
     left: 3px;
 }
 
-.delete-item-btn:hover, .pin-item-btn:hover {
+.delete-item-btn:hover, .pin-item-btn:hover, .edit-item-btn:hover {
     opacity: 0.5;
 }
 

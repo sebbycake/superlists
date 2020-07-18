@@ -183,7 +183,7 @@ def ajax_share_list_delete_view(request, list_id):
 
 
 # ------------------------
-# create and delete items views
+# create, update and delete items views
 
 @api_view(['POST'])
 def ajax_item_create_view(request):
@@ -197,6 +197,20 @@ def ajax_item_create_view(request):
         return Response(serializer.data, status=201)
     return Response({"message": "Duplicate item in list"}, status=400)
 
+@api_view(['UPDATE', 'POST'])
+def ajax_item_update_view(request, item_id):
+    """
+    API view to update item on a list
+    """
+    item = Item.objects.filter(pk=item_id)
+    item_text = request.POST['text']
+    if not item.exists():
+        return Response({}, status=404)
+    item = item.first()
+    # update item's text
+    item.text = item_text
+    item.save()
+    return Response({"message": "Item is updated."}, status=200)
 
 @api_view(['DELETE', 'POST'])
 def ajax_item_delete_view(request, item_id):
@@ -208,7 +222,7 @@ def ajax_item_delete_view(request, item_id):
         return Response({}, status=404)
     item = item.first()
     item.delete()
-    return Response({"message": "TODO is removed."}, status=200)
+    return Response({"message": "Item is removed."}, status=200)
 
 @api_view(['POST'])
 def ajax_item_pin_view(request, item_id):

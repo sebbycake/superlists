@@ -11,14 +11,17 @@ A slew of list apps today provide features that users do not need. A **simple us
 - Public (non-authenticated user)
     - Create lists of different types (e.g. work, family, personal, groceries, etc)
     - Create items on lists
+    - Update public items
     - Delete public items
 
 - Private (authenticated user)
     - Create lists of different types (e.g. work, family, personal, groceries, etc)
     - Create items on lists
+    - Update public and private items
     - Delete public and private items
     - Delete private lists
-    - Access all lists created by the user
+    - Access all lists created by the user 
+    - Share lists with other authenticated users to edit with the owner's lists
 
 ### Built With
 

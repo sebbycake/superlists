@@ -91,7 +91,7 @@ window.Superlists.initialize = function () {
                 },
                 success: function () {
                     // remove with animation
-                parentDiv.hide('slow', () => $(this).remove() );
+                    parentDiv.hide('slow', () => $(this).remove());
                 },
                 error: function (xhr) {
                     if (xhr.status == 500) {
@@ -111,8 +111,8 @@ window.Superlists.initialize = function () {
 
     // ------------------------- 
 
-     // post item request
-     $('#item-create-form').submit(function (event) {
+    // post item request
+    $('#item-create-form').submit(function (event) {
 
         event.preventDefault()
         const listId = $(this).data('id');
@@ -134,20 +134,25 @@ window.Superlists.initialize = function () {
 
                 $('.item-list').append(
                     '<div class="item animate__animated animate__fadeIn">' +
-                    urlizedText + '<br/>' +
+                        '<div>' +
+                        urlizedText +
+                        '<br/></div>' +
                         '<span class="item-timestamp">' + 'Just now' +
                         '</span>' +
-                        '<span class="delete-item-btn" data-id="' + json.id +  '">' +
+                        '<span class="delete-item-btn" data-id="' + json.id + '">' +
                             '<i class="material-icons" style="color:#fff">' + 'delete_outline' +
                             '</i>' +
                         '</span>' +
-                        '<span class="pin-item-btn" data-id="' + json.id +  '">' +
+                        '<span class="edit-item-btn" data-id="' + json.id + '">' +
+                            '<i class="fa fa-edit" style="font-size:24px; color:white; margin-left:3px"></i>' +
+                        '</span>' +
+                        '<span class="pin-item-btn" data-id="' + json.id + '">' +
                             '<i class="material-icons" style="color:#fff">' + 'push_pin' +
                             '</i>' +
                         '</span>' +
                     '</div>'
                 ) // end of appending todo item
-             
+
             },
             error: function (xhr) {
                 if (xhr.status == 400) {
@@ -163,6 +168,62 @@ window.Superlists.initialize = function () {
         }); // end of ajax call
 
     });
+
+
+    // edit item request
+    $(document).on('click', '.edit-item-btn', function () {
+
+        const itemId = $(this).data('id')
+        const itemText = $(this).siblings()[0];
+        const csrfToken = getCookie('csrftoken')
+
+        // toggle contenteditable attribute
+        if (itemText.hasAttribute("contenteditable")) {
+            itemText.removeAttribute("contenteditable");
+        } else {
+            itemText.setAttribute("contenteditable", "true");
+        }
+        // display border bottom to simulate a form
+        itemText.classList.toggle('item-text');
+        // show input cursor to simulate a form
+        itemText.focus();
+    
+        $(itemText).keydown(function (event) {
+            if (event.keyCode == 13) {
+                event.preventDefault();
+                updatedText = itemText.innerText;
+
+                // post to server 
+                $.ajax({
+                    type: 'POST',
+                    url: `/lists/api/item/update/${itemId}/`,
+                    data: {
+                        text: updatedText,
+                        csrfmiddlewaretoken: csrfToken
+                    },
+                    success: function () {
+                        itemText.removeAttribute("contenteditable");
+                        itemText.classList.remove('item-text');
+                        itemText.blur();
+                    },
+                    error: function (xhr) {
+
+                        // display error msg
+                        displayMessage('item-error-msg', 'An error has occurred. Please try again later.')
+
+                        // delay 3s before hiding error msg
+                        setTimeout(function () {
+                            $('.item-error-msg').hide()
+                        }, 3000) // end of setTimeout()
+                    } // end of error func
+
+                }); // end of ajax call
+
+            } // end of key keycide
+
+        }); // end of keydown fn
+
+    }); // end of click edit item btn
 
 
 
@@ -182,7 +243,7 @@ window.Superlists.initialize = function () {
             },
             success: function () {
                 // remove with animation
-                parentDiv.hide('slow', () => $(this).remove() );
+                parentDiv.hide('slow', () => $(this).remove());
             },
             error: function (xhr) {
 
@@ -208,7 +269,7 @@ window.Superlists.initialize = function () {
         const pinButton = $(this).find('i.material-icons')[0];
         const parentDiv = $(this).parent()
         const csrfToken = getCookie('csrftoken')
-        
+
         $.ajax({
             type: 'POST',
             url: `/lists/api/item/pin/${itemId}/`,
@@ -227,7 +288,7 @@ window.Superlists.initialize = function () {
                     $('.item-list').append(parentDiv);
                     pinButton.style.color = "#fff";
                 }
-    
+
             },
             error: function (xhr) {
 
@@ -262,12 +323,12 @@ window.Superlists.initialize = function () {
 
     // add users to share list with
     $(document).on('submit', '.share-list-email-form', function (event) {
-        
+
         event.preventDefault();
         const userEmail = $('#share-list-email-input').val();
         const listId = $(this).data('id');
         const csrfToken = getCookie('csrftoken')
-        
+
         $.ajax({
             type: 'POST',
             url: `/lists/api/list/share/${listId}/`,
@@ -280,11 +341,11 @@ window.Superlists.initialize = function () {
                 // add to the bottom of the list 
                 $('.share-list-user-list').append(
                     '<div class="share-list-user-item animate__animated animate__fadeIn">' +
-                        json.user_email +
-                        '<span class="list-owner">shared</span>' + 
-                        '<span class="delete-shared-user" user-id="' + json.user_id + '">&times;</span>' +
+                    json.user_email +
+                    '<span class="list-owner">shared</span>' +
+                    '<span class="delete-shared-user" user-id="' + json.user_id + '">&times;</span>' +
                     '</div>'
-                    );
+                );
             },
             error: function (xhr) {
 
@@ -293,12 +354,12 @@ window.Superlists.initialize = function () {
                     displayMessage('item-error-msg-share-list', 'User is already in the list.', "input[id='share-list-email-input']")
                 } else if (xhr.status == 404) {
                     displayMessage('item-error-msg-share-list', 'User with this email cannot be found. Please try again.', "input[id='share-list-email-input']")
-                } 
+                }
             } // end of error func
 
         }); // end of ajax call
-    
-    }); 
+
+    });
 
     // delete shared user
     $(document).on('click', '.delete-shared-user', function () {

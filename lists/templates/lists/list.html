@@ -37,8 +37,10 @@
     {% for item in list.item_set.all %}
     <div class="item animate__animated animate__fadeIn">
 
-        <!-- Converts URLs and email addresses in text (if any) into clickable links -->
-        {{ item.text|urlize }}</br>
+        <!-- display text, and converts URLs and email addresses in text (if any) into clickable links -->
+        <div>
+            {{ item.text|urlize }}</br>
+        </div>
 
         <!-- display item timestamp -->
         {% timezone "Asia/Singapore" %}
@@ -48,10 +50,13 @@
         </span>
         {% endtimezone %}
 
-        <!-- button to delete item -->
+        <!-- buttons to pin, update and delete item -->
         {% if non_user_exists or user_exists or shared_user_exists %}
         <span class="delete-item-btn" data-id="{{ item.id }}">
             <i class="material-icons" style="color:#fff">delete_outline</i>
+        </span>
+        <span class="edit-item-btn" data-id="{{ item.id }}">
+            <i class="fa fa-edit" style="font-size:24px; color:white; margin-left:4px"></i>
         </span>
         <span class="pin-item-btn" data-id="{{ item.id }}">
             <i class="material-icons"

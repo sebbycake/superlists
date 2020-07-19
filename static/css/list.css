@@ -201,6 +201,26 @@ input[id='id_name']:-moz-placeholder, input[id='id_text']:-moz-placeholder { /* 
 }  
 
 
+.list-nav {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 45px;
+}
+
+.list-nav a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 28px;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.list-nav a.list-nav-active {
+    border-bottom: 3px solid rgb(160, 78, 219);
+}
+
+
+
 
 /* share list with other users */ 
 
@@ -316,7 +336,7 @@ input[id='share-list-email-input']:-moz-placeholder { /* Firefox 18- */
 @media (min-width:468px) {
 
     .header {
-        font-size: 38px;
+        font-size: 34px;
         width: 60%;
     }
    
@@ -335,6 +355,11 @@ input[id='share-list-email-input']:-moz-placeholder { /* Firefox 18- */
 
     .user-list-item {
         width: 40%;
+    }
+    
+    .list-nav a {
+        font-size: 42px;
+        margin-left: 40px;
     }
 
     .share-list-btn {   

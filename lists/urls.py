@@ -7,6 +7,7 @@ urlpatterns = [
     # list detail views
     path('<int:list_id>/<slug:list_slug>/', views.list_detail, name='list_detail'),
     path('user/', views.user_list_detail, name='user_list_detail'),
+    path('shared-with-me/', views.user_shared_lists_detail, name='user_shared_lists_detail'),
 
     # list api views
     path('api/list/find/', views.ajax_list_find, name='find_list_name'),

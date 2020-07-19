@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block title %}
-my lists
+shared with you 
 {% endblock %}
 
 {% block content %}
 
 <div class="list-nav">
-    <a href="#" class="list-nav-active">My Lists</a>
-    <a href="{% url 'user_shared_lists_detail' %}">Shared With Me</a>
+    <a href="{% url 'user_list_detail' %}">My Lists</a>
+    <a href="#" class="list-nav-active">Shared With Me</a>
 </div>
 
 <!-- display all user lists -->
@@ -17,11 +17,6 @@ my lists
 {% for list in page_obj %}
 <div class="user-list-item">
     <p>{{ list.name }}</p>
-
-    <!-- delete list button-->
-    <span class="delete-list-btn" list-id="{{ list.id }}">
-        <i class="material-icons" style="color: #fff">delete</i>
-    </span>
 
     <!-- edit list button -->
     <span class="edit-list-btn">
@@ -36,10 +31,8 @@ my lists
 {% else %}
 <br />
 <div align="center" style="color:#fff">
-    <h1>Ops... You have no lists currently.</h1><br />
-    <h3>
-        Start creating one <a href="{% url 'home' %}" style="text-decoration: none; color: rgb(160, 78, 219)">here</a>.
-    </h3>
+    <h1>Nothing shared yet</h1><br />
+    <p>When someone shares with you, you can access those lists here.</p>
 </div>
 {% endif %}
 
@@ -59,8 +52,6 @@ my lists
 
 </div>
 {% endif %}
-
-
 
 
 {% endblock %}

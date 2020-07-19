@@ -3,7 +3,6 @@ from .forms import ListForm, ItemForm
 from .models import Item, List
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from datetime import datetime
 from user.models import CustomUser
 
 # send email with dynamic html message
@@ -70,6 +69,20 @@ def user_list_detail(request):
     page_obj = paginator.get_page(page_number)
     page_range = paginator.page_range
     return render(request, 'lists/user_list_detail.html', {'page_obj': page_obj, 'page_range': page_range})
+
+
+@login_required
+def user_shared_lists_detail(request):
+    """
+    Returns all lists shared with the authenticated user with pagination
+    """
+    user = CustomUser.objects.get(id=request.user.id)
+    shared_lists = user.shared_users.all()
+    paginator = Paginator(shared_lists, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    page_range = paginator.page_range
+    return render(request, 'lists/user_shared_lists_detail.html', {'page_obj': page_obj, 'page_range': page_range})
 
 
 # ------------------------

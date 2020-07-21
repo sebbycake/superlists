@@ -24,6 +24,7 @@ class List(models.Model):
 class Item(models.Model):
     text = models.TextField(default='')
     list = models.ForeignKey(List, default=None, on_delete=models.CASCADE)
+    color = models.CharField(max_length=24, default='')
     timestamp = models.DateTimeField(auto_now_add=True)
     is_pinned = models.BooleanField(default=False)
 

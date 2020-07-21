@@ -121,7 +121,7 @@ input[id='id_name']:-moz-placeholder, input[id='id_text']:-moz-placeholder { /* 
     margin-bottom: 10px;
 }   
 
-.delete-item-btn, .pin-item-btn, .edit-item-btn {
+.delete-item-btn, .pin-item-btn, .edit-item-btn, .palette-item-btn {
     float: right;
     cursor: pointer;
     position: relative;
@@ -129,7 +129,7 @@ input[id='id_name']:-moz-placeholder, input[id='id_text']:-moz-placeholder { /* 
     left: 3px;
 }
 
-.delete-item-btn:hover, .pin-item-btn:hover, .edit-item-btn:hover {
+.delete-item-btn:hover, .pin-item-btn:hover, .edit-item-btn:hover, .palette-item-btn:hover {
     opacity: 0.5;
 }
 
@@ -187,7 +187,7 @@ input[id='id_name']:-moz-placeholder, input[id='id_text']:-moz-placeholder { /* 
     color: #fff;
     padding: 8px 16px;
     text-decoration: none;
-    transition: background-color .3s;
+    outline: none;
 }
 
 .pagination a:hover {
@@ -213,6 +213,11 @@ input[id='id_name']:-moz-placeholder, input[id='id_text']:-moz-placeholder { /* 
     font-size: 28px;
     cursor: pointer;
     margin-left: 20px;
+    outline: none;
+}
+
+.list-nav a:hover {
+    opacity: 0.6;
 }
 
 .list-nav a.list-nav-active {
@@ -331,6 +336,52 @@ input[id='share-list-email-input']:-moz-placeholder { /* Firefox 18- */
     color: black;
 }
 
+.palette-tooltip {
+    height: 20%;
+    width: 40%;
+    background-color: #1b1b1b;
+    padding: 6px;
+    border-radius: 5px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    left: 50%;
+    top: 50%;
+}
+
+.tooltip-color {
+    width: 20%;
+    height: 20%;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 3px;
+}
+
+.tooltip-red {
+    background-color: #a80038;
+    color: #a80038;
+}
+
+.tooltip-green {
+    background-color: #007065;
+    color: #007065;
+}
+
+.tooltip-blue {
+    background-color:#446491;
+    color: #446491;
+}
+
+.tooltip-purple {
+    background-color: #433466;
+    color: #433466;
+}
+
+.tooltip-original {
+    background-color: #343536;
+    color: #343536;
+}
 
 
 @media (min-width:468px) {
@@ -384,6 +435,12 @@ input[id='share-list-email-input']:-moz-placeholder { /* Firefox 18- */
         font-size: 20px;
         top: -0.7vh;
         right: 2%;
+    }
+
+    .palette-tooltip {
+        height: 20%;
+        width: 25%;
+        left: 62%;
     }
 
 }

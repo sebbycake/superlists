@@ -134,22 +134,32 @@ window.Superlists.initialize = function () {
 
                 $('.item-list').append(
                     '<div class="item animate__animated animate__fadeIn">' +
-                        '<div>' +
-                        urlizedText +
-                        '<br/></div>' +
-                        '<span class="item-timestamp">' + 'Just now' +
-                        '</span>' +
-                        '<span class="delete-item-btn" data-id="' + json.id + '">' +
-                            '<i class="material-icons" style="color:#fff">' + 'delete_outline' +
-                            '</i>' +
-                        '</span>' +
-                        '<span class="edit-item-btn" data-id="' + json.id + '">' +
-                            '<i class="fa fa-edit" style="font-size:24px; color:white; margin-left:3px"></i>' +
-                        '</span>' +
-                        '<span class="pin-item-btn" data-id="' + json.id + '">' +
-                            '<i class="material-icons" style="color:#fff">' + 'push_pin' +
-                            '</i>' +
-                        '</span>' +
+                    '<div>' +
+                    urlizedText +
+                    '<br/></div>' +
+                    '<span class="item-timestamp">' + 'Just now' +
+                    '</span>' +
+                    '<span class="delete-item-btn" data-id="' + json.id + '">' +
+                    '<i class="material-icons" style="color:#fff">' + 'delete_outline' +
+                    '</i>' +
+                    '</span>' +
+                    '<span class="edit-item-btn" data-id="' + json.id + '">' +
+                    '<i class="fa fa-edit" style="font-size:24px; color:white; margin-left:3px"></i>' +
+                    '</span>' +
+                    '<span class="pin-item-btn" data-id="' + json.id + '">' +
+                    '<i class="material-icons" style="color:#fff">' + 'push_pin' +
+                    '</i>' +
+                    '</span>' +
+                    '<span class="palette-item-btn">' +
+                    '<i class="material-icons" style="color:#fff">palette</i>' +
+                    '</span>' +
+                    '<div class="palette-tooltip" data-id="' + json.id + '">' +
+                    '<div class="tooltip-color tooltip-red">i</div>' +
+                    '<div class="tooltip-color tooltip-green">i</div>' +
+                    '<div class="tooltip-color tooltip-blue">i</div>' +
+                    '<div class="tooltip-color tooltip-purple">i</div>' +
+                    '<div class="tooltip-color tooltip-original">i</div>' +
+                    '</div>' +
                     '</div>'
                 ) // end of appending todo item
 
@@ -187,7 +197,7 @@ window.Superlists.initialize = function () {
         itemText.classList.toggle('item-text');
         // show input cursor to simulate a form
         itemText.focus();
-    
+
         $(itemText).keydown(function (event) {
             if (event.keyCode == 13) {
                 event.preventDefault();
@@ -230,34 +240,40 @@ window.Superlists.initialize = function () {
     // delete item request
     $(document).on('click', '.delete-item-btn', function () {
 
-        const itemId = $(this).data('id')
-        const parentDiv = $(this).parent()
-        const csrfToken = getCookie('csrftoken')
+        confirm_delete = confirm('Do you want to delete this item?')
 
-        $.ajax({
-            type: 'POST',
-            url: `/lists/api/item/delete/${itemId}/`,
-            data: {
-                id: itemId,
-                csrfmiddlewaretoken: csrfToken
-            },
-            success: function () {
-                // remove with animation
-                parentDiv.hide('slow', () => $(this).remove());
-            },
-            error: function (xhr) {
+        if (confirm_delete) {
 
-                // display error msg
-                displayMessage('item-error-msg', 'An error has occurred. Please try again later.')
+            const itemId = $(this).data('id')
+            const parentDiv = $(this).parent()
+            const csrfToken = getCookie('csrftoken')
 
-                // delay 3s before hiding error msg
-                setTimeout(function () {
-                    $('.item-error-msg').hide()
-                }, 3000) // end of setTimeout()
+            $.ajax({
+                type: 'POST',
+                url: `/lists/api/item/delete/${itemId}/`,
+                data: {
+                    id: itemId,
+                    csrfmiddlewaretoken: csrfToken
+                },
+                success: function () {
+                    // remove with animation
+                    parentDiv.hide('slow', () => $(this).remove());
+                },
+                error: function (xhr) {
 
-            } // end of error func
+                    // display error msg
+                    displayMessage('item-error-msg', 'An error has occurred. Please try again later.')
 
-        }); // end of ajax call
+                    // delay 3s before hiding error msg
+                    setTimeout(function () {
+                        $('.item-error-msg').hide()
+                    }, 3000) // end of setTimeout()
+
+                } // end of error func
+
+            }); // end of ajax call
+
+        }
 
     });
 
@@ -294,6 +310,7 @@ window.Superlists.initialize = function () {
 
                 // display error msg
                 displayMessage('item-error-msg', 'An error has occurred. Please try again later.')
+                $('html, body').animate({ scrollTop: 0 }, 'fast');
 
                 // delay 3s before hiding error msg
                 setTimeout(function () {
@@ -354,6 +371,7 @@ window.Superlists.initialize = function () {
                     displayMessage('item-error-msg-share-list', 'User is already in the list.', "input[id='share-list-email-input']")
                 } else if (xhr.status == 404) {
                     displayMessage('item-error-msg-share-list', 'User with this email cannot be found. Please try again.', "input[id='share-list-email-input']")
+                    $('html, body').animate({ scrollTop: 0 }, 'fast');
                 }
             } // end of error func
 
@@ -386,6 +404,64 @@ window.Superlists.initialize = function () {
         }); // end of ajax call
 
     });
+
+    // ------------------------- 
+    // changing list item's color
+
+    $(document).on('click', '.palette-item-btn', function (e) {
+
+        const paletteTooltip = $(this).siblings().slice(-1);
+
+        // toggle paletteTooltip 
+        if (paletteTooltip.css('display') == 'none') {
+            paletteTooltip.css('display', 'flex');
+        } else {
+            paletteTooltip.css('display', 'none');
+        }
+
+    });  // end of on-click
+
+    // update color field database
+    $(document).on('click', '.tooltip-color', function () {
+
+        const color = $(this).css('background-color');
+        const paletteTooltip = $(this).parent();
+        const itemDiv = $(this).parent().parent();
+        const itemId = paletteTooltip.data('id');
+        const csrfToken = getCookie('csrftoken');
+
+        let isNotSameColor = color !== itemDiv.css('background-color');
+
+        if (isNotSameColor) {
+            $.ajax({
+                type: 'POST',
+                url: `/lists/api/item/color/change/${itemId}/`,
+                data: {
+                    color: color,
+                    csrfmiddlewaretoken: csrfToken
+                },
+                success: function () {
+                    // change div color
+                    itemDiv.css('background-color', color);
+                    paletteTooltip.css('display', 'none');
+                },
+                error: function (xhr) {
+                    // display error msg
+                    displayMessage('item-error-msg', 'An error has occurred. Please try again later.')
+                    $('html, body').animate({ scrollTop: 0 }, 'fast');
+
+                    // delay 3s before hiding error msg
+                    setTimeout(function () {
+                        $('.item-error-msg').hide()
+                    }, 3000) // end of setTimeout()
+                } // end of error func
+
+            }); // end of ajax call 
+        } else {
+            paletteTooltip.css('display', 'none');
+        }
+
+    });  // end of on-click
 
 
 

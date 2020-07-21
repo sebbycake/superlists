@@ -249,3 +249,17 @@ def ajax_item_pin_view(request, item_id):
     # save the obj
     item.save()
     return Response({'is_pinned': item.is_pinned}, status=200)
+
+@api_view(['POST'])
+def ajax_item_color_change_view(request, item_id):
+    """
+    API view to update item's color
+    """
+    # retrieve item object
+    item = Item.objects.get(id=item_id)
+    color = request.POST['color']
+    # update color value
+    item.color = color
+    # save the obj
+    item.save()
+    return Response({"message": "Item's color is updated."}, status=200)

@@ -35,8 +35,10 @@
 <div class="item-list">
 
     {% for item in list.item_set.all %}
-    <div class="item animate__animated animate__fadeIn">
-
+    <div class="item animate__animated animate__fadeIn" 
+    style="{% if item.color %}background-color:{{ item.color }}{% endif %}"
+    >
+    
         <!-- display text, and converts URLs and email addresses in text (if any) into clickable links -->
         <div>
             {{ item.text|urlize }}</br>
@@ -62,6 +64,16 @@
             <i class="material-icons"
                 style="{% if item.is_pinned %}color:#ff1f5a{% else %}color:#fff{% endif %}">push_pin</i>
         </span>
+        <span class="palette-item-btn">
+            <i class="material-icons" style="color:#fff">palette</i>
+        </span>
+        <div class="palette-tooltip" data-id="{{ item.id }}">
+            <div class="tooltip-color tooltip-red">i</div>
+            <div class="tooltip-color tooltip-green">i</div>
+            <div class="tooltip-color tooltip-blue">i</div>
+            <div class="tooltip-color tooltip-purple">i</div>
+            <div class="tooltip-color tooltip-original">i</div>
+        </div>
         {% endif %}
 
     </div>

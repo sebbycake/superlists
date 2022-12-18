@@ -383,6 +383,26 @@ input[id='share-list-email-input']:-moz-placeholder { /* Firefox 18- */
     color: #343536;
 }
 
+#scrollToTopBtn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: #555; /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 8px; /* Some padding */
+    border-radius: 50%; /* Rounded corners */
+    font-size: 8px; /* Increase font size */
+  }
+  
+#scrollToTopBtn:hover {
+    background-color: gray; /* Add a dark-grey background on hover */
+  }
+
 
 @media (min-width:468px) {
 
@@ -442,6 +462,8 @@ input[id='share-list-email-input']:-moz-placeholder { /* Firefox 18- */
         width: 25%;
         left: 62%;
     }
+
+
 
 }
 

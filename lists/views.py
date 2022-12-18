@@ -217,9 +217,19 @@ def ajax_item_update_view(request, item_id):
     """
     item = Item.objects.filter(pk=item_id)
     item_text = request.POST['text']
+    item_list_id = request.POST['listId']
+
+    # check if the list item exists
     if not item.exists():
         return Response({}, status=404)
+
     item = item.first()
+
+     # check whether updated item already exists in the list
+    item_duplicate_exists = Item.objects.filter(text__iexact=item_text).filter(list=item_list_id).exists()
+    if item_text != item.text and item_duplicate_exists:
+        return Response({"message": "Duplicate item in list"}, status=400)
+
     # update item's text
     item.text = item_text
     item.save()

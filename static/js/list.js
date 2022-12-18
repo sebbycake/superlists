@@ -185,6 +185,7 @@ window.Superlists.initialize = function () {
 
         const itemId = $(this).data('id')
         const itemText = $(this).siblings()[0];
+        const listId = $(this).data('list-id')
         const csrfToken = getCookie('csrftoken')
 
         // toggle contenteditable attribute
@@ -201,7 +202,8 @@ window.Superlists.initialize = function () {
         $(itemText).keydown(function (event) {
             if (event.keyCode == 13) {
                 event.preventDefault();
-                updatedText = itemText.innerText;
+                updatedText = itemText.innerText.trim();
+                console.log(updatedText)
 
                 // post to server 
                 $.ajax({
@@ -209,6 +211,7 @@ window.Superlists.initialize = function () {
                     url: `/lists/api/item/update/${itemId}/`,
                     data: {
                         text: updatedText,
+                        listId: listId,
                         csrfmiddlewaretoken: csrfToken
                     },
                     success: function () {
@@ -218,13 +221,19 @@ window.Superlists.initialize = function () {
                     },
                     error: function (xhr) {
 
-                        // display error msg
-                        displayMessage('item-error-msg', 'An error has occurred. Please try again later.')
+                        if (xhr.status == 400) {
+                            // display error message
+                            displayMessage('item-error-msg', 'This item already exists in your list.', 'input[name="text"]')
 
-                        // delay 3s before hiding error msg
-                        setTimeout(function () {
-                            $('.item-error-msg').hide()
-                        }, 3000) // end of setTimeout()
+                        }
+                        else if (xhr.status == 500) {
+                            displayMessage('item-error-msg', 'An error has occurred. Please try again later.')
+                            // delay 3s before hiding error msg
+                            setTimeout(function () {
+                                $('.item-error-msg').hide()
+                            }, 3000) // end of setTimeout()
+                        }
+
                     } // end of error func
 
                 }); // end of ajax call
@@ -463,6 +472,32 @@ window.Superlists.initialize = function () {
 
     });  // end of on-click
 
+    // ---------------
+
+    // scroll to top feature
+
+    //Get the button:
+    mybutton = document.getElementById("scrollToTopBtn");
+
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function() { displayScrollButton() };
+
+    function displayScrollButton() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+    }
+
+    mybutton.addEventListener('click', () => {
+        const body = $("html, body");
+        body.animate({ scrollTop: 0 }, 300);
+        // document.body.scrollTop = 0; // For Safari
+        // document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    })
+
+   
 
 
 }; // end of window initialize()

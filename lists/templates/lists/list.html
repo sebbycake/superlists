@@ -57,7 +57,7 @@
         <span class="delete-item-btn" data-id="{{ item.id }}">
             <i class="material-icons" style="color:#fff">delete_outline</i>
         </span>
-        <span class="edit-item-btn" data-id="{{ item.id }}">
+        <span class="edit-item-btn" data-id="{{ item.id }}" data-list-id="{{ list.id }}">
             <i class="fa fa-edit" style="font-size:24px; color:white; margin-left:4px"></i>
         </span>
         <span class="pin-item-btn" data-id="{{ item.id }}">
@@ -115,6 +115,11 @@
 
 </div>
 
-<br />
+<br />  
+
+<button id="scrollToTopBtn" title="Go to top">
+    <i class="material-icons" style="color:#fff; font-size:40px;">expand_less</i>
+</button>
+
 
 {% endblock %}
